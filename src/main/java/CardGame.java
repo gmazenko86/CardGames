@@ -1,4 +1,9 @@
-import java.util.ArrayList;
+import com.sun.jdi.Value;
+
+import javax.swing.text.Element;
+import java.security.Key;
+import java.util.*;
+import java.util.stream.LongStream;
 
 public class CardGame {
     public static void main(String... args){
@@ -11,6 +16,8 @@ public class CardGame {
 
     void playGame(){
         Deck deck = new Deck();
+
+        deck.shuffle();
 
         for(Card card : deck.cards){
             System.out.println(card.getCardSignature());
@@ -41,6 +48,46 @@ public class CardGame {
                     (this.cards).add(newCard);
                 }
             }
+
+        }
+
+        void shuffle(){
+            int numCards = this.cards.size();
+            getIndexRandOrder(numCards);
+        }
+
+        int[] getIndexRandOrder(long numInts){
+            Random random = new Random();
+            LongStream longStream = random.longs(numInts);
+            LongStream distinctStream = longStream.distinct();
+
+            long[] randomLongs = distinctStream.toArray();
+
+            // make sure there are no duplicate values. If so, regenerate the stream
+            while(randomLongs.length != numInts){
+                longStream = random.longs(numInts);
+                distinctStream = longStream.distinct();
+                randomLongs = distinctStream.toArray();
+            }
+
+            // create a map of random longs to integers
+            int index = 0;
+            HashMap<Long, Integer> unsortedHmap = new HashMap();
+            for(long longs : randomLongs){
+                index += 1;
+                unsortedHmap.put(longs, index);
+            }
+            // treemap ordered based on the natural order of the keys
+            TreeMap<Long, Integer> treeMap = new TreeMap();
+            treeMap.putAll(unsortedHmap);
+
+            ArrayList<Integer> integerArrayList= new ArrayList<>();
+
+            treeMap.forEach((k, v) -> integerArrayList.add(v));
+
+            System.out.println("Ready to sort the hashmap");
+
+            return new int[0];
         }
     }
 }
