@@ -2,6 +2,7 @@ import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class BJackGame extends CardGame {
 
@@ -31,24 +32,30 @@ public class BJackGame extends CardGame {
 
         BJackPlayer greg = this.bJackPlayers.get(1);
         BJackHand gregshand = greg.hands.get(0);
-        char inputChar = 0;
 
-        byte[] bytes = new byte[1];
-        byte toPrint = 0;
-        while (inputChar != 's'){
-            System.out.print ("Enter 'h' to hit or 's' to stick ");
-            try{
+//        Scanner sc = new Scanner(System.in);
+//        byte byteRead = sc.nextByte();
+//        System.out.println((char)byteRead);
+
+        char inputChar = 0;
+        System.out.print("Enter 'h' to hit or 's' to stick ");
+        do{
+            try {
+                byte[] bytes = new byte[1];
                 System.in.read(bytes);
-                toPrint = bytes[0];
+                inputChar = (char) bytes[0];
+                switch(inputChar) {
+                    case 'h':
+                        gregshand.drawCard(deck);
+                        displayAllHands();
+                        System.out.print("Enter 'h' to hit or 's' to stick ");
+                    default:
+                        break;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            inputChar = (char)toPrint;
-            if(inputChar == 'h'){
-                gregshand.drawCard(deck);
-                displayAllHands();
-            }
-        }
+        } while (inputChar != 's');
         System.out.println("end of demo message");
     }
     void initializePlayers(){
@@ -56,8 +63,8 @@ public class BJackGame extends CardGame {
         bJackPlayers.add(dealer);
         BJackPlayer greg = new BJackPlayer();
         bJackPlayers.add(greg);
-//        Player carolyn = new Player();
-//        players.add(carolyn);
+//        BJackPlayer carolyn = new BJackPlayer();
+//        bJackPlayers.add(carolyn);
     }
 
     void initializeHands(){
@@ -72,6 +79,7 @@ public class BJackGame extends CardGame {
     }
 
     void displayAllHands(){
+        System.out.println("*".repeat(40));
         for (BJackPlayer BJackPlayer : this.bJackPlayers) {
             for (Hand hand : BJackPlayer.hands) {
                 for(Card card: hand.cards){
