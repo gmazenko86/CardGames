@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class Player {
+public class BJackPlayer {
     // a player can sometimes play more than one hand
-    ArrayList<Hand> hands;
+    ArrayList<BJackHand> hands;
 
     // in the constructor, instantiate the array list and populate it with one empty hand
-    Player() {
+    BJackPlayer() {
         hands = new ArrayList<>();
-        hands.add(new Hand());
+        hands.add(new BJackHand());
     }
 
 }

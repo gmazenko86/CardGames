@@ -2,11 +2,11 @@ import java.util.*;
 import java.util.stream.LongStream;
 
 public class CardGame {
-    ArrayList<Player> players;
+    ArrayList<BJackPlayer> bJackPlayers;
     Deck deck;
 
     CardGame(){
-        this.players = new ArrayList<>();
+        this.bJackPlayers = new ArrayList<>();
         this.deck = new Deck();
     }
 
