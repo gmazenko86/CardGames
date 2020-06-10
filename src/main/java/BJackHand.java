@@ -1,10 +1,14 @@
 public class BJackHand extends Hand{
-    int hardTotal;
-    int softTotal;
 
     BJackHand(){
         super();
-        hardTotal = 0;
-        softTotal = 0;
+    }
+
+    public int getHardTotal(){
+        int hardTotal = 0;
+        for(Card card: this.cards){
+            hardTotal += card.getCardValue();
+        }
+        return hardTotal;
     }
 }

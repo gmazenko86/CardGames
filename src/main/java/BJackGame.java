@@ -33,10 +33,6 @@ public class BJackGame extends CardGame {
         BJackPlayer greg = this.bJackPlayers.get(1);
         BJackHand gregshand = greg.hands.get(0);
 
-//        Scanner sc = new Scanner(System.in);
-//        byte byteRead = sc.nextByte();
-//        System.out.println((char)byteRead);
-
         char inputChar = 0;
         System.out.print("Enter 'h' to hit or 's' to stick ");
         do{
@@ -81,13 +77,17 @@ public class BJackGame extends CardGame {
     void displayAllHands(){
         System.out.println("*".repeat(40));
         for (BJackPlayer BJackPlayer : this.bJackPlayers) {
-            for (Hand hand : BJackPlayer.hands) {
+            for (BJackHand hand : BJackPlayer.hands) {
                 for(Card card: hand.cards){
                     card.displayCardSignature();
                     System.out.print(" | ");
                 }
+                System.out.println("Total is " + hand.getHardTotal());
             }
-            System.out.println("\n");
+            System.out.print("\n");
         }
     }
+
+//    void playHands(BJackPlayer player){
+//    }
 }
