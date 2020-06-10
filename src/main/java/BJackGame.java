@@ -8,7 +8,7 @@ public class BJackGame extends CardGame {
 
     void playGame(){
         initializePlayers();
-        // temporarily give the first player 2 hands for debug and test
+        // temporarily give players additional hands for debug and test
 /*
         BJackHand tempHand = new BJackHand();
         BJackHand tempHand1 = new BJackHand();
