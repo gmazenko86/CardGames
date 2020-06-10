@@ -4,11 +4,19 @@ public class BJackHand extends Hand{
         super();
     }
 
-    public int getHardTotal(){
-        int hardTotal = 0;
+    public int getHandTotal(){
+        int total = 0;
+        int aceCount = 0;
         for(Card card: this.cards){
-            hardTotal += card.getCardValue();
+            if(card.cardFace == Card.CardFace.ACE){
+                aceCount += 1;
+            }
+            total += card.getCardValue();
         }
-        return hardTotal;
+        while((aceCount > 0) && (total > 21)){
+            total -= 10;
+            aceCount -= 1;
+        }
+        return total;
     }
 }
