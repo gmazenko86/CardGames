@@ -15,9 +15,12 @@ import static org.apache.commons.lang3.StringUtils.getDigits;
 
 public class CardGameTest {
     public static void main(String... args){
-        BJackGameTest bJackGameTest = new BJackGameTest();
+        String fixDeckFilePath = "src/test/resources/fix65244.txt";
+        String fixDeckFilePath2 = "src/test/resources/fixA__J.txt";
+//        BJackGameTest bJackGameTest = new BJackGameTest();
+//        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath);
+        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
         bJackGameTest.playGame();
-
 
 /*
         boolean goodDeck;

@@ -1,7 +1,17 @@
 public class BJackHand extends Hand{
 
+    // these attributes drive special handling
+    enum HandAttribute {NONE, STICK, BLACKJACK, BUST, SPLITHAND, SURRENDER}
+    // HandResult represents the final disposition of a player hand and determines payments
+    enum  HandResult {PENDING, WIN, LOSE, PUSH}
+
+    HandAttribute handAttribute;
+    HandResult handResult;
+
     BJackHand(){
         super();
+        handAttribute = HandAttribute.NONE;
+        handResult = HandResult.PENDING;
     }
 
     public int getHandTotal(){

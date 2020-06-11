@@ -43,6 +43,7 @@ public class CardTestUtils {
         Pattern pattern3 = pattern2;
 
         for(String inputLine : inputLines){
+            Deck refDeck = new Deck();
             Matcher matcher1 = pattern1.matcher(inputLine);
             if(matcher1.find()){
                 String token1 = matcher1.group();
@@ -55,22 +56,11 @@ public class CardTestUtils {
                     if(matcher3.find()){
                         String token3 = matcher3.group();
                         Integer treeMapKey = Integer.valueOf(token1);
-                        // now get the card face value
-                        // populate an array with the enum values
-                        Card.CardFace[] faces = Card.CardFace.values();
-                        Card.CardFace saveCardFace;
-                        for(Card.CardFace face : faces){
-                            if(face.name().equals(token2)){
-                                saveCardFace = face;
-                                Card.Suit[] suits = Card.Suit.values();
-                                Card.Suit saveSuit;
-                                for(Card.Suit suit : suits){
-                                    if(suit.name().equals(token3)){
-                                        saveSuit = suit;
-                                        Card card = getCard(saveCardFace, saveSuit);
-                                        treeMap.put(treeMapKey, card);
-                                    }
-                                }
+                        for(Card card : refDeck.cards){
+                            if(card.cardFace.name().equals(token2) &&
+                                card.suit.name().equals(token3)){
+                                Card saveCard = getCard(card.cardFace, card.suit);
+                                treeMap.put(treeMapKey, saveCard);
                             }
                         }
                     }
