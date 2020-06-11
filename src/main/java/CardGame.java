@@ -8,6 +8,7 @@ public class CardGame {
     CardGame(){
         this.bJackPlayers = new ArrayList<>();
         this.deck = new Deck();
+        this.deck.shuffle();
     }
 
     public static void main(String... args){
@@ -44,9 +45,4 @@ public class CardGame {
 
         return integerArrayList;
     }
-
-    void initializeDeck(){
-        this.deck.shuffle();
-    }
-
 }

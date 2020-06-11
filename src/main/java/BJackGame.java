@@ -18,7 +18,6 @@ public class BJackGame extends CardGame {
         this.bJackPlayers.get(1).hands.add(tempHand1);
         this.bJackPlayers.get(1).hands.add(tempHand2);
 */
-        initializeDeck();
         initializeHands();
 
         // need an array list with the dealer removed
