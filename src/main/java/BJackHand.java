@@ -7,11 +7,13 @@ public class BJackHand extends Hand{
 
     HandAttribute handAttribute;
     HandResult handResult;
+    double bet;
 
     BJackHand(){
         super();
         handAttribute = HandAttribute.NONE;
         handResult = HandResult.PENDING;
+        bet = 100.;
     }
 
     public int getHandTotal(){

@@ -23,13 +23,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackHand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackHand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BJackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BJackHand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackHand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/CardGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/CardGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BJackPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackPlayer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591930514530</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added win/lose logic">
+      <created>1591999541465</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1591999541465</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -149,7 +153,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="development commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="development commit" />
+    <MESSAGE value="added win/lose logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="added win/lose logic" />
   </component>
   <component name="WindowStateProjectService">
     <state x="487" y="95" width="1024" height="852" key="#Project_Structure" timestamp="1591969344916">
@@ -176,26 +181,26 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="735" y="288" key="#xdebugger.evaluate/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591989527596" />
-    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1591925070198">
+    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1591999384505">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591925070198" />
-    <state width="1606" height="269" key="GridCell.Tab.0.bottom" timestamp="1591998932322">
+    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591999384505" />
+    <state width="1606" height="269" key="GridCell.Tab.0.bottom" timestamp="1592001832158">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="269" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591998932322" />
-    <state width="1606" height="269" key="GridCell.Tab.0.center" timestamp="1591998932322">
+    <state width="1606" height="269" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592001832158" />
+    <state width="1606" height="269" key="GridCell.Tab.0.center" timestamp="1592001832158">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="269" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591998932322" />
-    <state width="1606" height="269" key="GridCell.Tab.0.left" timestamp="1591998932322">
+    <state width="1606" height="269" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592001832158" />
+    <state width="1606" height="269" key="GridCell.Tab.0.left" timestamp="1592001832158">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="269" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591998932322" />
-    <state width="1606" height="269" key="GridCell.Tab.0.right" timestamp="1591998932322">
+    <state width="1606" height="269" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592001832158" />
+    <state width="1606" height="269" key="GridCell.Tab.0.right" timestamp="1592001832158">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="269" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591998932322" />
+    <state width="1606" height="269" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592001832158" />
     <state width="1606" height="300" key="GridCell.Tab.1.bottom" timestamp="1591998902565">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -258,12 +263,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>58</line>
+          <line>61</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>252</line>
+          <line>255</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>

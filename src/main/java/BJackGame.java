@@ -1,3 +1,4 @@
+import java.awt.image.WritableRenderedImage;
 import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,6 +56,8 @@ public class BJackGame extends CardGame {
 
         setPlayerHandResults();
         displayResults();
+        payAndCollect();
+        displayPlayerBankrolls();
 
         System.out.println("end of demo message");
     }
@@ -291,6 +294,30 @@ public class BJackGame extends CardGame {
             } else {
                 playerHand.handResult = BJackHand.HandResult.LOSE;
             }
+        }
+    }
+
+    void payAndCollect(){
+        for(BJackPlayer player : bJackPlayers){
+            for(BJackHand hand : player.hands){
+                assert(hand.handResult != BJackHand.HandResult.PENDING);
+                if(hand.handResult == BJackHand.HandResult.LOSE){
+                    player.bankroll -= hand.bet;
+                }
+                if(hand.handResult == BJackHand.HandResult.WIN){
+                    if(hand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
+                        player.bankroll += (hand.bet * 1.5);
+                    } else{
+                        player.bankroll += hand.bet;
+                    }
+                }
+            }
+        }
+    }
+
+    void displayPlayerBankrolls(){
+        for (BJackPlayer player : bJackPlayers){
+            System.out.println(player.toString() + " bankroll = " + player.bankroll);
         }
     }
 
