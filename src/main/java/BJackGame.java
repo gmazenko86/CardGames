@@ -7,7 +7,7 @@ import java.util.Objects;
 public class BJackGame extends CardGame {
 
     void playGame(){
-        preDealInit(1);
+        preDealInit(3);
         dealHands();
 
         // console object will be null if program is run from IDE
@@ -38,11 +38,15 @@ public class BJackGame extends CardGame {
             displayAllHands();
         }
 
+        // now play the dealer hand if there are any active player hands
+        if(anyActivePlayerHands()) {
+            playDealerHand();
+        }
+
         System.out.println("end of demo message");
     }
     void initializePlayers(int numPlayers){
-        // create 1 more than numPlayers the dealer is a player too
-        for (int i = 0; i <= numPlayers; i++){
+        for (int i = 0; i < numPlayers; i++){
             BJackPlayer bJackPlayer = new BJackPlayer();
             bJackPlayers.add(bJackPlayer);
         }
@@ -82,11 +86,11 @@ public class BJackGame extends CardGame {
             for (BJackHand hand : BJackPlayer.hands) {
                 if(hand.handAttribute == BJackHand.HandAttribute.NONE){
                     displayHand(hand);
+                    System.out.println();
                 } else{
                     displayHandWithTotal(hand);
                 }
             }
-            System.out.println("");
         }
     }
 
@@ -96,10 +100,8 @@ public class BJackGame extends CardGame {
         for(BJackPlayer player : bJackPlayers){
             for(BJackHand hand : player.hands){
                 displayHandWithTotal(hand);
-                System.out.println("");
             }
         }
-
     }
 
     void displayHand(BJackHand hand){
@@ -116,16 +118,14 @@ public class BJackGame extends CardGame {
 
         if(hand.handAttribute == BJackHand.HandAttribute.BUST){
             printRedText(" ::: BUST");
-            System.out.println("");
+            System.out.println();
         }
         if(hand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
             printGreenText(" ::: BLACKJACK");
-            System.out.println("");
-            System.out.println("");
+            System.out.println();
         }
+        System.out.println();
     }
-
-    void displayActiveHand(BJackHand hand){}
 
     void displayDealerUpCard(BJackHand hand){
         Card upCard = hand.cards.get(0);
@@ -134,8 +134,8 @@ public class BJackGame extends CardGame {
         printYellowText("X".repeat(10));
         printYellowText(" | ");
         printYellowText(" Dealer Showing " + upCard.getCardValue());
-        System.out.println("");
-        System.out.println("");
+        System.out.println();
+        System.out.println();
     }
 
     void displayInputRequest(){
@@ -195,6 +195,30 @@ public class BJackGame extends CardGame {
                 }
             }
             return true;
+        }
+        return false;
+    }
+
+    void playDealerHand(){
+        displayAllHands();
+    }
+
+    boolean anyActivePlayerHands(){
+        for(BJackPlayer player : bJackPlayers) {
+            for (BJackHand hand : player.hands) {
+                if (hand.handAttribute == BJackHand.HandAttribute.NONE) {
+                    return true;
+                }
+                if (hand.handAttribute == BJackHand.HandAttribute.STICK) {
+                    return true;
+                }
+                if (hand.handAttribute == BJackHand.HandAttribute.SPLITHAND) {
+                    return true;
+                }
+                if (hand.handAttribute == BJackHand.HandAttribute.DOUBLEDOWN) {
+                    return true;
+                }
+            }
         }
         return false;
     }

@@ -1,7 +1,7 @@
 public class BJackHand extends Hand{
 
     // these attributes drive special handling
-    enum HandAttribute {NONE, STICK, BLACKJACK, BUST, SPLITHAND, SURRENDER}
+    enum HandAttribute {NONE, STICK, BLACKJACK, BUST, SPLITHAND, DOUBLEDOWN, SURRENDER}
     // HandResult represents the final disposition of a player hand and determines payments
     enum  HandResult {PENDING, WIN, LOSE, PUSH}
 
