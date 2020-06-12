@@ -4,6 +4,7 @@ import java.util.stream.LongStream;
 public class CardGame {
     ArrayList<BJackPlayer> bJackPlayers;
     BJackPlayer dealer;
+    BJackHand dealerHand;
     Deck deck;
 
     CardGame(){

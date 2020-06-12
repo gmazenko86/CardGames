@@ -29,4 +29,11 @@ public class BJackHand extends Hand{
         }
         return total;
     }
+
+    void setBlackJackFlag(){
+        if(this.cards.size() == 2 && this.getHandTotal() == 21){
+            this.handAttribute = BJackHand.HandAttribute.BLACKJACK;
+        }
+    }
+
 }

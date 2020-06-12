@@ -26,15 +26,25 @@ public class BJackGame extends CardGame {
         }
         System.out.println("\n");
 
+        // need an array list of players plus the dealer
+        ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
+        for(BJackPlayer player : playersPlusDealer){
+            for(BJackHand hand : player.hands){
+                hand.setBlackJackFlag();
+            }
+        }
+        // use displayActiveHands() instead of displayAllHands when the dealer
+        // hole card has not yet been shown
         displayActiveHands();
 
-        boolean dealerBlackJack = checkDealerBjack();
+        boolean dealerBlackJack = dealerHasBjack();
 
         if(!dealerBlackJack) {
             for (BJackPlayer player : this.bJackPlayers) {
                 playHands(player);
             }
         } else{
+            setPlayerHandResults();
             displayAllHands();
         }
 
@@ -42,6 +52,9 @@ public class BJackGame extends CardGame {
         if(anyActivePlayerHands()) {
             playDealerHand();
         }
+
+        setPlayerHandResults();
+        displayResults();
 
         System.out.println("end of demo message");
     }
@@ -55,8 +68,7 @@ public class BJackGame extends CardGame {
     void dealHands(){
         // deal 2 cards for each hand, including the dealer
         // need an array list with the dealer included as the last entry
-        ArrayList<BJackPlayer> playersPlusDealer = new ArrayList<>(this.bJackPlayers);
-        playersPlusDealer.add(this.dealer);
+        ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
 
         for(int i = 0; i < 2; i++) {
             for (BJackPlayer BJackPlayer : playersPlusDealer) {
@@ -65,18 +77,12 @@ public class BJackGame extends CardGame {
                 }
             }
         }
-        // set black jack flags
-        for(BJackPlayer player : playersPlusDealer){
-            for(BJackHand hand : player.hands){
-                setBlackJackFlag(hand);
-            }
-        }
     }
 
-    void setBlackJackFlag(BJackHand hand){
-        if(hand.cards.size() == 2 && hand.getHandTotal() == 21){
-            hand.handAttribute = BJackHand.HandAttribute.BLACKJACK;
-        }
+    ArrayList<BJackPlayer> getPlayersPlusDealer(){
+        ArrayList<BJackPlayer> playersPlusDealer = new ArrayList<>(this.bJackPlayers);
+        playersPlusDealer.add(this.dealer);
+        return  playersPlusDealer;
     }
 
     void displayActiveHands(){
@@ -88,7 +94,7 @@ public class BJackGame extends CardGame {
                     displayHand(hand);
                     System.out.println();
                 } else{
-                    displayHandWithTotal(hand);
+                    displayHandWithTotal(hand, false);
                 }
             }
         }
@@ -96,10 +102,21 @@ public class BJackGame extends CardGame {
 
     void displayAllHands(){
         System.out.println("*".repeat(40));
-        displayHandWithTotal(dealer.hands.get(0));
+        displayHandWithTotal(dealer.hands.get(0), false);
         for(BJackPlayer player : bJackPlayers){
             for(BJackHand hand : player.hands){
-                displayHandWithTotal(hand);
+                displayHandWithTotal(hand, false);
+            }
+        }
+    }
+
+    void displayResults(){
+        System.out.println("*".repeat(40));
+        BJackHand dealerHand = dealer.hands.get(0);
+        displayHandWithTotal(dealerHand, false);
+        for(BJackPlayer player : bJackPlayers){
+            for(BJackHand hand: player.hands){
+                displayHandWithTotal(hand, true);
             }
         }
     }
@@ -112,17 +129,18 @@ public class BJackGame extends CardGame {
         System.out.print("");
     }
 
-    void displayHandWithTotal(BJackHand hand){
+    void displayHandWithTotal(BJackHand hand, boolean printResults){
         displayHand(hand);
         System.out.print("Total is " + hand.getHandTotal());
 
         if(hand.handAttribute == BJackHand.HandAttribute.BUST){
             printRedText(" ::: BUST");
-            System.out.println();
         }
         if(hand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
             printGreenText(" ::: BLACKJACK");
-            System.out.println();
+        }
+        if(printResults){
+            System.out.print(" -----Player result = " + hand.handResult.name());
         }
         System.out.println();
     }
@@ -144,8 +162,8 @@ public class BJackGame extends CardGame {
 
     void playHands(BJackPlayer player){
         for(BJackHand hand: player.hands) {
-            if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
-                hand.handAttribute == BJackHand.HandAttribute.SPLITHAND) {
+            if(hand.handResult == BJackHand.HandResult.PENDING &&
+                hand.handAttribute != BJackHand.HandAttribute.BLACKJACK) {
                 char inputChar = 0;
                 displayInputRequest();
                 do {
@@ -160,8 +178,9 @@ public class BJackGame extends CardGame {
                                 if (hand.getHandTotal() > 21) {
                                     hand.handAttribute = BJackHand.HandAttribute.BUST;
                                     displayActiveHands();
+                                } else {
+                                    displayInputRequest();
                                 }
-                                displayInputRequest();
                                 break;
                             case 's':
                                 hand.handAttribute = BJackHand.HandAttribute.STICK;
@@ -182,7 +201,7 @@ public class BJackGame extends CardGame {
         initializePlayers(numPlayers);
     }
 
-    boolean checkDealerBjack(){
+    boolean checkDealerBJack(){
         if (dealer.hands.get(0).handAttribute == BJackHand.HandAttribute.BLACKJACK){
             for(BJackPlayer player : this.bJackPlayers){
                 for(BJackHand hand : player.hands){
@@ -200,27 +219,79 @@ public class BJackGame extends CardGame {
     }
 
     void playDealerHand(){
+        while(dealer.hands.get(0).getHandTotal() < 17){
+            dealer.hands.get(0).drawCard(this.deck);
+        }
+        if(dealer.hands.get(0).getHandTotal() > 21){
+            dealer.hands.get(0).handAttribute = BJackHand.HandAttribute.BUST;
+        }
         displayAllHands();
     }
 
     boolean anyActivePlayerHands(){
         for(BJackPlayer player : bJackPlayers) {
             for (BJackHand hand : player.hands) {
-                if (hand.handAttribute == BJackHand.HandAttribute.NONE) {
-                    return true;
-                }
-                if (hand.handAttribute == BJackHand.HandAttribute.STICK) {
-                    return true;
-                }
-                if (hand.handAttribute == BJackHand.HandAttribute.SPLITHAND) {
-                    return true;
-                }
-                if (hand.handAttribute == BJackHand.HandAttribute.DOUBLEDOWN) {
+                if (hand.handResult == BJackHand.HandResult.PENDING) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    boolean dealerHasBjack(){
+        return (dealer.hands.get(0).handAttribute == BJackHand.HandAttribute.BLACKJACK);
+    }
+
+    void setPlayerHandResults(){
+        BJackHand dealerHand = dealer.hands.get(0);
+        for(BJackPlayer player : bJackPlayers){
+            for(BJackHand hand : player.hands){
+                setLoseToDealerBJack(hand);
+                setLoseForBust(hand);
+                setWinForDealerBust(hand, dealerHand);
+                setHandResultPerTotals(hand);
+            }
+        }
+    }
+
+    void setLoseForBust(BJackHand hand){
+        if(hand.handAttribute == BJackHand.HandAttribute.BUST){
+            hand.handResult = BJackHand.HandResult.LOSE;
+        }
+    }
+
+    void setWinForDealerBust(BJackHand playerHand, BJackHand dealerHand){
+        if(dealerHand.handAttribute == BJackHand.HandAttribute.BUST &&
+            playerHand.handResult == BJackHand.HandResult.PENDING){
+            playerHand.handResult = BJackHand.HandResult.WIN;
+        }
+    }
+
+    void setHandResultPerTotals(BJackHand hand){
+        BJackHand dealerHand = dealer.hands.get(0);
+        int dealerTotal = dealerHand.getHandTotal();
+        int playerTotal = hand.getHandTotal();
+        if(hand.handResult == BJackHand.HandResult.PENDING) {
+            if (playerTotal == dealerTotal) {
+                hand.handResult = BJackHand.HandResult.PUSH;
+            } else if (playerTotal > dealerTotal) {
+                hand.handResult = BJackHand.HandResult.WIN;
+            } else {
+                hand.handResult = BJackHand.HandResult.LOSE;
+            }
+        }
+    }
+
+    void setLoseToDealerBJack(BJackHand playerHand){
+        BJackHand dealerHand = dealer.hands.get(0);
+        if(dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
+            if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
+                playerHand.handResult = BJackHand.HandResult.PUSH;
+            } else {
+                playerHand.handResult = BJackHand.HandResult.LOSE;
+            }
+        }
     }
 
     //TODO: DbaseExercises contains printlnBlue and printlnYellow. Build a reusable library
