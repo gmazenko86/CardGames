@@ -1,30 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="769232ee-81c1-4214-9cd1-930bc00caf65" name="Default Changelist" comment="">
+    <list default="true" id="e526b875-725e-403c-aad6-c9857a734d25" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/CardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardGameTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/CardGames-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/CardGames-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BJackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" afterDir="false" />
     </list>
@@ -33,17 +21,10 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1d98ozFlg7lfoyfMxMJgEWo7X78" />
+  <component name="ProjectId" id="1dHZzHxQEMk0qaXcTj5v4cdAFTd" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -51,281 +32,90 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.36666667" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
-  <component name="RunManager" selected="Application.CardGameTest">
-    <configuration name="BJackGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BJackGame" />
-      <module name="CardGames" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BJackGameTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BJackGameTest" />
-      <module name="CardGames" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="CardGameTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="CardGameTest" />
       <module name="CardGames" />
-      <option name="VM_PARAMETERS" value="-ea" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Application.BJackGame" />
-      <item itemvalue="Application.BJackGameTest" />
-      <item itemvalue="Application.CardGameTest" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.CardGameTest" />
-        <item itemvalue="Application.BJackGameTest" />
-        <item itemvalue="Application.BJackGame" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="StructureViewFactory">
-    <option name="ACTIVE_ACTIONS" value=",SHOW_PROPERTIES,VISIBILITY_SORTER,ALPHA_COMPARATOR" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="769232ee-81c1-4214-9cd1-930bc00caf65" name="Default Changelist" comment="" />
-      <created>1591826126109</created>
+      <changelist id="e526b875-725e-403c-aad6-c9857a734d25" name="Default Changelist" comment="" />
+      <created>1592084239990</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1591826126109</updated>
+      <updated>1592084239990</updated>
     </task>
-    <task id="LOCAL-00001" summary="development commit">
-      <created>1591845198318</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1591845198318</updated>
-    </task>
-    <task id="LOCAL-00002" summary="development commit">
-      <created>1591845227919</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1591845227919</updated>
-    </task>
-    <task id="LOCAL-00003" summary="development commit">
-      <created>1591916822704</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1591916822704</updated>
-    </task>
-    <task id="LOCAL-00004" summary="development commit">
-      <created>1591930514530</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1591930514530</updated>
-    </task>
-    <task id="LOCAL-00005" summary="added win/lose logic">
-      <created>1591999541465</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1591999541465</updated>
-    </task>
-    <task id="LOCAL-00006" summary="added standard bets and paying/collecting">
-      <created>1592002091370</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1592002091370</updated>
-    </task>
-    <task id="LOCAL-00007" summary="added multiple hands before reshuffle">
-      <created>1592019927615</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1592019927615</updated>
-    </task>
-    <task id="LOCAL-00008" summary="added multiple hands before reshuffle">
-      <created>1592020162823</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1592020162823</updated>
-    </task>
-    <task id="LOCAL-00009" summary="bug comments">
-      <created>1592020637848</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1592020637848</updated>
-    </task>
-    <task id="LOCAL-00010" summary="fixed bug where player blackjack and dealer 21 was recorded as a push">
-      <created>1592055280652</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1592055280652</updated>
-    </task>
-    <task id="LOCAL-00011" summary="fixed bug where player blackjack and dealer 21 was recorded as a push">
-      <created>1592055288747</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1592055288747</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="development commit" />
-    <MESSAGE value="added win/lose logic" />
-    <MESSAGE value="added standard bets and paying/collecting" />
-    <MESSAGE value="added multiple hands before reshuffle" />
-    <MESSAGE value="bug comments" />
-    <MESSAGE value="fixed bug where player blackjack and dealer 21 was recorded as a push" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug where player blackjack and dealer 21 was recorded as a push" />
-  </component>
   <component name="WindowStateProjectService">
-    <state x="487" y="95" width="1024" height="852" key="#Project_Structure" timestamp="1591969344916">
+    <state width="1606" height="300" key="GridCell.Tab.0.bottom" timestamp="1592089108067">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="487" y="95" width="1024" height="852" key="#Project_Structure/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591969344916" />
-    <state x="432" y="244" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591886981431">
+    <state width="1606" height="300" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592089108067" />
+    <state width="1606" height="300" key="GridCell.Tab.0.center" timestamp="1592089108067">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="432" y="244" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591886981431" />
-    <state x="758" y="259" width="374" height="592" key="#com.intellij.ide.util.MemberChooser" timestamp="1592013360207">
+    <state width="1606" height="300" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592089108067" />
+    <state width="1606" height="300" key="GridCell.Tab.0.left" timestamp="1592089108067">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="758" y="259" width="374" height="592" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592013360207" />
-    <state x="765" y="384" width="467" height="275" key="#com.intellij.refactoring.move.moveInstanceMethod.MoveInstanceMethodDialog" timestamp="1591985941247">
+    <state width="1606" height="300" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592089108067" />
+    <state width="1606" height="300" key="GridCell.Tab.0.right" timestamp="1592089108067">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="765" y="384" width="467" height="275" key="#com.intellij.refactoring.move.moveInstanceMethod.MoveInstanceMethodDialog/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591985941247" />
-    <state x="662" y="136" width="630" height="790" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1591909286024">
+    <state width="1606" height="300" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592089108067" />
+    <state width="1606" height="300" key="GridCell.Tab.1.bottom" timestamp="1592089104747">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="662" y="136" width="630" height="790" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591909286024" />
-    <state x="735" y="288" key="#xdebugger.evaluate" timestamp="1591989527596">
+    <state width="1606" height="300" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592089104747" />
+    <state width="1606" height="300" key="GridCell.Tab.1.center" timestamp="1592089104747">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="735" y="288" key="#xdebugger.evaluate/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591989527596" />
-    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592019909528">
+    <state width="1606" height="300" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592089104747" />
+    <state width="1606" height="300" key="GridCell.Tab.1.left" timestamp="1592089104747">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019909528" />
-    <state width="1606" height="300" key="GridCell.Tab.0.bottom" timestamp="1592060474671">
+    <state width="1606" height="300" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592089104747" />
+    <state width="1606" height="300" key="GridCell.Tab.1.right" timestamp="1592089104747">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060474671" />
-    <state width="1606" height="300" key="GridCell.Tab.0.center" timestamp="1592060474671">
+    <state width="1606" height="300" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592089104747" />
+    <state x="514" y="85" width="1024" height="852" key="SettingsEditor" timestamp="1592084309856">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060474671" />
-    <state width="1606" height="300" key="GridCell.Tab.0.left" timestamp="1592060474671">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state width="1606" height="300" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060474671" />
-    <state width="1606" height="300" key="GridCell.Tab.0.right" timestamp="1592060474671">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state width="1606" height="300" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060474671" />
-    <state width="1606" height="300" key="GridCell.Tab.1.bottom" timestamp="1592060481069">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060481069" />
-    <state width="1606" height="300" key="GridCell.Tab.1.center" timestamp="1592060481069">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060481069" />
-    <state width="1606" height="300" key="GridCell.Tab.1.left" timestamp="1592060481069">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060481069" />
-    <state width="1606" height="300" key="GridCell.Tab.1.right" timestamp="1592060481069">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060481069" />
-    <state x="460" y="121" width="1024" height="852" key="SettingsEditor" timestamp="1591826258949">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="460" y="121" width="1024" height="852" key="SettingsEditor/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591826258949" />
-    <state width="826" height="477" key="XDebugger.FullValuePopup" timestamp="1591990453829">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state width="826" height="477" key="XDebugger.FullValuePopup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591990453829" />
-    <state x="591" y="173" width="762" height="749" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1591830579087">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="591" y="173" width="762" height="749" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591830579087" />
-    <state x="529" y="240" width="894" height="654" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1592016926126">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="529" y="240" width="894" height="654" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592016926126" />
-    <state x="561" y="245" width="1156" height="613" key="dock-window-1" timestamp="1591929334818">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="561" y="245" width="1156" height="613" key="dock-window-1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591929334818" />
-    <state x="562" y="128" width="1156" height="613" key="dock-window-2" timestamp="1591929334818">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="562" y="128" width="1156" height="613" key="dock-window-2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591929334818" />
-    <state x="603" y="185" width="1156" height="613" key="dock-window-3" timestamp="1591930536345">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="603" y="185" width="1156" height="613" key="dock-window-3/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591930536345" />
-    <state x="1049" y="338" width="618" height="580" key="find.popup" timestamp="1592058265261">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="1049" y="338" width="618" height="580" key="find.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592058265261" />
-    <state x="941" y="350" width="598" height="492" key="refactoring.ChangeSignatureDialog" timestamp="1592012713625">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="941" y="350" width="598" height="492" key="refactoring.ChangeSignatureDialog/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592012713625" />
-    <state x="667" y="248" width="672" height="678" key="search.everywhere.popup" timestamp="1591985262652">
-      <screen x="72" y="27" width="1848" height="1053" />
-    </state>
-    <state x="667" y="248" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591985262652" />
+    <state x="514" y="85" width="1024" height="852" key="SettingsEditor/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592084309856" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>96</line>
+          <line>243</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="hand.getHandTotal()" language="JAVA" />
-        <watch expression="hand.handResult" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

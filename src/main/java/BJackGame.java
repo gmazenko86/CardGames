@@ -18,14 +18,22 @@ public class BJackGame extends CardGame {
     }
 
     void playGame(){
+        //TODO: remove this after debug
+        BJackPlayer tempPlayer = new BJackPlayer();
+        int loopLimit = tempPlayer.hands.size();
+        for(int i = 0; i < loopLimit; i++){
+            System.out.println(tempPlayer.hands.toString());
+            if(loopLimit == 1){
+                tempPlayer.hands.add(new BJackHand());
+                loopLimit += 1;
+            }
+        }
+        System.out.println("debug break point");
+
+
         preGameInit(1);
         while(deck.deckIndex < 26) {
             dealHands();
-
-            //TODO: bug - dealer plays hand when playing against 1 player who busts
-            // also keeps playing after a single player blackjack
-            // have to check the anyActiveHands() function
-            // dealer not drawing new cards
 
             // console object will be null if program is run from IDE
             Console console = System.console();
@@ -45,6 +53,7 @@ public class BJackGame extends CardGame {
 
             // need an array list of players plus the dealer
             // update hand attributes based on blackjacks
+            // TODO: should consolidate the following 2 enhanced for loops into functions
             ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
             for (BJackPlayer player : playersPlusDealer) {
                 for (BJackHand hand : player.hands) {
@@ -55,7 +64,6 @@ public class BJackGame extends CardGame {
             for(BJackPlayer player : players){
                 for(BJackHand hand : player.hands){
                     setResultsPerBJacks(hand);
-//                    setWinForPlayerBJack(hand, dealerHand);
                 }
             }
 
@@ -203,10 +211,37 @@ public class BJackGame extends CardGame {
         System.out.print("Enter 'h' to hit or 's' to stick ");
     }
 
+    boolean havePair(BJackHand hand){
+        if(hand.cards.get(0).getCardValue() == hand.cards.get(1).getCardValue()){
+            return true;
+        }
+        return false;
+    }
+
+    void handlePair(BJackPlayer player, BJackHand hand){
+        //TODO: temporarily assumes that the player wants to split all pairs
+        int handIndex = player.hands.indexOf(hand);
+        BJackHand newHand = new BJackHand();
+        Card pairCard =  hand.cards.get(1);
+
+        hand.cards.remove(pairCard);
+        player.hands.add(handIndex + 1, newHand);
+        newHand.cards.add(pairCard);
+        displayActiveHands(); //TODO: remove this after debug
+
+        //TODO: set the split flags
+    }
+
     void playHands(BJackPlayer player){
+        //TODO: have to change this to a regular for loop so that the number of hands can change
         for(BJackHand hand: player.hands) {
             if(hand.handResult == BJackHand.HandResult.PENDING &&
                 hand.handAttribute != BJackHand.HandAttribute.BLACKJACK) {
+                boolean havePair = havePair(hand);
+                if(havePair){
+                    handlePair(player, hand);
+                }
+                System.out.println("have pair = " + havePair);
                 char inputChar = 0;
                 displayInputRequest();
                 do {
@@ -245,6 +280,7 @@ public class BJackGame extends CardGame {
         initializePlayers(numPlayers);
     }
 
+/*
     boolean checkDealerBJack(){
         if (dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
             for(BJackPlayer player : this.players){
@@ -261,6 +297,7 @@ public class BJackGame extends CardGame {
         }
         return false;
     }
+*/
 
     void playDealerHand(){
         while(dealerHand.getHandTotal() < 17){
@@ -294,7 +331,7 @@ public class BJackGame extends CardGame {
 //                setWinForPlayerBJack(hand, dealerHand);
                 setLoseForBust(hand);
                 setWinForDealerBust(hand, dealerHand);
-                setHandResultPerTotals(hand);
+                setResultPerTotals(hand);
             }
         }
     }
@@ -320,7 +357,7 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void setHandResultPerTotals(BJackHand hand){
+    void setResultPerTotals(BJackHand hand){
         int dealerTotal = dealerHand.getHandTotal();
         int playerTotal = hand.getHandTotal();
         if(hand.handResult == BJackHand.HandResult.PENDING) {
