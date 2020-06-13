@@ -79,10 +79,6 @@ public class BJackGame extends CardGame {
                 player.hands.add(hand);
             }
         }
-        //TODO: fix bug: player blackjack against dealer 21 was recorded as a push
-        // rather than a player win. make sure hands are being removed and added correctly
-        // line 77 is suspicious. but see line 280 for sure.
-
         deck.shuffle();
         deck.deckIndex = 0;
 
@@ -277,11 +273,18 @@ public class BJackGame extends CardGame {
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
                 setLoseToDealerBJack(hand);
-                //TODO: fix bug by adding setWinForPLayerBJack()
+                setWinForPlayerBJack(hand, dealerHand);
                 setLoseForBust(hand);
                 setWinForDealerBust(hand, dealerHand);
                 setHandResultPerTotals(hand);
             }
+        }
+    }
+
+    void setWinForPlayerBJack(BJackHand playerHand, BJackHand dealerHand){
+        if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK &&
+            dealerHand.handAttribute != BJackHand.HandAttribute.BLACKJACK){
+            playerHand.handResult = BJackHand.HandResult.WIN;
         }
     }
 
