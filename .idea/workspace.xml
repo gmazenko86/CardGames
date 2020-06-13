@@ -19,20 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="769232ee-81c1-4214-9cd1-930bc00caf65" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/BJackGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BJackGameTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BJackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BJackPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/CardGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/CardGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Deck.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/BJackGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/BJackGameTest.class" afterDir="false" />
-    </list>
+    <list default="true" id="769232ee-81c1-4214-9cd1-930bc00caf65" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -155,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592002091370</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added multiple hands before reshuffle">
+      <created>1592019927615</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1592019927615</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -174,7 +168,8 @@
     <MESSAGE value="development commit" />
     <MESSAGE value="added win/lose logic" />
     <MESSAGE value="added standard bets and paying/collecting" />
-    <option name="LAST_COMMIT_MESSAGE" value="added standard bets and paying/collecting" />
+    <MESSAGE value="added multiple hands before reshuffle" />
+    <option name="LAST_COMMIT_MESSAGE" value="added multiple hands before reshuffle" />
   </component>
   <component name="WindowStateProjectService">
     <state x="487" y="95" width="1024" height="852" key="#Project_Structure" timestamp="1591969344916">
@@ -201,26 +196,26 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="735" y="288" key="#xdebugger.evaluate/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591989527596" />
-    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1591999384505">
+    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592019909528">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591999384505" />
-    <state width="1606" height="300" key="GridCell.Tab.0.bottom" timestamp="1592019418823">
+    <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019909528" />
+    <state width="1606" height="269" key="GridCell.Tab.0.bottom" timestamp="1592019909956">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019418823" />
-    <state width="1606" height="300" key="GridCell.Tab.0.center" timestamp="1592019418823">
+    <state width="1606" height="269" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019909956" />
+    <state width="1606" height="269" key="GridCell.Tab.0.center" timestamp="1592019909956">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019418823" />
-    <state width="1606" height="300" key="GridCell.Tab.0.left" timestamp="1592019418823">
+    <state width="1606" height="269" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019909956" />
+    <state width="1606" height="269" key="GridCell.Tab.0.left" timestamp="1592019909956">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019418823" />
-    <state width="1606" height="300" key="GridCell.Tab.0.right" timestamp="1592019418823">
+    <state width="1606" height="269" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019909956" />
+    <state width="1606" height="269" key="GridCell.Tab.0.right" timestamp="1592019909956">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019418823" />
+    <state width="1606" height="269" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019909956" />
     <state width="1606" height="300" key="GridCell.Tab.1.bottom" timestamp="1592019418823">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -279,15 +274,6 @@
     <state x="667" y="248" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591985262652" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>82</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="hand.getHandTotal()" language="JAVA" />

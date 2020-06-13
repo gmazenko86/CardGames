@@ -79,6 +79,8 @@ public class BJackGame extends CardGame {
                 player.hands.add(hand);
             }
         }
+        //TODO: fix bug: player blackjack against dealer 21 was recorded as a push
+        // rather than a player win
 
         deck.shuffle();
         deck.deckIndex = 0;
