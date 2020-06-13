@@ -24,6 +24,9 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/CardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardGameTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BJackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +171,21 @@
       <option name="project" value="LOCAL" />
       <updated>1592020637848</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fixed bug where player blackjack and dealer 21 was recorded as a push">
+      <created>1592055280652</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1592055280652</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fixed bug where player blackjack and dealer 21 was recorded as a push">
+      <created>1592055288747</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1592055288747</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -189,7 +206,8 @@
     <MESSAGE value="added standard bets and paying/collecting" />
     <MESSAGE value="added multiple hands before reshuffle" />
     <MESSAGE value="bug comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug comments" />
+    <MESSAGE value="fixed bug where player blackjack and dealer 21 was recorded as a push" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug where player blackjack and dealer 21 was recorded as a push" />
   </component>
   <component name="WindowStateProjectService">
     <state x="487" y="95" width="1024" height="852" key="#Project_Structure" timestamp="1591969344916">
@@ -220,38 +238,38 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="686" y="393" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592019909528" />
-    <state width="1606" height="269" key="GridCell.Tab.0.bottom" timestamp="1592054864421">
+    <state width="1606" height="300" key="GridCell.Tab.0.bottom" timestamp="1592060474671">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="269" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592054864421" />
-    <state width="1606" height="269" key="GridCell.Tab.0.center" timestamp="1592054864421">
+    <state width="1606" height="300" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060474671" />
+    <state width="1606" height="300" key="GridCell.Tab.0.center" timestamp="1592060474671">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="269" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592054864421" />
-    <state width="1606" height="269" key="GridCell.Tab.0.left" timestamp="1592054864420">
+    <state width="1606" height="300" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060474671" />
+    <state width="1606" height="300" key="GridCell.Tab.0.left" timestamp="1592060474671">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="269" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592054864420" />
-    <state width="1606" height="269" key="GridCell.Tab.0.right" timestamp="1592054864421">
+    <state width="1606" height="300" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060474671" />
+    <state width="1606" height="300" key="GridCell.Tab.0.right" timestamp="1592060474671">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="269" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592054864421" />
-    <state width="1606" height="300" key="GridCell.Tab.1.bottom" timestamp="1592054217496">
+    <state width="1606" height="300" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060474671" />
+    <state width="1606" height="300" key="GridCell.Tab.1.bottom" timestamp="1592060481069">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592054217496" />
-    <state width="1606" height="300" key="GridCell.Tab.1.center" timestamp="1592054217495">
+    <state width="1606" height="300" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060481069" />
+    <state width="1606" height="300" key="GridCell.Tab.1.center" timestamp="1592060481069">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592054217495" />
-    <state width="1606" height="300" key="GridCell.Tab.1.left" timestamp="1592054217495">
+    <state width="1606" height="300" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060481069" />
+    <state width="1606" height="300" key="GridCell.Tab.1.left" timestamp="1592060481069">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592054217495" />
-    <state width="1606" height="300" key="GridCell.Tab.1.right" timestamp="1592054217496">
+    <state width="1606" height="300" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060481069" />
+    <state width="1606" height="300" key="GridCell.Tab.1.right" timestamp="1592060481069">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592054217496" />
+    <state width="1606" height="300" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592060481069" />
     <state x="460" y="121" width="1024" height="852" key="SettingsEditor" timestamp="1591826258949">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -280,10 +298,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="603" y="185" width="1156" height="613" key="dock-window-3/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1591930536345" />
-    <state x="980" y="300" width="618" height="580" key="find.popup" timestamp="1592016729407">
+    <state x="1049" y="338" width="618" height="580" key="find.popup" timestamp="1592058265261">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="980" y="300" width="618" height="580" key="find.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592016729407" />
+    <state x="1049" y="338" width="618" height="580" key="find.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592058265261" />
     <state x="941" y="350" width="598" height="492" key="refactoring.ChangeSignatureDialog" timestamp="1592012713625">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -298,8 +316,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>76</line>
-          <option name="timeStamp" value="2" />
+          <line>96</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

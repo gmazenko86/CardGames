@@ -18,9 +18,14 @@ public class BJackGame extends CardGame {
     }
 
     void playGame(){
-        preGameInit(3);
+        preGameInit(1);
         while(deck.deckIndex < 26) {
             dealHands();
+
+            //TODO: bug - dealer plays hand when playing against 1 player who busts
+            // also keeps playing after a single player blackjack
+            // have to check the anyActiveHands() function
+            // dealer not drawing new cards
 
             // console object will be null if program is run from IDE
             Console console = System.console();
@@ -39,14 +44,23 @@ public class BJackGame extends CardGame {
             System.out.println("\n");
 
             // need an array list of players plus the dealer
+            // update hand attributes based on blackjacks
             ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
             for (BJackPlayer player : playersPlusDealer) {
                 for (BJackHand hand : player.hands) {
                     hand.setBlackJackFlag();
                 }
             }
+            // update the hand results based on blackjacks
+            for(BJackPlayer player : players){
+                for(BJackHand hand : player.hands){
+                    setResultsPerBJacks(hand);
+//                    setWinForPlayerBJack(hand, dealerHand);
+                }
+            }
+
             // use displayActiveHands() instead of displayAllHands when the dealer
-            // hole card has not yet been shown
+            // hole card should not yet be shown
             displayActiveHands();
 
             boolean dealerBlackJack = dealerHasBjack();
@@ -78,9 +92,12 @@ public class BJackGame extends CardGame {
                 BJackHand hand = new BJackHand();
                 player.hands.add(hand);
             }
+            // reset dealerHand variable to the first hand of the last player
+            dealerHand = dealer.hands.get(0);
         }
         deck.shuffle();
-        deck.deckIndex = 0;
+        System.out.println("Deck has been shuffled");
+//        deck.deckIndex = 0;
 
         System.out.println("end of demo message");
     }
@@ -203,6 +220,7 @@ public class BJackGame extends CardGame {
                                 displayActiveHands();
                                 if (hand.getHandTotal() > 21) {
                                     hand.handAttribute = BJackHand.HandAttribute.BUST;
+                                    setLoseForBust(hand);
                                     displayActiveHands();
                                 } else {
                                     displayInputRequest();
@@ -272,8 +290,8 @@ public class BJackGame extends CardGame {
     void setPlayerHandResults(){
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
-                setLoseToDealerBJack(hand);
-                setWinForPlayerBJack(hand, dealerHand);
+//                setLoseToDealerBJack(hand);
+//                setWinForPlayerBJack(hand, dealerHand);
                 setLoseForBust(hand);
                 setWinForDealerBust(hand, dealerHand);
                 setHandResultPerTotals(hand);
@@ -281,13 +299,14 @@ public class BJackGame extends CardGame {
         }
     }
 
+/*
     void setWinForPlayerBJack(BJackHand playerHand, BJackHand dealerHand){
         if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK &&
             dealerHand.handAttribute != BJackHand.HandAttribute.BLACKJACK){
             playerHand.handResult = BJackHand.HandResult.WIN;
         }
     }
-
+*/
     void setLoseForBust(BJackHand hand){
         if(hand.handAttribute == BJackHand.HandAttribute.BUST){
             hand.handResult = BJackHand.HandResult.LOSE;
@@ -315,13 +334,17 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void setLoseToDealerBJack(BJackHand playerHand){
+    void setResultsPerBJacks(BJackHand playerHand){
         if(dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
             if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
                 playerHand.handResult = BJackHand.HandResult.PUSH;
             } else {
                 playerHand.handResult = BJackHand.HandResult.LOSE;
             }
+        }
+        if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK &&
+                dealerHand.handAttribute != BJackHand.HandAttribute.BLACKJACK){
+            playerHand.handResult = BJackHand.HandResult.WIN;
         }
     }
 
