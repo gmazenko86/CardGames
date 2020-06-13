@@ -1,4 +1,3 @@
-import java.awt.image.WritableRenderedImage;
 import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,64 +6,90 @@ import java.util.Objects;
 
 public class BJackGame extends CardGame {
 
+    ArrayList<BJackPlayer> players;
+    BJackPlayer dealer;
+    BJackHand dealerHand;
+
+    BJackGame(){
+        super();
+        this.players = new ArrayList<>();
+        this.dealer = new BJackPlayer();
+        this.dealerHand = dealer.hands.get(0);
+    }
+
     void playGame(){
-        preDealInit(3);
-        dealHands();
+        preGameInit(3);
+        while(deck.deckIndex < 26) {
+            dealHands();
 
-        // console object will be null if program is run from IDE
-        Console console = System.console();
+            // console object will be null if program is run from IDE
+            Console console = System.console();
 
-        if(Objects.nonNull(console)){
-            console.printf ("Print console object using console.printf " + console.toString() + "\n");
-            System.out.println ("Print console object using System.out.println " + console.toString());
-            PrintWriter writer = console.writer();
-            writer.println("Print console object using PrintWriter.println " + console.toString());
-        }
-
-        for(Card card : deck.cards){
-            card.displayCardSignature();
-            System.out.print("| ");
-        }
-        System.out.println("\n");
-
-        // need an array list of players plus the dealer
-        ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
-        for(BJackPlayer player : playersPlusDealer){
-            for(BJackHand hand : player.hands){
-                hand.setBlackJackFlag();
+            if (Objects.nonNull(console)) {
+                console.printf("Print console object using console.printf " + console.toString() + "\n");
+                System.out.println("Print console object using System.out.println " + console.toString());
+                PrintWriter writer = console.writer();
+                writer.println("Print console object using PrintWriter.println " + console.toString());
             }
-        }
-        // use displayActiveHands() instead of displayAllHands when the dealer
-        // hole card has not yet been shown
-        displayActiveHands();
 
-        boolean dealerBlackJack = dealerHasBjack();
-
-        if(!dealerBlackJack) {
-            for (BJackPlayer player : this.bJackPlayers) {
-                playHands(player);
+            for (Card card : deck.cards) {
+                card.displayCardSignature();
+                System.out.print("| ");
             }
-        } else{
+            System.out.println("\n");
+
+            // need an array list of players plus the dealer
+            ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
+            for (BJackPlayer player : playersPlusDealer) {
+                for (BJackHand hand : player.hands) {
+                    hand.setBlackJackFlag();
+                }
+            }
+            // use displayActiveHands() instead of displayAllHands when the dealer
+            // hole card has not yet been shown
+            displayActiveHands();
+
+            boolean dealerBlackJack = dealerHasBjack();
+
+            if (!dealerBlackJack) {
+                for (BJackPlayer player : this.players) {
+                    playHands(player);
+                }
+            } else {
+                setPlayerHandResults();
+                displayAllHands();
+            }
+
+            // now play the dealer hand if there are any active player hands
+            if (anyActivePlayerHands()) {
+                playDealerHand();
+            }
+
             setPlayerHandResults();
-            displayAllHands();
+            displayResults();
+            payAndCollect();
+            displayPlayerBankrolls();
+            System.out.println("deckindex = " + deck.deckIndex);
+
+            // reinitialize all hands by getting new instances
+            // for now, each player gets one hand
+            for(BJackPlayer player : playersPlusDealer){
+                player.hands.removeAll(player.hands);
+                BJackHand hand = new BJackHand();
+                player.hands.add(hand);
+            }
         }
 
-        // now play the dealer hand if there are any active player hands
-        if(anyActivePlayerHands()) {
-            playDealerHand();
-        }
-
-        setPlayerHandResults();
-        displayResults();
-        payAndCollect();
-        displayPlayerBankrolls();
+        deck.shuffle();
+        deck.deckIndex = 0;
 
         System.out.println("end of demo message");
     }
+
     void initializePlayers(int numPlayers){
         for (int i = 0; i < numPlayers; i++){
             BJackPlayer bJackPlayer = new BJackPlayer();
-            bJackPlayers.add(bJackPlayer);
+            players.add(bJackPlayer);
         }
     }
 
@@ -83,15 +108,15 @@ public class BJackGame extends CardGame {
     }
 
     ArrayList<BJackPlayer> getPlayersPlusDealer(){
-        ArrayList<BJackPlayer> playersPlusDealer = new ArrayList<>(this.bJackPlayers);
+        ArrayList<BJackPlayer> playersPlusDealer = new ArrayList<>(this.players);
         playersPlusDealer.add(this.dealer);
         return  playersPlusDealer;
     }
 
     void displayActiveHands(){
         System.out.println("*".repeat(40));
-        displayDealerUpCard(dealer.hands.get(0));
-        for (BJackPlayer BJackPlayer : this.bJackPlayers) {
+        displayDealerUpCard(dealerHand);
+        for (BJackPlayer BJackPlayer : this.players) {
             for (BJackHand hand : BJackPlayer.hands) {
                 if(hand.handAttribute == BJackHand.HandAttribute.NONE){
                     displayHand(hand);
@@ -105,8 +130,8 @@ public class BJackGame extends CardGame {
 
     void displayAllHands(){
         System.out.println("*".repeat(40));
-        displayHandWithTotal(dealer.hands.get(0), false);
-        for(BJackPlayer player : bJackPlayers){
+        displayHandWithTotal(dealerHand, false);
+        for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
                 displayHandWithTotal(hand, false);
             }
@@ -115,9 +140,8 @@ public class BJackGame extends CardGame {
 
     void displayResults(){
         System.out.println("*".repeat(40));
-        BJackHand dealerHand = dealer.hands.get(0);
         displayHandWithTotal(dealerHand, false);
-        for(BJackPlayer player : bJackPlayers){
+        for(BJackPlayer player : players){
             for(BJackHand hand: player.hands){
                 displayHandWithTotal(hand, true);
             }
@@ -200,13 +224,13 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void preDealInit(int numPlayers){
+    void preGameInit(int numPlayers){
         initializePlayers(numPlayers);
     }
 
     boolean checkDealerBJack(){
-        if (dealer.hands.get(0).handAttribute == BJackHand.HandAttribute.BLACKJACK){
-            for(BJackPlayer player : this.bJackPlayers){
+        if (dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
+            for(BJackPlayer player : this.players){
                 for(BJackHand hand : player.hands){
                     if(hand.handAttribute == BJackHand.HandAttribute.NONE){
                         hand.handResult = BJackHand.HandResult.LOSE;
@@ -222,17 +246,17 @@ public class BJackGame extends CardGame {
     }
 
     void playDealerHand(){
-        while(dealer.hands.get(0).getHandTotal() < 17){
-            dealer.hands.get(0).drawCard(this.deck);
+        while(dealerHand.getHandTotal() < 17){
+            dealerHand.drawCard(this.deck);
         }
-        if(dealer.hands.get(0).getHandTotal() > 21){
-            dealer.hands.get(0).handAttribute = BJackHand.HandAttribute.BUST;
+        if(dealerHand.getHandTotal() > 21){
+            dealerHand.handAttribute = BJackHand.HandAttribute.BUST;
         }
         displayAllHands();
     }
 
     boolean anyActivePlayerHands(){
-        for(BJackPlayer player : bJackPlayers) {
+        for(BJackPlayer player : players) {
             for (BJackHand hand : player.hands) {
                 if (hand.handResult == BJackHand.HandResult.PENDING) {
                     return true;
@@ -243,12 +267,11 @@ public class BJackGame extends CardGame {
     }
 
     boolean dealerHasBjack(){
-        return (dealer.hands.get(0).handAttribute == BJackHand.HandAttribute.BLACKJACK);
+        return (dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK);
     }
 
     void setPlayerHandResults(){
-        BJackHand dealerHand = dealer.hands.get(0);
-        for(BJackPlayer player : bJackPlayers){
+        for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
                 setLoseToDealerBJack(hand);
                 setLoseForBust(hand);
@@ -272,7 +295,6 @@ public class BJackGame extends CardGame {
     }
 
     void setHandResultPerTotals(BJackHand hand){
-        BJackHand dealerHand = dealer.hands.get(0);
         int dealerTotal = dealerHand.getHandTotal();
         int playerTotal = hand.getHandTotal();
         if(hand.handResult == BJackHand.HandResult.PENDING) {
@@ -287,7 +309,6 @@ public class BJackGame extends CardGame {
     }
 
     void setLoseToDealerBJack(BJackHand playerHand){
-        BJackHand dealerHand = dealer.hands.get(0);
         if(dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
             if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
                 playerHand.handResult = BJackHand.HandResult.PUSH;
@@ -298,7 +319,7 @@ public class BJackGame extends CardGame {
     }
 
     void payAndCollect(){
-        for(BJackPlayer player : bJackPlayers){
+        for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
                 assert(hand.handResult != BJackHand.HandResult.PENDING);
                 if(hand.handResult == BJackHand.HandResult.LOSE){
@@ -316,7 +337,7 @@ public class BJackGame extends CardGame {
     }
 
     void displayPlayerBankrolls(){
-        for (BJackPlayer player : bJackPlayers){
+        for (BJackPlayer player : players){
             System.out.println(player.toString() + " bankroll = " + player.bankroll);
         }
     }

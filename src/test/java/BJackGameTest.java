@@ -23,8 +23,8 @@ public class BJackGameTest extends BJackGame{
     }
 
     @Override
-    void preDealInit(int numPlayers) {
-        super.preDealInit(numPlayers);
+    void preGameInit(int numPlayers) {
+        super.preGameInit(numPlayers);
         // temporarily give players additional hands for debug and test
 /*
         BJackHand tempHand = new BJackHand();

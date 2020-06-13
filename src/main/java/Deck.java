@@ -27,6 +27,7 @@ class Deck {
         for(Integer integer : sortOrder){
             this.cards.add(tempDeck.get(integer - 1));
         }
+        this.deckIndex = 0;
     }
 
     Card getCard(){

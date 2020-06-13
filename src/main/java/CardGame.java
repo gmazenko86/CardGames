@@ -2,14 +2,9 @@ import java.util.*;
 import java.util.stream.LongStream;
 
 public class CardGame {
-    ArrayList<BJackPlayer> bJackPlayers;
-    BJackPlayer dealer;
-    BJackHand dealerHand;
     Deck deck;
 
     CardGame(){
-        this.bJackPlayers = new ArrayList<>();
-        this.dealer = new BJackPlayer();
         this.deck = new Deck();
         this.deck.shuffle();
     }
