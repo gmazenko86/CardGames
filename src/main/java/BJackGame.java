@@ -59,7 +59,7 @@ public class BJackGame extends CardGame {
             // hole card should not yet be shown
             displayActiveHands();
 
-            boolean dealerBlackJack = dealerHasBjack();
+            boolean dealerBlackJack = dealerHasBJack();
 
             if (!dealerBlackJack) {
                 for (BJackPlayer player : this.players) {
@@ -93,7 +93,6 @@ public class BJackGame extends CardGame {
         }
         deck.shuffle();
         System.out.println("Deck has been shuffled");
-//        deck.deckIndex = 0;
 
         System.out.println("end of demo message");
     }
@@ -300,15 +299,13 @@ public class BJackGame extends CardGame {
         return false;
     }
 
-    boolean dealerHasBjack(){
+    boolean dealerHasBJack(){
         return (dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK);
     }
 
     void setPlayerHandResults(){
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
-//                setLoseToDealerBJack(hand);
-//                setWinForPlayerBJack(hand, dealerHand);
                 setLoseForBust(hand);
                 setWinForDealerBust(hand, dealerHand);
                 setResultPerTotals(hand);
@@ -316,14 +313,6 @@ public class BJackGame extends CardGame {
         }
     }
 
-/*
-    void setWinForPlayerBJack(BJackHand playerHand, BJackHand dealerHand){
-        if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK &&
-            dealerHand.handAttribute != BJackHand.HandAttribute.BLACKJACK){
-            playerHand.handResult = BJackHand.HandResult.WIN;
-        }
-    }
-*/
     void setLoseForBust(BJackHand hand){
         if(hand.handAttribute == BJackHand.HandAttribute.BUST){
             hand.handResult = BJackHand.HandResult.LOSE;
