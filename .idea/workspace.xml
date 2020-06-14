@@ -94,7 +94,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592159083858</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="bug fix related to splitting pairs">
+      <created>1592173102453</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1592173102453</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,22 +130,22 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="675" y="363" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102383929" />
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592171706892">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592172586334">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592171706892" />
-    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592171706892">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592172586334" />
+    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592172586334">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592171706892" />
-    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592171706892">
+    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592172586334" />
+    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592172586334">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592171706892" />
-    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592171706892">
+    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592172586334" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592172586334">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592171706892" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592172586334" />
     <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592169442005">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -181,12 +188,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>248</line>
+          <line>247</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>164</line>
+          <line>165</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
