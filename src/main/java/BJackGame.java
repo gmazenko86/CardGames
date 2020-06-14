@@ -19,6 +19,7 @@ public class BJackGame extends CardGame {
 
     void playGame(){
         //TODO: remove this after debug
+/*
         BJackPlayer tempPlayer = new BJackPlayer();
         int loopLimit = tempPlayer.hands.size();
         for(int i = 0; i < loopLimit; i++){
@@ -29,7 +30,7 @@ public class BJackGame extends CardGame {
             }
         }
         System.out.println("debug break point");
-
+*/
 
         preGameInit(1);
         while(deck.deckIndex < 26) {
@@ -212,8 +213,10 @@ public class BJackGame extends CardGame {
     }
 
     boolean havePair(BJackHand hand){
-        if(hand.cards.get(0).getCardValue() == hand.cards.get(1).getCardValue()){
-            return true;
+        if(hand.cards.size() == 2) {
+            if (hand.cards.get(0).cardFace == hand.cards.get(1).cardFace) {
+                return true;
+            }
         }
         return false;
     }
@@ -225,23 +228,32 @@ public class BJackGame extends CardGame {
         Card pairCard =  hand.cards.get(1);
 
         hand.cards.remove(pairCard);
+        //TODO: will only draw a card if the player splits the hand. Add this check
+        //TODO: add logic to allow only 1 draw when aces are split
+        hand.drawCard(deck);
+        hand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
         player.hands.add(handIndex + 1, newHand);
         newHand.cards.add(pairCard);
-        displayActiveHands(); //TODO: remove this after debug
-
-        //TODO: set the split flags
+        newHand.drawCard(deck);
+        //TODO: will only draw a card if the player splits the hand. Add this check
+        newHand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
     }
 
     void playHands(BJackPlayer player){
-        //TODO: have to change this to a regular for loop so that the number of hands can change
         for(BJackHand hand: player.hands) {
             if(hand.handResult == BJackHand.HandResult.PENDING &&
                 hand.handAttribute != BJackHand.HandAttribute.BLACKJACK) {
                 boolean havePair = havePair(hand);
+                System.out.println("have pair = " + havePair);
                 if(havePair){
                     handlePair(player, hand);
+                    displayActiveHands();
+                    // have to start over now that the pair has been split
+                    playHands(player);
+                    // return once above recursive call completes execution,
+                    // since all hands have been played
+                    return;
                 }
-                System.out.println("have pair = " + havePair);
                 char inputChar = 0;
                 displayInputRequest();
                 do {
@@ -279,25 +291,6 @@ public class BJackGame extends CardGame {
     void preGameInit(int numPlayers){
         initializePlayers(numPlayers);
     }
-
-/*
-    boolean checkDealerBJack(){
-        if (dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
-            for(BJackPlayer player : this.players){
-                for(BJackHand hand : player.hands){
-                    if(hand.handAttribute == BJackHand.HandAttribute.NONE){
-                        hand.handResult = BJackHand.HandResult.LOSE;
-                    }
-                    if(hand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
-                        hand.handResult = BJackHand.HandResult.PUSH;
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-*/
 
     void playDealerHand(){
         while(dealerHand.getHandTotal() < 17){
