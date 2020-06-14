@@ -18,19 +18,6 @@ public class BJackGame extends CardGame {
     }
 
     void playGame(){
-        //TODO: remove this after debug
-/*
-        BJackPlayer tempPlayer = new BJackPlayer();
-        int loopLimit = tempPlayer.hands.size();
-        for(int i = 0; i < loopLimit; i++){
-            System.out.println(tempPlayer.hands.toString());
-            if(loopLimit == 1){
-                tempPlayer.hands.add(new BJackHand());
-                loopLimit += 1;
-            }
-        }
-        System.out.println("debug break point");
-*/
 
         preGameInit(1);
         while(deck.deckIndex < 26) {
