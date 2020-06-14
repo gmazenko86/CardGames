@@ -24,7 +24,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BJackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +99,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="intermediate commit while adding splitting of pairs" />
@@ -114,38 +114,38 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="675" y="363" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102383929" />
-    <state width="1606" height="243" key="GridCell.Tab.0.bottom" timestamp="1592102384700">
+    <state width="1606" height="304" key="GridCell.Tab.0.bottom" timestamp="1592158433254">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="243" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102384700" />
-    <state width="1606" height="243" key="GridCell.Tab.0.center" timestamp="1592102384700">
+    <state width="1606" height="304" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592158433254" />
+    <state width="1606" height="304" key="GridCell.Tab.0.center" timestamp="1592158433254">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="243" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102384700" />
-    <state width="1606" height="243" key="GridCell.Tab.0.left" timestamp="1592102384700">
+    <state width="1606" height="304" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592158433254" />
+    <state width="1606" height="304" key="GridCell.Tab.0.left" timestamp="1592158433254">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="243" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102384700" />
-    <state width="1606" height="243" key="GridCell.Tab.0.right" timestamp="1592102384700">
+    <state width="1606" height="304" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592158433254" />
+    <state width="1606" height="304" key="GridCell.Tab.0.right" timestamp="1592158433254">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="243" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102384700" />
-    <state width="1606" height="300" key="GridCell.Tab.1.bottom" timestamp="1592102092880">
+    <state width="1606" height="304" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592158433254" />
+    <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592158366931">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102092880" />
-    <state width="1606" height="300" key="GridCell.Tab.1.center" timestamp="1592102092880">
+    <state width="1606" height="304" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592158366931" />
+    <state width="1606" height="304" key="GridCell.Tab.1.center" timestamp="1592158366930">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102092880" />
-    <state width="1606" height="300" key="GridCell.Tab.1.left" timestamp="1592102092880">
+    <state width="1606" height="304" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592158366930" />
+    <state width="1606" height="304" key="GridCell.Tab.1.left" timestamp="1592158366930">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102092880" />
-    <state width="1606" height="300" key="GridCell.Tab.1.right" timestamp="1592102092880">
+    <state width="1606" height="304" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592158366930" />
+    <state width="1606" height="304" key="GridCell.Tab.1.right" timestamp="1592158366931">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="300" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592102092880" />
+    <state width="1606" height="304" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592158366931" />
     <state x="514" y="85" width="1024" height="852" key="SettingsEditor" timestamp="1592084309856">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -169,6 +169,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
+          <line>201</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint enabled="true" type="java-exception" />
       </default-breakpoints>

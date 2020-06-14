@@ -231,45 +231,49 @@ public class BJackGame extends CardGame {
                 hand.handAttribute != BJackHand.HandAttribute.BLACKJACK) {
                 boolean havePair = havePair(hand);
                 System.out.println("have pair = " + havePair);
-                if(havePair){
-                    handlePair(player, hand);
-                    displayActiveHands();
-                    // have to start over now that the pair has been split
-                    playHands(player);
-                    // return once above recursive call completes execution,
-                    // since all hands have been played
-                    return;
-                }
-                char inputChar = 0;
-                displayInputRequest();
-                do {
-                    try {
-                        byte[] bytes = new byte[1];
-                        System.in.read(bytes);
-                        inputChar = (char) bytes[0];
-                        switch (inputChar) {
-                            case 'h':
-                                hand.drawCard(deck);
-                                displayActiveHands();
-                                if (hand.getHandTotal() > 21) {
-                                    hand.handAttribute = BJackHand.HandAttribute.BUST;
-                                    setLoseForBust(hand);
-                                    displayActiveHands();
-                                } else {
-                                    displayInputRequest();
-                                }
-                                break;
-                            case 's':
-                                hand.handAttribute = BJackHand.HandAttribute.STICK;
-                                displayActiveHands();
-                                break;
-                            default:
-                                break;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
+                    hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
+
+                    if(havePair){
+                        handlePair(player, hand);
+                        displayActiveHands();
+                        // have to start over now that the pair has been split
+                        playHands(player);
+                        // return once above recursive call completes execution,
+                        // since all hands have been played
+                        return;
                     }
-                } while (inputChar != 's' && hand.handAttribute != BJackHand.HandAttribute.BUST);
+                    char inputChar = 0;
+                    displayInputRequest();
+                    do {
+                        try {
+                            byte[] bytes = new byte[1];
+                            System.in.read(bytes);
+                            inputChar = (char) bytes[0];
+                            switch (inputChar) {
+                                case 'h':
+                                    hand.drawCard(deck);
+                                    displayActiveHands();
+                                    if (hand.getHandTotal() > 21) {
+                                        hand.handAttribute = BJackHand.HandAttribute.BUST;
+                                        setLoseForBust(hand);
+                                        displayActiveHands();
+                                    } else {
+                                        displayInputRequest();
+                                    }
+                                    break;
+                                case 's':
+                                    hand.handAttribute = BJackHand.HandAttribute.STICK;
+                                    displayActiveHands();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } while (inputChar != 's' && hand.handAttribute != BJackHand.HandAttribute.BUST);
+                }
             }
         }
     }
