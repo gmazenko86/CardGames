@@ -57,7 +57,9 @@ public class BJackGame extends CardGame {
 
             // use displayActiveHands() instead of displayAllHands when the dealer
             // hole card should not yet be shown
-            displayActiveHands();
+            // set the active flag on the first hand of the first player
+//            players.get(0).hands.get(0).playingThis = true;
+//            displayActiveHands();
 
             boolean dealerBlackJack = dealerHasBJack();
 
@@ -129,7 +131,8 @@ public class BJackGame extends CardGame {
         displayDealerUpCard(dealerHand);
         for (BJackPlayer BJackPlayer : this.players) {
             for (BJackHand hand : BJackPlayer.hands) {
-                if(hand.handAttribute == BJackHand.HandAttribute.NONE){
+                if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
+                    hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
                     displayHand(hand);
                     System.out.println();
                 } else{
@@ -161,8 +164,13 @@ public class BJackGame extends CardGame {
 
     void displayHand(BJackHand hand){
         for(Card card: hand.cards){
-            card.displayCardSignature();
-            System.out.print(" | ");
+            if (hand.playingThis){
+                printBlueText(card.getCardSignature());
+                printBlueText(" | ");
+            } else{
+                card.displayCardSignature();
+                System.out.print(" | ");
+            }
         }
         System.out.print("");
     }
@@ -178,7 +186,14 @@ public class BJackGame extends CardGame {
             printGreenText(" ::: BLACKJACK");
         }
         if(printResults){
-            System.out.print(" -----Player result = " + hand.handResult.name());
+            if(hand.handResult == BJackHand.HandResult.WIN){
+                printGreenText(" -----Player result = " + hand.handResult.name());
+            } else if(hand.handResult == BJackHand.HandResult.LOSE){
+                printRedText(" -----Player result = " + hand.handResult.name());
+            } else if(hand.handResult == BJackHand.HandResult.PUSH){
+                printBlueText(" -----Player result = " + hand.handResult.name());
+            }
+            else{ assert(false);}
         }
         System.out.println();
     }
@@ -225,15 +240,16 @@ public class BJackGame extends CardGame {
         newHand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
     }
 
+    //TODO: why is it printing twice sometimes, like after a dealer bust when playing 4 split hands
     void playHands(BJackPlayer player){
         for(BJackHand hand: player.hands) {
             if(hand.handResult == BJackHand.HandResult.PENDING &&
                 hand.handAttribute != BJackHand.HandAttribute.BLACKJACK) {
+                hand.playingThis = true;
                 boolean havePair = havePair(hand);
                 System.out.println("have pair = " + havePair);
                 if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
                     hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
-
                     if(havePair){
                         handlePair(player, hand);
                         displayActiveHands();
@@ -244,6 +260,7 @@ public class BJackGame extends CardGame {
                         return;
                     }
                     char inputChar = 0;
+                    displayActiveHands();
                     displayInputRequest();
                     do {
                         try {
@@ -274,6 +291,7 @@ public class BJackGame extends CardGame {
                         }
                     } while (inputChar != 's' && hand.handAttribute != BJackHand.HandAttribute.BUST);
                 }
+                hand.playingThis = false;
             }
         }
     }
@@ -390,13 +408,19 @@ public class BJackGame extends CardGame {
     }
 
     public void printYellowText(String str){
-        System.out.print("\033[33m"); // This turns the text to red
+        System.out.print("\033[33m"); // This turns the text to Yellow
         System.out.print(str);
         System.out.print("\033[0m"); // This resets the text back to default
     }
 
     public void printGreenText(String str){
-        System.out.print("\033[32m"); // This turns the text to red
+        System.out.print("\033[32m"); // This turns the text to Green
+        System.out.print(str);
+        System.out.print("\033[0m"); // This resets the text back to default
+    }
+
+    public void printBlueText(String str){
+        System.out.print("\033[34m"); // This turns the text to Blue
         System.out.print(str);
         System.out.print("\033[0m"); // This resets the text back to default
     }

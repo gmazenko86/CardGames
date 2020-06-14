@@ -4,6 +4,7 @@ public class BJackHand extends Hand{
     enum HandAttribute {NONE, STICK, BLACKJACK, BUST, SPLITHAND, DOUBLEDOWN, SURRENDER}
     // HandResult represents the final disposition of a player hand and determines payments
     enum  HandResult {PENDING, WIN, LOSE, PUSH}
+    boolean playingThis;
 
     HandAttribute handAttribute;
     HandResult handResult;
@@ -14,6 +15,7 @@ public class BJackHand extends Hand{
         handAttribute = HandAttribute.NONE;
         handResult = HandResult.PENDING;
         bet = 100.;
+        playingThis = false;
     }
 
     public int getHandTotal(){
