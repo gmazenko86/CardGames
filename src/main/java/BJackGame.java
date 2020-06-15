@@ -1,5 +1,4 @@
 import java.io.Console;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -18,9 +17,10 @@ public class BJackGame extends CardGame {
     }
 
     void playGame(){
-
         preGameInit(1);
-        while(deck.deckIndex < 26) {
+
+        boolean playAnotherHand = true;
+        while(playAnotherHand) {
             dealHands();
 
             // console object will be null if program is run from IDE
@@ -49,8 +49,8 @@ public class BJackGame extends CardGame {
                 }
             }
             // update the hand results based on blackjacks
-            for(BJackPlayer player : players){
-                for(BJackHand hand : player.hands){
+            for (BJackPlayer player : players) {
+                for (BJackHand hand : player.hands) {
                     setResultsPerBJacks(hand);
                 }
             }
@@ -79,18 +79,40 @@ public class BJackGame extends CardGame {
 
             // reinitialize all hands by getting new instances
             // for now, each player gets one hand
-            for(BJackPlayer player : playersPlusDealer){
+            for (BJackPlayer player : playersPlusDealer) {
                 player.hands.removeAll(player.hands);
                 BJackHand hand = new BJackHand();
                 player.hands.add(hand);
             }
             // reset dealerHand variable to the first hand of the last player
             dealerHand = dealer.hands.get(0);
+            if(deck.deckIndex > 26){
+                deck.shuffle();
+                System.out.println("Deck has been shuffled");
+            }
+            playAnotherHand = playAnotherHand();
         }
-        deck.shuffle();
-        System.out.println("Deck has been shuffled");
+        displayFinalResults();
+    }
 
-        System.out.println("end of demo message");
+    void displayFinalResults(){
+        for(BJackPlayer player : players){
+            System.out.println(player.toString() + " finished with $" + player.bankroll);
+        }
+    }
+
+    boolean playAnotherHand(){
+        Character inputChar = ioMgr.getApprovedInputChar(
+                "Enter 'p' to play another hand or 'q' to quit ",
+                'p', 'q');
+        if(inputChar == 'p'){
+            return true;
+        }
+        if(inputChar == 'q'){
+            return false;
+        }
+        assert(false);
+        return false;
     }
 
     void initializePlayers(int numPlayers){
@@ -209,30 +231,91 @@ public class BJackGame extends CardGame {
 
     boolean havePair(BJackHand hand){
         if(hand.cards.size() == 2) {
-            if (hand.cards.get(0).cardFace == hand.cards.get(1).cardFace) {
-                return true;
-            }
+            return hand.cards.get(0).cardFace == hand.cards.get(1).cardFace;
         }
         return false;
     }
 
-    void handlePair(BJackPlayer player, BJackHand hand){
-        //TODO: temporarily assumes that the player wants to split all pairs
+    boolean pairAces(BJackHand hand){
+        if(hand.cards.size() == 2) {
+            return hand.cards.get(0).cardFace == Card.CardFace.ACE &&
+                    hand.cards.get(1).cardFace == Card.CardFace.ACE;
+        }
+        return false;
+    }
+
+    boolean splitPair(){
+        displayActiveHands();
+        Character inputChar = ioMgr.getApprovedInputChar("Do you want to split the pair?" +
+                " 'y' for yes or 'n' for no ", 'y', 'n');
+        switch(inputChar) {
+            case 'y':
+                return true;
+            case 'n':
+            default : return false;
+        }
+    }
+
+    void handleSplit(BJackPlayer player, BJackHand hand){
         int handIndex = player.hands.indexOf(hand);
         BJackHand newHand = new BJackHand();
         Card pairCard =  hand.cards.get(1);
 
+        boolean pairAces = pairAces(hand);
         hand.cards.remove(pairCard);
-        //TODO: will only draw a card if the player splits the hand. Add this check
         //TODO: add logic to allow only 1 draw when aces are split
         hand.drawCard(deck);
         hand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
         player.hands.add(handIndex + 1, newHand);
         newHand.cards.add(pairCard);
         newHand.drawCard(deck);
-        //TODO: will only draw a card if the player splits the hand. Add this check
         newHand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
     }
+
+    boolean canPlayerHit(BJackHand hand){
+        if(hand.handAttribute == BJackHand.HandAttribute.SPLITHAND &&
+            hand.cards.get(0).cardFace == Card.CardFace.ACE){
+            return false;
+        }
+        return hand.handAttribute != BJackHand.HandAttribute.DOUBLEDOWN;
+    }
+
+    boolean haveDoubleDownHand(BJackHand hand){
+        if(hand.cards.size() == 2){
+            if(haveAce(hand)){
+                return hand.handAttribute != BJackHand.HandAttribute.SPLITHAND;
+            }
+            return 9 <= hand.getHandTotal() && hand.getHandTotal() <= 11;
+        }
+        return false;
+    }
+
+    boolean haveAce(BJackHand hand){
+        for(Card card : hand.cards){
+            if(card.cardFace == Card.CardFace.ACE){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean doubleDown(){
+        Character inputChar = ioMgr.getApprovedInputChar("Do you want to double down? " +
+                " 'y' for yes or 'n' for no ", 'y', 'n');
+        switch(inputChar) {
+            case 'y':
+                return true;
+            case 'n':
+            default : return false;
+        }
+    }
+
+    void handleDoubleDown(BJackHand hand){
+        hand.drawCard(deck);
+        hand.handAttribute = BJackHand.HandAttribute.DOUBLEDOWN;
+        hand.bet *= 2;
+    }
+
 
     //TODO: why is it printing twice sometimes, like after a dealer bust when playing 4 split hands
     void playHands(BJackPlayer player){
@@ -245,38 +328,47 @@ public class BJackGame extends CardGame {
                 if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
                     hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
                     if(havePair){
-                        handlePair(player, hand);
-                        // use displayActiveHands() instead of displayAllHands when the dealer
-                        // hole card should not yet be shown
-                        displayActiveHands();
-                        // have to start over now that the pair has been split
-                        playHands(player);
-                        // return once above recursive call completes execution,
-                        // since all hands have been played
-                        return;
-                    }
-                    char inputChar = 0;
-                    displayActiveHands();
-                    do {
-                        inputChar = ioMgr.getApprovedInputChar("Enter 'h' to hit or 's' to stick ", 'h', 's');
-                        switch (inputChar) {
-                            case 'h':
-                                hand.drawCard(deck);
-                                displayActiveHands();
-                                if (hand.getHandTotal() > 21) {
-                                    hand.handAttribute = BJackHand.HandAttribute.BUST;
-                                    setLoseForBust(hand);
-                                    displayActiveHands();
-                                }
-                                break;
-                            case 's':
-                                hand.handAttribute = BJackHand.HandAttribute.STICK;
-                                displayActiveHands();
-                                break;
-                            default:
-                                break;
+                        if(splitPair()) {
+                            handleSplit(player, hand);
+                            // have to start over now that the pair has been split
+                            playHands(player);
+                            // return once above recursive call completes execution,
+                            // since all hands have been played
+                            return;
                         }
-                    } while (inputChar != 's' && hand.handAttribute != BJackHand.HandAttribute.BUST);
+                    }
+                    displayActiveHands();
+                    if(haveDoubleDownHand(hand)){
+                        if(doubleDown()){
+                            handleDoubleDown(hand);
+                        }
+                    }
+                    if(canPlayerHit(hand)) {
+                        char inputChar = 0;
+                        do {
+                            inputChar = ioMgr.getApprovedInputChar(
+                                    "Enter 'h' to hit or 's' to stick ", 'h', 's');
+                            switch (inputChar) {
+                                case 'h':
+                                    hand.drawCard(deck);
+                                    // use displayActiveHands() instead of displayAllHands when the dealer
+                                    // hole card should not yet be shown
+                                    displayActiveHands();
+                                    if (hand.getHandTotal() > 21) {
+                                        hand.handAttribute = BJackHand.HandAttribute.BUST;
+                                        setLoseForBust(hand);
+                                        displayActiveHands();
+                                    }
+                                    break;
+                                case 's':
+                                    hand.handAttribute = BJackHand.HandAttribute.STICK;
+                                    displayActiveHands();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } while (inputChar != 's' && hand.handAttribute != BJackHand.HandAttribute.BUST);
+                    }
                 }
                 hand.playingThis = false;
             }

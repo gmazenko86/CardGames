@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class IOManager {
@@ -7,7 +6,7 @@ public class IOManager {
     Character getApprovedInputChar(String inputString, char... array){
         System.out.print(inputString);
 
-        int arrayIndex = 0;
+        boolean foundChar = false;
         Character returnChar = null;
 
         do {
@@ -16,18 +15,24 @@ public class IOManager {
                 System.in.read(bytes);
                 // only interested in the first character input by the user
                 returnChar = Character.valueOf((char) bytes[0]);
-                // now ignore everything else. fill the byte array with zeros
-                Arrays.fill(bytes, (byte) 0x0);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            // Arrays.binarySearch() will return < 0 if the char was not found
-            arrayIndex = Arrays.binarySearch(array, Character.valueOf(returnChar));
-            if (arrayIndex < 0) {
+            foundChar = arrayContains(returnChar, array);
+            if (!foundChar) {
                 System.out.print("Invalid input: " + inputString);
             }
-        } while(arrayIndex < 0);
+        } while(!foundChar);
         assert (Objects.nonNull(returnChar));
         return returnChar;
+    }
+
+    boolean arrayContains(char toCheck, char[] array){
+        for(char character : array){
+            if(character == toCheck){
+                return true;
+            }
+        }
+        return false;
     }
 }

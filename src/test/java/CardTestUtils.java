@@ -40,7 +40,6 @@ public class CardTestUtils {
         Pattern pattern1 = Pattern.compile("[0-9]+");
         // then find the card face and suit. Same regex works for both
         Pattern pattern2 = Pattern.compile("[A-Z]+");
-        Pattern pattern3 = pattern2;
 
         for(String inputLine : inputLines){
             Deck refDeck = new Deck();
@@ -52,7 +51,7 @@ public class CardTestUtils {
                 if(matcher2.find()){
                     String token2 = matcher2.group();
                     String substring2 = RegExUtils.removeFirst(substring1,pattern2);
-                    Matcher matcher3 = pattern3.matcher(substring2);
+                    Matcher matcher3 = pattern2.matcher(substring2);
                     if(matcher3.find()){
                         String token3 = matcher3.group();
                         Integer treeMapKey = Integer.valueOf(token1);
