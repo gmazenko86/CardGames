@@ -17,11 +17,6 @@ public class BJackGameTest extends BJackGame{
         System.out.println("Deck integrity is good == " + deckGood);
     }
 
-    boolean assertPrint(String string){
-        System.out.println(string);
-        return true;
-    }
-
     @Override
     void preGameInit(int numPlayers) {
         super.preGameInit(numPlayers);

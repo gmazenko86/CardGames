@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CardTestUtils {
-    static public boolean fixDeck(Deck deck, TreeMap<Integer, Card> seedCards) {
+    static public void fixDeck(Deck deck, TreeMap<Integer, Card> seedCards) {
         // first, remove the seed cards from the existing deck so they are not duplicated
             // note that the cards in seedCards != the cards in deck since they are different
             // objects and have different addresses. Have to check for equal contents and
@@ -28,7 +28,6 @@ public class CardTestUtils {
 
         // now add the seed cards to the deck in the spots defined by the TreeMap keys
         seedCards.forEach((k, v) -> deck.cards.add(k, v));
-        return checkDeckIntegrity(deck);
     }
 
     static public TreeMap<Integer, Card> fixDeckEntries(String filePath) {
@@ -96,6 +95,14 @@ public class CardTestUtils {
         }
         // list will be empty if each card was in the deck 1 and only 1 time
         return swapList.isEmpty();
+    }
+
+    static public void displayDeck(Deck deck){
+        for (Card card : deck.cards) {
+            card.displayCardSignature();
+            System.out.print("| ");
+        }
+        System.out.println("\n");
     }
 
     //TODO: this is duplicated from DbaseDemo.java. Build a reusable library

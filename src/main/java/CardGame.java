@@ -2,8 +2,8 @@ import java.util.*;
 import java.util.stream.LongStream;
 
 public class CardGame {
-    Deck deck;
-    IOManager ioMgr;
+    final Deck deck;
+    final IOManager ioMgr;
 
     CardGame(){
         this.deck = new Deck();

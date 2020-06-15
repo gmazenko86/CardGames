@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class BJackGame extends CardGame {
 
-    ArrayList<BJackPlayer> players;
-    BJackPlayer dealer;
+    final ArrayList<BJackPlayer> players;
+    final BJackPlayer dealer;
     BJackHand dealerHand;
 
     BJackGame(){
@@ -32,12 +32,6 @@ public class BJackGame extends CardGame {
                 PrintWriter writer = console.writer();
                 writer.println("Print console object using PrintWriter.println " + console.toString());
             }
-
-            for (Card card : deck.cards) {
-                card.displayCardSignature();
-                System.out.print("| ");
-            }
-            System.out.println("\n");
 
             // need an array list of players plus the dealer
             // update hand attributes based on blackjacks
@@ -111,7 +105,7 @@ public class BJackGame extends CardGame {
         if(inputChar == 'q'){
             return false;
         }
-        assert(false);
+        assert(false) : assertPrint("Corrupted input in playAnotherHand()");
         return false;
     }
 
@@ -209,7 +203,7 @@ public class BJackGame extends CardGame {
             } else if(hand.handResult == BJackHand.HandResult.PUSH){
                 printBlueText(" -----Player result = " + hand.handResult.name());
             }
-            else{ assert(false);}
+            else{ assert(false): assertPrint("Incorrect handResult");}
         }
         System.out.println();
     }
@@ -223,25 +217,6 @@ public class BJackGame extends CardGame {
         printYellowText(" Dealer Showing " + upCard.getCardValue());
         System.out.println();
         System.out.println();
-    }
-
-    void displayInputRequest(){
-        System.out.print("Enter 'h' to hit or 's' to stick ");
-    }
-
-    boolean havePair(BJackHand hand){
-        if(hand.cards.size() == 2) {
-            return hand.cards.get(0).cardFace == hand.cards.get(1).cardFace;
-        }
-        return false;
-    }
-
-    boolean pairAces(BJackHand hand){
-        if(hand.cards.size() == 2) {
-            return hand.cards.get(0).cardFace == Card.CardFace.ACE &&
-                    hand.cards.get(1).cardFace == Card.CardFace.ACE;
-        }
-        return false;
     }
 
     boolean splitPair(){
@@ -261,7 +236,7 @@ public class BJackGame extends CardGame {
         BJackHand newHand = new BJackHand();
         Card pairCard =  hand.cards.get(1);
 
-        boolean pairAces = pairAces(hand);
+        boolean pairAces = hand.pairAces();
         hand.cards.remove(pairCard);
         //TODO: add logic to allow only 1 draw when aces are split
         hand.drawCard(deck);
@@ -270,33 +245,6 @@ public class BJackGame extends CardGame {
         newHand.cards.add(pairCard);
         newHand.drawCard(deck);
         newHand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
-    }
-
-    boolean canPlayerHit(BJackHand hand){
-        if(hand.handAttribute == BJackHand.HandAttribute.SPLITHAND &&
-            hand.cards.get(0).cardFace == Card.CardFace.ACE){
-            return false;
-        }
-        return hand.handAttribute != BJackHand.HandAttribute.DOUBLEDOWN;
-    }
-
-    boolean haveDoubleDownHand(BJackHand hand){
-        if(hand.cards.size() == 2){
-            if(haveAce(hand)){
-                return hand.handAttribute != BJackHand.HandAttribute.SPLITHAND;
-            }
-            return 9 <= hand.getHandTotal() && hand.getHandTotal() <= 11;
-        }
-        return false;
-    }
-
-    boolean haveAce(BJackHand hand){
-        for(Card card : hand.cards){
-            if(card.cardFace == Card.CardFace.ACE){
-                return true;
-            }
-        }
-        return false;
     }
 
     boolean doubleDown(){
@@ -310,20 +258,13 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void handleDoubleDown(BJackHand hand){
-        hand.drawCard(deck);
-        hand.handAttribute = BJackHand.HandAttribute.DOUBLEDOWN;
-        hand.bet *= 2;
-    }
-
-
     //TODO: why is it printing twice sometimes, like after a dealer bust when playing 4 split hands
     void playHands(BJackPlayer player){
         for(BJackHand hand: player.hands) {
             if(hand.handResult == BJackHand.HandResult.PENDING &&
                 hand.handAttribute != BJackHand.HandAttribute.BLACKJACK) {
                 hand.playingThis = true;
-                boolean havePair = havePair(hand);
+                boolean havePair = hand.havePair();
                 System.out.println("have pair = " + havePair);
                 if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
                     hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
@@ -338,12 +279,12 @@ public class BJackGame extends CardGame {
                         }
                     }
                     displayActiveHands();
-                    if(haveDoubleDownHand(hand)){
+                    if(hand.checkDoubleDown()){
                         if(doubleDown()){
-                            handleDoubleDown(hand);
+                            hand.handleDoubleDown(deck);
                         }
                     }
-                    if(canPlayerHit(hand)) {
+                    if(hand.canHit()) {
                         char inputChar = 0;
                         do {
                             inputChar = ioMgr.getApprovedInputChar(
@@ -356,7 +297,7 @@ public class BJackGame extends CardGame {
                                     displayActiveHands();
                                     if (hand.getHandTotal() > 21) {
                                         hand.handAttribute = BJackHand.HandAttribute.BUST;
-                                        setLoseForBust(hand);
+                                        hand.setLoseForBust();
                                         displayActiveHands();
                                     }
                                     break;
@@ -407,36 +348,9 @@ public class BJackGame extends CardGame {
     void setPlayerHandResults(){
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
-                setLoseForBust(hand);
-                setWinForDealerBust(hand, dealerHand);
-                setResultPerTotals(hand);
-            }
-        }
-    }
-
-    void setLoseForBust(BJackHand hand){
-        if(hand.handAttribute == BJackHand.HandAttribute.BUST){
-            hand.handResult = BJackHand.HandResult.LOSE;
-        }
-    }
-
-    void setWinForDealerBust(BJackHand playerHand, BJackHand dealerHand){
-        if(dealerHand.handAttribute == BJackHand.HandAttribute.BUST &&
-            playerHand.handResult == BJackHand.HandResult.PENDING){
-            playerHand.handResult = BJackHand.HandResult.WIN;
-        }
-    }
-
-    void setResultPerTotals(BJackHand hand){
-        int dealerTotal = dealerHand.getHandTotal();
-        int playerTotal = hand.getHandTotal();
-        if(hand.handResult == BJackHand.HandResult.PENDING) {
-            if (playerTotal == dealerTotal) {
-                hand.handResult = BJackHand.HandResult.PUSH;
-            } else if (playerTotal > dealerTotal) {
-                hand.handResult = BJackHand.HandResult.WIN;
-            } else {
-                hand.handResult = BJackHand.HandResult.LOSE;
+                hand.setLoseForBust();
+                hand.setWinForDealerBust(dealerHand);
+                hand.setResultPerTotals(dealerHand);
             }
         }
     }
@@ -458,7 +372,8 @@ public class BJackGame extends CardGame {
     void payAndCollect(){
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
-                assert(hand.handResult != BJackHand.HandResult.PENDING);
+                assert(hand.handResult != BJackHand.HandResult.PENDING) :
+                        assertPrint("handResult should not still be PENDING");
                 if(hand.handResult == BJackHand.HandResult.LOSE){
                     player.bankroll -= hand.bet;
                 }
@@ -502,5 +417,10 @@ public class BJackGame extends CardGame {
         System.out.print("\033[34m"); // This turns the text to Blue
         System.out.print(str);
         System.out.print("\033[0m"); // This resets the text back to default
+    }
+
+    boolean assertPrint(String string){
+        System.out.println(string);
+        return true;
     }
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class Deck {
-    ArrayList<Card> cards;
+    final ArrayList<Card> cards;
     int deckIndex;
 
     Deck(){
