@@ -7,10 +7,14 @@ public class CardGameTest {
     public static void main(String... args){
         String fixDeckFilePath = "src/test/resources/fix65244.txt";
         String fixDeckFilePath2 = "src/test/resources/fixA__J.txt";
-//        BJackGameTest bJackGameTest = new BJackGameTest();
+        BJackGameTest bJackGameTest = new BJackGameTest();
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath);
-        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
+//        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
         bJackGameTest.playGame();
+
+//        IOManager ioMgr = new IOManager();
+//        Character inputChar = ioMgr.getApprovedInputChar("Enter 'h' to hit or 's' to stick  " , 'h', 's');
+//        System.out.println("the input character is " + inputChar);
 
 /*
         boolean goodDeck;

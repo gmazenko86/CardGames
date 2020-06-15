@@ -55,12 +55,6 @@ public class BJackGame extends CardGame {
                 }
             }
 
-            // use displayActiveHands() instead of displayAllHands when the dealer
-            // hole card should not yet be shown
-            // set the active flag on the first hand of the first player
-//            players.get(0).hands.get(0).playingThis = true;
-//            displayActiveHands();
-
             boolean dealerBlackJack = dealerHasBJack();
 
             if (!dealerBlackJack) {
@@ -252,6 +246,8 @@ public class BJackGame extends CardGame {
                     hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
                     if(havePair){
                         handlePair(player, hand);
+                        // use displayActiveHands() instead of displayAllHands when the dealer
+                        // hole card should not yet be shown
                         displayActiveHands();
                         // have to start over now that the pair has been split
                         playHands(player);
@@ -261,33 +257,24 @@ public class BJackGame extends CardGame {
                     }
                     char inputChar = 0;
                     displayActiveHands();
-                    displayInputRequest();
                     do {
-                        try {
-                            byte[] bytes = new byte[1];
-                            System.in.read(bytes);
-                            inputChar = (char) bytes[0];
-                            switch (inputChar) {
-                                case 'h':
-                                    hand.drawCard(deck);
+                        inputChar = ioMgr.getApprovedInputChar("Enter 'h' to hit or 's' to stick ", 'h', 's');
+                        switch (inputChar) {
+                            case 'h':
+                                hand.drawCard(deck);
+                                displayActiveHands();
+                                if (hand.getHandTotal() > 21) {
+                                    hand.handAttribute = BJackHand.HandAttribute.BUST;
+                                    setLoseForBust(hand);
                                     displayActiveHands();
-                                    if (hand.getHandTotal() > 21) {
-                                        hand.handAttribute = BJackHand.HandAttribute.BUST;
-                                        setLoseForBust(hand);
-                                        displayActiveHands();
-                                    } else {
-                                        displayInputRequest();
-                                    }
-                                    break;
-                                case 's':
-                                    hand.handAttribute = BJackHand.HandAttribute.STICK;
-                                    displayActiveHands();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                                }
+                                break;
+                            case 's':
+                                hand.handAttribute = BJackHand.HandAttribute.STICK;
+                                displayActiveHands();
+                                break;
+                            default:
+                                break;
                         }
                     } while (inputChar != 's' && hand.handAttribute != BJackHand.HandAttribute.BUST);
                 }

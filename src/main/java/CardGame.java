@@ -3,10 +3,12 @@ import java.util.stream.LongStream;
 
 public class CardGame {
     Deck deck;
+    IOManager ioMgr;
 
     CardGame(){
         this.deck = new Deck();
         this.deck.shuffle();
+        this.ioMgr = new IOManager();
     }
 
     public static void main(String... args){
