@@ -45,7 +45,7 @@ public class BJackGame extends CardGame {
             // update the hand results based on blackjacks
             for (BJackPlayer player : players) {
                 for (BJackHand hand : player.hands) {
-                    setResultsPerBJacks(hand);
+                    hand.setResultPerBJacks(dealerHand);
                 }
             }
 
@@ -181,8 +181,8 @@ public class BJackGame extends CardGame {
     void displayHand(BJackHand hand){
         for(Card card: hand.cards){
             if (hand.playingThis){
-                printBlueText(card.getCardSignature());
-                printBlueText(" | ");
+                IOManager.printBlueText(card.getCardSignature());
+                IOManager.printBlueText(" | ");
             } else{
                 card.displayCardSignature();
                 System.out.print(" | ");
@@ -196,18 +196,18 @@ public class BJackGame extends CardGame {
         System.out.print("Total is " + hand.getHandTotal());
 
         if(hand.handAttribute == BJackHand.HandAttribute.BUST){
-            printRedText(" ::: BUST");
+            IOManager.printRedText(" ::: BUST");
         }
         if(hand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
-            printGreenText(" ::: BLACKJACK");
+            IOManager.printGreenText(" ::: BLACKJACK");
         }
         if(printResults){
             if(hand.handResult == BJackHand.HandResult.WIN){
-                printGreenText(" -----Player result = " + hand.handResult.name());
+                IOManager.printGreenText(" -----Player result = " + hand.handResult.name());
             } else if(hand.handResult == BJackHand.HandResult.LOSE){
-                printRedText(" -----Player result = " + hand.handResult.name());
+                IOManager.printRedText(" -----Player result = " + hand.handResult.name());
             } else if(hand.handResult == BJackHand.HandResult.PUSH){
-                printBlueText(" -----Player result = " + hand.handResult.name());
+                IOManager.printBlueText(" -----Player result = " + hand.handResult.name());
             }
             else{ assert(false): assertPrint("Incorrect handResult");}
         }
@@ -216,11 +216,11 @@ public class BJackGame extends CardGame {
 
     void displayDealerUpCard(BJackHand hand){
         Card upCard = hand.cards.get(0);
-        printYellowText(upCard.getCardSignature());
-        printYellowText(" | ");
-        printYellowText("X".repeat(10));
-        printYellowText(" | ");
-        printYellowText(" Dealer Showing " + upCard.getCardValue());
+        IOManager.printYellowText(upCard.getCardSignature());
+        IOManager.printYellowText(" | ");
+        IOManager.printYellowText("X".repeat(10));
+        IOManager.printYellowText(" | ");
+        IOManager.printYellowText(" Dealer Showing " + upCard.getCardValue());
         System.out.println();
         System.out.println();
     }
@@ -348,20 +348,6 @@ public class BJackGame extends CardGame {
         return (dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK);
     }
 
-    void setResultsPerBJacks(BJackHand playerHand){
-        if(dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
-            if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
-                playerHand.handResult = BJackHand.HandResult.PUSH;
-            } else {
-                playerHand.handResult = BJackHand.HandResult.LOSE;
-            }
-        }
-        if(playerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK &&
-                dealerHand.handAttribute != BJackHand.HandAttribute.BLACKJACK){
-            playerHand.handResult = BJackHand.HandResult.WIN;
-        }
-    }
-
     void payAndCollect(){
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
@@ -385,31 +371,6 @@ public class BJackGame extends CardGame {
         for (BJackPlayer player : players){
             System.out.println(player.toString() + " bankroll = " + player.bankroll);
         }
-    }
-
-    //TODO: DbaseExercises contains printlnBlue and printlnYellow. Build a reusable library
-    public void printRedText(String str){
-        System.out.print("\033[31m"); // This turns the text to red
-        System.out.print(str);
-        System.out.print("\033[0m"); // This resets the text back to default
-    }
-
-    public void printYellowText(String str){
-        System.out.print("\033[33m"); // This turns the text to Yellow
-        System.out.print(str);
-        System.out.print("\033[0m"); // This resets the text back to default
-    }
-
-    public void printGreenText(String str){
-        System.out.print("\033[32m"); // This turns the text to Green
-        System.out.print(str);
-        System.out.print("\033[0m"); // This resets the text back to default
-    }
-
-    public void printBlueText(String str){
-        System.out.print("\033[34m"); // This turns the text to Blue
-        System.out.print(str);
-        System.out.print("\033[0m"); // This resets the text back to default
     }
 
     boolean assertPrint(String string){

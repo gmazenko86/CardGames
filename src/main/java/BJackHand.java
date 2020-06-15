@@ -103,4 +103,18 @@ public class BJackHand extends Hand{
         }
     }
 
+    void setResultPerBJacks(BJackHand dealerHand){
+        if(dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
+            if(this.handAttribute == BJackHand.HandAttribute.BLACKJACK){
+                this.handResult = BJackHand.HandResult.PUSH;
+            } else {
+                this.handResult = BJackHand.HandResult.LOSE;
+            }
+        }
+        if(this.handAttribute == BJackHand.HandAttribute.BLACKJACK &&
+                dealerHand.handAttribute != BJackHand.HandAttribute.BLACKJACK){
+            this.handResult = BJackHand.HandResult.WIN;
+        }
+    }
+
 }
