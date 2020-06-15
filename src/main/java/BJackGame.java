@@ -56,7 +56,7 @@ public class BJackGame extends CardGame {
                     playHands(player);
                 }
             } else {
-                setPlayerHandResults();
+                setAllPlayerHandResults(dealerHand);
                 displayAllHands();
             }
 
@@ -65,7 +65,7 @@ public class BJackGame extends CardGame {
                 playDealerHand();
             }
 
-            setPlayerHandResults();
+            setAllPlayerHandResults(dealerHand);
             displayResults();
             payAndCollect();
             displayPlayerBankrolls();
@@ -87,6 +87,12 @@ public class BJackGame extends CardGame {
             playAnotherHand = playAnotherHand();
         }
         displayFinalResults();
+    }
+
+    void setAllPlayerHandResults(BJackHand dealerHand){
+        for(BJackPlayer player : players){
+            player.setPlayerHandResults(dealerHand);
+        }
     }
 
     void displayFinalResults(){
@@ -258,7 +264,6 @@ public class BJackGame extends CardGame {
         }
     }
 
-    //TODO: why is it printing twice sometimes, like after a dealer bust when playing 4 split hands
     void playHands(BJackPlayer player){
         for(BJackHand hand: player.hands) {
             if(hand.handResult == BJackHand.HandResult.PENDING &&
@@ -332,10 +337,8 @@ public class BJackGame extends CardGame {
 
     boolean anyActivePlayerHands(){
         for(BJackPlayer player : players) {
-            for (BJackHand hand : player.hands) {
-                if (hand.handResult == BJackHand.HandResult.PENDING) {
-                    return true;
-                }
+            if(player.anyActiveHands()){
+                return true;
             }
         }
         return false;
@@ -343,16 +346,6 @@ public class BJackGame extends CardGame {
 
     boolean dealerHasBJack(){
         return (dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK);
-    }
-
-    void setPlayerHandResults(){
-        for(BJackPlayer player : players){
-            for(BJackHand hand : player.hands){
-                hand.setLoseForBust();
-                hand.setWinForDealerBust(dealerHand);
-                hand.setResultPerTotals(dealerHand);
-            }
-        }
     }
 
     void setResultsPerBJacks(BJackHand playerHand){

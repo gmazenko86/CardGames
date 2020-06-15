@@ -11,4 +11,21 @@ public class BJackPlayer extends Player{
         this.bankroll = 2000.;
     }
 
+    void setPlayerHandResults(BJackHand dealerHand){
+        for(BJackHand hand : this.hands){
+            hand.setLoseForBust();
+            hand.setWinForDealerBust(dealerHand);
+            hand.setResultPerTotals(dealerHand);
+        }
+    }
+
+    boolean anyActiveHands(){
+        for (BJackHand hand : this.hands) {
+            if (hand.handResult == BJackHand.HandResult.PENDING) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

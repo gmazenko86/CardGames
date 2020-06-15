@@ -22,19 +22,9 @@
     <list default="true" id="e526b875-725e-403c-aad6-c9857a734d25" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BJackHand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackHand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Hand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/BJackGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/BJackGameTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/CardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardGameTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/CardTestUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardTestUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/fixA__J.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BJackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/CardTestUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardTestUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/fixA__J.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BJackPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackPlayer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +144,21 @@
       <option name="project" value="LOCAL" />
       <updated>1592245541483</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="intermediate check in while refactoring">
+      <created>1592254590043</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1592254590043</updated>
+    </task>
+    <task id="LOCAL-00011" summary="intermediate check in while refactoring">
+      <created>1592254595418</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1592254595418</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -174,7 +178,8 @@
     <MESSAGE value="bug fix related to splitting pairs" />
     <MESSAGE value="added IO manager and streamlined pairs functionality" />
     <MESSAGE value="added double down, stop game option, and split pair fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="added double down, stop game option, and split pair fixes" />
+    <MESSAGE value="intermediate check in while refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="intermediate check in while refactoring" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1081" y="287" key="#xdebugger.evaluate" timestamp="1592234727755">
@@ -185,22 +190,22 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="675" y="363" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592248550815" />
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592254188616">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592255412314">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592254188616" />
-    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592254188616">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592255412314" />
+    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592255412313">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592254188616" />
-    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592254188616">
+    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592255412313" />
+    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592255412313">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592254188616" />
-    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592254188616">
+    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592255412313" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592255412313">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592254188616" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592255412313" />
     <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592235839227">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -243,12 +248,12 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>265</line>
+          <line>271</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>175</line>
+          <line>181</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
