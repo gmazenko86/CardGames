@@ -160,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592254595418</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="intermediate check in while refactoring">
+      <created>1592261282876</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1592261282876</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -188,26 +195,26 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="1081" y="287" key="#xdebugger.evaluate/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592234727755" />
-    <state x="675" y="363" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592248550815">
+    <state x="675" y="363" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1592261526615">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="675" y="363" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592248550815" />
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592260983408">
+    <state x="675" y="363" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592261526615" />
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592262120696">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592260983408" />
-    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592260983408">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592262120696" />
+    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592262120696">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592260983408" />
-    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592260983408">
+    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592262120696" />
+    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592262120696">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592260983408" />
-    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592260983408">
+    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592262120696" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592262120696">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592260983408" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592262120696" />
     <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592235839227">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -250,13 +257,8 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>271</line>
+          <line>235</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>181</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

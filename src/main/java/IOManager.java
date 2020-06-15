@@ -6,7 +6,7 @@ public class IOManager {
     Character getApprovedInputChar(String inputString, char... array){
         System.out.print(inputString);
 
-        boolean foundChar = false;
+        boolean foundChar;
         Character returnChar = null;
 
         do {

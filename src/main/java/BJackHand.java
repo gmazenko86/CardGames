@@ -117,4 +117,39 @@ public class BJackHand extends Hand{
         }
     }
 
+    void displayHand(){
+        for(Card card: this.cards){
+            if (this.playingThis){
+                IOManager.printBlueText(card.getCardSignature());
+                IOManager.printBlueText(" | ");
+            } else{
+                card.displayCardSignature();
+                System.out.print(" | ");
+            }
+        }
+        System.out.print("");
+    }
+
+    void displayHandWithTotal(boolean printResults){
+        displayHand();
+        System.out.print("Total is " + getHandTotal());
+
+        if(handAttribute == BJackHand.HandAttribute.BUST){
+            IOManager.printRedText(" ::: BUST");
+        }
+        if(handAttribute == BJackHand.HandAttribute.BLACKJACK){
+            IOManager.printGreenText(" ::: BLACKJACK");
+        }
+        if(printResults){
+            if(handResult == BJackHand.HandResult.WIN){
+                IOManager.printGreenText(" -----Player result = " + handResult.name());
+            } else if(handResult == BJackHand.HandResult.LOSE){
+                IOManager.printRedText(" -----Player result = " + handResult.name());
+            } else if(handResult == BJackHand.HandResult.PUSH){
+                IOManager.printBlueText(" -----Player result = " + handResult.name());
+            }
+            else{ assert(false);}
+        }
+        System.out.println();
+    }
 }

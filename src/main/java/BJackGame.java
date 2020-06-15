@@ -149,10 +149,10 @@ public class BJackGame extends CardGame {
             for (BJackHand hand : BJackPlayer.hands) {
                 if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
                     hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
-                    displayHand(hand);
+                    hand.displayHand();
                     System.out.println();
                 } else{
-                    displayHandWithTotal(hand, false);
+                    hand.displayHandWithTotal(false);
                 }
             }
         }
@@ -160,58 +160,22 @@ public class BJackGame extends CardGame {
 
     void displayAllHands(){
         System.out.println("*".repeat(40));
-        displayHandWithTotal(dealerHand, false);
+        dealerHand.displayHandWithTotal(false);
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
-                displayHandWithTotal(hand, false);
+                hand.displayHandWithTotal(false);
             }
         }
     }
 
     void displayResults(){
         System.out.println("*".repeat(40));
-        displayHandWithTotal(dealerHand, false);
+        dealerHand.displayHandWithTotal(false);
         for(BJackPlayer player : players){
             for(BJackHand hand: player.hands){
-                displayHandWithTotal(hand, true);
+                hand.displayHandWithTotal(true);
             }
         }
-    }
-
-    void displayHand(BJackHand hand){
-        for(Card card: hand.cards){
-            if (hand.playingThis){
-                IOManager.printBlueText(card.getCardSignature());
-                IOManager.printBlueText(" | ");
-            } else{
-                card.displayCardSignature();
-                System.out.print(" | ");
-            }
-        }
-        System.out.print("");
-    }
-
-    void displayHandWithTotal(BJackHand hand, boolean printResults){
-        displayHand(hand);
-        System.out.print("Total is " + hand.getHandTotal());
-
-        if(hand.handAttribute == BJackHand.HandAttribute.BUST){
-            IOManager.printRedText(" ::: BUST");
-        }
-        if(hand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
-            IOManager.printGreenText(" ::: BLACKJACK");
-        }
-        if(printResults){
-            if(hand.handResult == BJackHand.HandResult.WIN){
-                IOManager.printGreenText(" -----Player result = " + hand.handResult.name());
-            } else if(hand.handResult == BJackHand.HandResult.LOSE){
-                IOManager.printRedText(" -----Player result = " + hand.handResult.name());
-            } else if(hand.handResult == BJackHand.HandResult.PUSH){
-                IOManager.printBlueText(" -----Player result = " + hand.handResult.name());
-            }
-            else{ assert(false): assertPrint("Incorrect handResult");}
-        }
-        System.out.println();
     }
 
     void displayDealerUpCard(BJackHand hand){
@@ -290,7 +254,7 @@ public class BJackGame extends CardGame {
                         }
                     }
                     if(hand.canHit()) {
-                        char inputChar = 0;
+                        char inputChar;
                         do {
                             inputChar = ioMgr.getApprovedInputChar(
                                     "Enter 'h' to hit or 's' to stick ", 'h', 's');
