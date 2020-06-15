@@ -208,7 +208,6 @@ public class BJackGame extends CardGame {
 
         boolean pairAces = hand.pairAces();
         hand.cards.remove(pairCard);
-        //TODO: add logic to allow only 1 draw when aces are split
         hand.drawCard(deck);
         hand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
         player.hands.add(handIndex + 1, newHand);
