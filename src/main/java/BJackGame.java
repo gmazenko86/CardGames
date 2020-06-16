@@ -49,7 +49,7 @@ public class BJackGame extends CardGame {
                 }
             }
 
-            boolean dealerBlackJack = dealerHasBJack();
+            boolean dealerBlackJack = dealerHand.haveBJack();
 
             if (!dealerBlackJack) {
                 for (BJackPlayer player : this.players) {
@@ -144,11 +144,10 @@ public class BJackGame extends CardGame {
 
     void displayActiveHands(){
         System.out.println("*".repeat(40));
-        displayDealerUpCard(dealerHand);
+        dealerHand.displayDealerUpCard();
         for (BJackPlayer BJackPlayer : this.players) {
             for (BJackHand hand : BJackPlayer.hands) {
-                if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
-                    hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
+                if(hand.notPlayed() || hand.isSplitHand()){
                     hand.displayHand();
                     System.out.println();
                 } else{
@@ -178,29 +177,6 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void displayDealerUpCard(BJackHand hand){
-        Card upCard = hand.cards.get(0);
-        IOManager.printYellowText(upCard.getCardSignature());
-        IOManager.printYellowText(" | ");
-        IOManager.printYellowText("X".repeat(10));
-        IOManager.printYellowText(" | ");
-        IOManager.printYellowText(" Dealer Showing " + upCard.getCardValue());
-        System.out.println();
-        System.out.println();
-    }
-
-    boolean splitPair(){
-        displayActiveHands();
-        Character inputChar = ioMgr.getApprovedInputChar("Do you want to split the pair?" +
-                " 'y' for yes or 'n' for no ", 'y', 'n');
-        switch(inputChar) {
-            case 'y':
-                return true;
-            case 'n':
-            default : return false;
-        }
-    }
-
     void handleSplit(BJackPlayer player, BJackHand hand){
         int handIndex = player.hands.indexOf(hand);
         BJackHand newHand = new BJackHand();
@@ -209,35 +185,21 @@ public class BJackGame extends CardGame {
         boolean pairAces = hand.pairAces();
         hand.cards.remove(pairCard);
         hand.drawCard(deck);
-        hand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
+        hand.setSplit();
         player.hands.add(handIndex + 1, newHand);
         newHand.cards.add(pairCard);
         newHand.drawCard(deck);
-        newHand.handAttribute = BJackHand.HandAttribute.SPLITHAND;
-    }
-
-    boolean doubleDown(){
-        Character inputChar = ioMgr.getApprovedInputChar("Do you want to double down? " +
-                " 'y' for yes or 'n' for no ", 'y', 'n');
-        switch(inputChar) {
-            case 'y':
-                return true;
-            case 'n':
-            default : return false;
-        }
+        newHand.setSplit();
     }
 
     void playHands(BJackPlayer player){
         for(BJackHand hand: player.hands) {
-            if(hand.handResult == BJackHand.HandResult.PENDING &&
-                hand.handAttribute != BJackHand.HandAttribute.BLACKJACK) {
-                hand.playingThis = true;
-                boolean havePair = hand.havePair();
-                System.out.println("have pair = " + havePair);
-                if(hand.handAttribute == BJackHand.HandAttribute.NONE ||
-                    hand.handAttribute == BJackHand.HandAttribute.SPLITHAND){
-                    if(havePair){
-                        if(splitPair()) {
+            if(hand.resultPending() && (!hand.haveBJack())){
+                hand.setPlaying(true);
+                if(hand.notPlayed() || hand.isSplitHand()){
+                    if(hand.havePair()){
+                        displayActiveHands();
+                        if(hand.splitPair()) {
                             handleSplit(player, hand);
                             // have to start over now that the pair has been split
                             playHands(player);
@@ -248,7 +210,7 @@ public class BJackGame extends CardGame {
                     }
                     displayActiveHands();
                     if(hand.checkDoubleDown()){
-                        if(doubleDown()){
+                        if(hand.doubleDown()){
                             hand.handleDoubleDown(deck);
                         }
                     }
@@ -264,22 +226,22 @@ public class BJackGame extends CardGame {
                                     // hole card should not yet be shown
                                     displayActiveHands();
                                     if (hand.getHandTotal() > 21) {
-                                        hand.handAttribute = BJackHand.HandAttribute.BUST;
+                                        hand.setBust();
                                         hand.setLoseForBust();
                                         displayActiveHands();
                                     }
                                     break;
                                 case 's':
-                                    hand.handAttribute = BJackHand.HandAttribute.STICK;
+                                    hand.setStick();
                                     displayActiveHands();
                                     break;
                                 default:
                                     break;
                             }
-                        } while (inputChar != 's' && hand.handAttribute != BJackHand.HandAttribute.BUST);
+                        } while (inputChar != 's' && (!hand.isBust()));
                     }
                 }
-                hand.playingThis = false;
+                hand.setPlaying(false);
             }
         }
     }
@@ -307,10 +269,7 @@ public class BJackGame extends CardGame {
         return false;
     }
 
-    boolean dealerHasBJack(){
-        return (dealerHand.handAttribute == BJackHand.HandAttribute.BLACKJACK);
-    }
-
+    //TODO: refactor this so it does not directly access hand enums
     void payAndCollect(){
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
