@@ -167,7 +167,7 @@ public class BJackHand extends Hand{
         }
     }
 
-    void displayHand(){
+    protected void displayHand(){
         for(Card card: this.cards){
             if (this.playingThis){
                 IOManager.printBlueText(card.getCardSignature());
@@ -180,7 +180,7 @@ public class BJackHand extends Hand{
         System.out.print("");
     }
 
-    void displayHandWithTotal(boolean printResults){
+    protected void displayHandWithTotal(boolean printResults){
         displayHand();
         System.out.print("Total is " + getHandTotal());
 
@@ -203,7 +203,7 @@ public class BJackHand extends Hand{
         System.out.println();
     }
 
-    void displayDealerUpCard(){
+    protected void displayDealerUpCard(){
         Card upCard = this.cards.get(0);
         IOManager.printYellowText(upCard.getCardSignature());
         IOManager.printYellowText(" | ");

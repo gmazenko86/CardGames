@@ -9,7 +9,7 @@ class Card {
         return this.cardFace.name() + " " + this.suit.name();
     }
 
-    void displayCardSignature(){
+    protected void displayCardSignature(){
         System.out.print(getCardSignature());
     }
 

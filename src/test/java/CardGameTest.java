@@ -10,11 +10,15 @@ import static org.apache.commons.lang3.StringUtils.getDigits;
 public class CardGameTest {
     public static void main(String... args){
 //        String fixDeckFilePath = "src/test/resources/fix65244.txt";
-        String fixDeckFilePath2 = "src/test/resources/fixA__J.txt";
-        BJackGameTest bJackGameTest = new BJackGameTest();
+//        String fixDeckFilePath2 = "src/test/resources/fixA__J.txt";
+//        BJackGameTest bJackGameTest = new BJackGameTest();
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath);
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
-        bJackGameTest.playGame();
+//        bJackGameTest.playGame();
+
+        BJackGameSim bJackGameSim = new BJackGameSim(2);
+        bJackGameSim.playGame();
+
 
 /*
         LinkedHashMap<Integer, LocalDateTime> hashMap = new LinkedHashMap<>();

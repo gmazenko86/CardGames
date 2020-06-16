@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-//TODO: create a mechanism for logging results of each hand
 //TODO: enable player decision logic/recommendation (this will be needed for simulation)
 //TODO: enable running in a simulation environment with no display
 //TODO: enable logging of results to a dbase
@@ -35,7 +34,7 @@ public class BJackGame extends CardGame {
         LocalDateTime dateTime;
         while(playAnotherHand) {
             dealHands();
-
+/*
             // console object will be null if program is run from IDE
             Console console = System.console();
 
@@ -45,7 +44,7 @@ public class BJackGame extends CardGame {
                 PrintWriter writer = console.writer();
                 writer.println("Print console object using PrintWriter.println " + console.toString());
             }
-
+*/
             // need an array list of players plus the dealer
             // update hand attributes based on blackjacks
             // TODO: should consolidate the following 2 enhanced for loops into functions
@@ -235,30 +234,24 @@ public class BJackGame extends CardGame {
                         }
                     }
                     if(hand.canHit()) {
-                        char inputChar;
+                        boolean hitHand;
                         do {
-                            inputChar = ioMgr.getApprovedInputChar(
-                                    "Enter 'h' to hit or 's' to stick ", 'h', 's');
-                            switch (inputChar) {
-                                case 'h':
-                                    hand.drawCard(deck);
-                                    // use displayActiveHands() instead of displayAllHands when the dealer
-                                    // hole card should not yet be shown
+                            hitHand = hitHand();
+                            if(hitHand) {
+                                hand.drawCard(deck);
+                                // use displayActiveHands() instead of displayAllHands when the dealer
+                                // hole card should not yet be shown
+                                displayActiveHands();
+                                if (hand.getHandTotal() > 21) {
+                                    hand.setBust();
+                                    hand.setLoseForBust();
                                     displayActiveHands();
-                                    if (hand.getHandTotal() > 21) {
-                                        hand.setBust();
-                                        hand.setLoseForBust();
-                                        displayActiveHands();
-                                    }
-                                    break;
-                                case 's':
-                                    hand.setStick();
-                                    displayActiveHands();
-                                    break;
-                                default:
-                                    break;
+                                }
+                            } else{
+                                hand.setStick();
+                                displayActiveHands();
                             }
-                        } while (inputChar != 's' && (!hand.isBust()));
+                        } while (hitHand && (!hand.isBust()));
                     }
                 }
                 hand.setPlaying(false);
@@ -278,6 +271,15 @@ public class BJackGame extends CardGame {
             dealerHand.handAttribute = BJackHand.HandAttribute.BUST;
         }
         displayAllHands();
+    }
+
+    boolean hitHand(){
+        char inputChar = ioMgr.getApprovedInputChar(
+                "Enter 'h' to hit or 's' to stick ", 'h', 's');
+        if(inputChar == 'h'){return true;}
+        if(inputChar == 's'){return false;}
+        assert(false);
+        return false;
     }
 
     boolean anyActivePlayerHands(){

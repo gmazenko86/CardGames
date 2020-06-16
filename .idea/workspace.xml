@@ -20,13 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e526b875-725e-403c-aad6-c9857a734d25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ResultsEntry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/BJackGameSim.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackHand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackHand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Card.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/CardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardGameTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BJackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BJackHand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackHand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Card.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -197,7 +199,28 @@
       <option name="project" value="LOCAL" />
       <updated>1592276357262</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Added results capture">
+      <created>1592326067877</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1592326067877</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added results capture">
+      <created>1592326073127</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1592326073127</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Added results capture">
+      <created>1592326081262</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1592326081262</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -218,9 +241,18 @@
     <MESSAGE value="added IO manager and streamlined pairs functionality" />
     <MESSAGE value="added double down, stop game option, and split pair fixes" />
     <MESSAGE value="intermediate check in while refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="intermediate check in while refactoring" />
+    <MESSAGE value="Added results capture" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added results capture" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="664" y="288" width="724" height="526" key="#com.intellij.ide.util.ExportDialog" timestamp="1592338359140">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="664" y="288" width="724" height="526" key="#com.intellij.ide.util.ExportDialog/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592338359140" />
+    <state x="839" y="255" width="374" height="592" key="#com.intellij.ide.util.MemberChooser" timestamp="1592344266769">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="839" y="255" width="374" height="592" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592344266769" />
     <state x="1081" y="287" key="#xdebugger.evaluate" timestamp="1592234727755">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -229,26 +261,26 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="675" y="363" width="518" height="324" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592276200194" />
-    <state x="804" y="276" width="424" height="491" key="FileChooserDialogImpl" timestamp="1592324750125">
+    <state x="804" y="276" width="424" height="491" key="FileChooserDialogImpl" timestamp="1592338353376">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="804" y="276" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592324750125" />
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592325755694">
+    <state x="804" y="276" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592338353376" />
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592345378969">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592325755694" />
-    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592325755694">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592345378969" />
+    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592345378969">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592325755694" />
-    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592325755694">
+    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592345378969" />
+    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592345378969">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592325755694" />
-    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592325755694">
+    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592345378969" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592345378969">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592325755694" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592345378969" />
     <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592323736351">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -285,17 +317,17 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="666" y="257" width="1157" height="590" key="dock-window-2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592324757847" />
-    <state x="882" y="377" width="618" height="522" key="find.popup" timestamp="1592272494165">
+    <state x="868" y="210" width="618" height="522" key="find.popup" timestamp="1592341496933">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="882" y="377" width="618" height="522" key="find.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592272494165" />
+    <state x="868" y="210" width="618" height="522" key="find.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592341496933" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/BJackGame.java</url>
-          <line>87</line>
+          <line>86</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
