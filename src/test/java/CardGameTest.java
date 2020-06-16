@@ -1,3 +1,7 @@
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 /*
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -5,16 +9,28 @@ import static org.apache.commons.lang3.StringUtils.getDigits;
 */
 public class CardGameTest {
     public static void main(String... args){
-        String fixDeckFilePath = "src/test/resources/fix65244.txt";
+//        String fixDeckFilePath = "src/test/resources/fix65244.txt";
         String fixDeckFilePath2 = "src/test/resources/fixA__J.txt";
-//        BJackGameTest bJackGameTest = new BJackGameTest();
+        BJackGameTest bJackGameTest = new BJackGameTest();
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath);
-        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
+//        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
         bJackGameTest.playGame();
 
-//        IOManager ioMgr = new IOManager();
-//        Character inputChar = ioMgr.getApprovedInputChar("Enter 'h' to hit or 's' to stick  " , 'h', 's');
-//        System.out.println("the input character is " + inputChar);
+/*
+        LinkedHashMap<Integer, LocalDateTime> hashMap = new LinkedHashMap<>();
+        LocalDateTime dateTime;
+        int hashCode;
+        for(int i = 0; i < 10; i++){
+            dateTime = LocalDateTime.now();
+            hashCode = dateTime.hashCode();
+            hashMap.put(hashCode,dateTime);
+        }
+        hashMap.forEach((k,v)->System.out.println(k + "="+ v));
+
+
+*/
+
+
 
 /*
         boolean goodDeck;

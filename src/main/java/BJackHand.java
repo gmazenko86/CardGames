@@ -1,14 +1,16 @@
+import java.util.ArrayList;
+
 public class BJackHand extends Hand{
 
     // these attributes drive special handling
     enum HandAttribute {NOTPLAYED, STICK, BLACKJACK, BUST, SPLITHAND, DOUBLEDOWN, SURRENDER}
     // HandResult represents the final disposition of a player hand and determines payments
     enum  HandResult {PENDING, WIN, LOSE, PUSH}
-    boolean playingThis;
 
     HandAttribute handAttribute;
     HandResult handResult;
     double bet;
+    boolean playingThis;
 
     BJackHand(){
         super();
@@ -212,13 +214,6 @@ public class BJackHand extends Hand{
         System.out.println();
     }
 
-    boolean checkIfPlay(){
-        if(handResult == BJackHand.HandResult.PENDING &&
-            handAttribute != BJackHand.HandAttribute.BLACKJACK){
-            return true;
-        }
-        return false;
-    }
 
     boolean resultPending(){
         return handResult == HandResult.PENDING;
@@ -234,5 +229,15 @@ public class BJackHand extends Hand{
 
     boolean getPlaying(){
         return this.playingThis;
+    }
+
+    ResultsEntry getResultsEntry(int paramHashId){
+        ResultsEntry entry = new ResultsEntry();
+        entry.handHashId = paramHashId;
+        entry.handTotal = this.getHandTotal();
+        entry.cards.addAll(this.cards);
+        entry.handAttribute = this.handAttribute;
+        entry.handResult = this.handResult;
+        return entry;
     }
 }
