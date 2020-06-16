@@ -81,7 +81,7 @@ public class BJackGame extends CardGame {
             displayResults();
             payAndCollect();
             displayPlayerBankrolls();
-            System.out.println("deckindex = " + deck.deckIndex);
+//            System.out.println("deckindex = " + deck.deckIndex);
             dateTime = LocalDateTime.now();
             hashCode = dateTime.hashCode();
             logResults(hashCode);
@@ -97,15 +97,15 @@ public class BJackGame extends CardGame {
             dealerHand = dealer.hands.get(0);
             if(deck.deckIndex > 26){
                 deck.shuffle();
-                System.out.println("Deck has been shuffled");
+//                System.out.println("Deck has been shuffled");
             }
             playAnotherHand = playAnotherHand();
         }
         displayFinalResults();
-        System.out.println("Dealer Results");
-        displayResultsArray(dealerResults);
-        System.out.println("Player Results");
-        displayResultsArray(playerResults);
+//        System.out.println("Dealer Results");
+//        displayResultsArray(dealerResults);
+//        System.out.println("Player Results");
+//        displayResultsArray(playerResults);
     }
 
     void setAllPlayerHandResults(BJackHand dealerHand){
@@ -218,7 +218,7 @@ public class BJackGame extends CardGame {
                 if(hand.notPlayed() || hand.isSplitHand()){
                     if(hand.havePair()){
                         displayActiveHands();
-                        if(hand.splitPair()) {
+                        if(splitPair()) {
                             handleSplit(player, hand);
                             // have to start over now that the pair has been split
                             playHands(player);
@@ -229,7 +229,7 @@ public class BJackGame extends CardGame {
                     }
                     displayActiveHands();
                     if(hand.checkDoubleDown()){
-                        if(hand.doubleDown()){
+                        if(doubleDown()){
                             hand.handleDoubleDown(deck);
                         }
                     }
@@ -280,6 +280,28 @@ public class BJackGame extends CardGame {
         if(inputChar == 's'){return false;}
         assert(false);
         return false;
+    }
+
+    boolean doubleDown(){
+        Character inputChar = ioMgr.getApprovedInputChar("Do you want to double down? " +
+                " 'y' for yes or 'n' for no ", 'y', 'n');
+        switch(inputChar) {
+            case 'y':
+                return true;
+            case 'n':
+            default : return false;
+        }
+    }
+
+    boolean splitPair(){
+        Character inputChar = ioMgr.getApprovedInputChar("Do you want to split the pair?" +
+                " 'y' for yes or 'n' for no ", 'y', 'n');
+        switch(inputChar) {
+            case 'y':
+                return true;
+            case 'n':
+            default : return false;
+        }
     }
 
     boolean anyActivePlayerHands(){

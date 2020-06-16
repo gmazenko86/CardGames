@@ -30,4 +30,18 @@ public class BJackGameSim extends BJackGame{
     boolean hitHand() {
         return false;
     }
+
+    @Override
+    boolean doubleDown() {
+        return true;
+    }
+
+    @Override
+    boolean splitPair() {
+        return true;
+    }
+
+    @Override
+    void displayPlayerBankrolls() {
+    }
 }

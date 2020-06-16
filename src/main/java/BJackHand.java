@@ -90,36 +90,12 @@ public class BJackHand extends Hand{
         return handAttribute == HandAttribute.NOTPLAYED;
     }
 
-    boolean splitPair(){
-        IOManager ioMgr = new IOManager();
-        Character inputChar = ioMgr.getApprovedInputChar("Do you want to split the pair?" +
-                " 'y' for yes or 'n' for no ", 'y', 'n');
-        switch(inputChar) {
-            case 'y':
-                return true;
-            case 'n':
-            default : return false;
-        }
-    }
-
     void setSplit(){
         handAttribute = HandAttribute.SPLITHAND;
     }
 
     boolean isSplitHand(){
         return handAttribute == HandAttribute.SPLITHAND;
-    }
-
-    boolean doubleDown(){
-        IOManager ioMgr = new IOManager();
-        Character inputChar = ioMgr.getApprovedInputChar("Do you want to double down? " +
-                " 'y' for yes or 'n' for no ", 'y', 'n');
-        switch(inputChar) {
-            case 'y':
-                return true;
-            case 'n':
-            default : return false;
-        }
     }
 
     void setLoseForBust(){
