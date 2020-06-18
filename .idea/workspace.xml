@@ -23,6 +23,7 @@
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_example_MyIOUtils_1_0_SNAPSHOT.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< refs/remotes/origin/master
       <change beforePath="$PROJECT_DIR$/CardGames.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CardGames.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
@@ -78,6 +79,9 @@
       <change beforePath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/CardTestUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardTestUtils.class" afterDir="false" />
 >>>>>>> refactored display io code
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" afterDir="false" />
+>>>>>>> fixed bug in reinitHands
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -338,6 +342,9 @@
       <updated>1592503378441</updated>
     </task>
 <<<<<<< refs/remotes/origin/master
+<<<<<<< refs/remotes/origin/master
+=======
+>>>>>>> fixed bug in reinitHands
     <task id="LOCAL-00025" summary="refactored display io code">
       <created>1592518898003</created>
       <option name="number" value="00025" />
@@ -345,6 +352,7 @@
       <option name="project" value="LOCAL" />
       <updated>1592518898003</updated>
     </task>
+<<<<<<< refs/remotes/origin/master
     <task id="LOCAL-00026" summary="fixed bug in reinitHands">
       <created>1592519796924</created>
       <option name="number" value="00026" />
@@ -366,6 +374,9 @@
 =======
     <option name="localTasksCounter" value="25" />
 >>>>>>> refactored display io code
+=======
+    <option name="localTasksCounter" value="26" />
+>>>>>>> fixed bug in reinitHands
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -401,8 +412,13 @@
 >>>>>>> more decision logic
 =======
     <MESSAGE value="completed decision logic" />
+<<<<<<< refs/remotes/origin/master
     <option name="LAST_COMMIT_MESSAGE" value="completed decision logic" />
 >>>>>>> refactored display io code
+=======
+    <MESSAGE value="refactored display io code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored display io code" />
+>>>>>>> fixed bug in reinitHands
   </component>
   <component name="WindowStateProjectService">
     <state x="537" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592607444358">
@@ -477,22 +493,22 @@
     <state x="602" y="313" width="780" height="446" key="NewModule_or_Project.wizard/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592578106285" />
 =======
     <state x="804" y="276" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592338353376" />
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592518628760">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592519092487">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592518628760" />
-    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592518628760">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592519092487" />
+    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592519092487">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592518628760" />
-    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592518628760">
+    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592519092487" />
+    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592519092487">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592518628760" />
-    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592518628760">
+    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592519092487" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592519092487">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592518628760" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592519092487" />
     <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592518476061">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
