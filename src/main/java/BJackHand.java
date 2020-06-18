@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class BJackHand extends Hand{
 
     // these attributes drive special handling
@@ -104,6 +102,18 @@ public class BJackHand extends Hand{
         }
     }
 
+    boolean isWin(){
+        return this.handResult == HandResult.WIN;
+    }
+
+    boolean isLose(){
+        return this.handResult == HandResult.LOSE;
+    }
+
+    boolean isPush(){
+        return this.handResult == HandResult.PUSH;
+    }
+
     void setStick(){
         handAttribute = HandAttribute.STICK;
     }
@@ -141,53 +151,6 @@ public class BJackHand extends Hand{
                 dealerHand.handAttribute != BJackHand.HandAttribute.BLACKJACK){
             this.handResult = BJackHand.HandResult.WIN;
         }
-    }
-
-    protected void displayHand(){
-        for(Card card: this.cards){
-            if (this.playingThis){
-                IOManager.printBlueText(card.getCardSignature());
-                IOManager.printBlueText(" | ");
-            } else{
-                card.displayCardSignature();
-                System.out.print(" | ");
-            }
-        }
-        System.out.print("");
-    }
-
-    protected void displayHandWithTotal(boolean printResults){
-        displayHand();
-        System.out.print("Total is " + getHandTotal());
-
-        if(handAttribute == BJackHand.HandAttribute.BUST){
-            IOManager.printRedText(" ::: BUST");
-        }
-        if(handAttribute == BJackHand.HandAttribute.BLACKJACK){
-            IOManager.printGreenText(" ::: BLACKJACK");
-        }
-        if(printResults){
-            if(handResult == BJackHand.HandResult.WIN){
-                IOManager.printGreenText(" -----Player result = " + handResult.name());
-            } else if(handResult == BJackHand.HandResult.LOSE){
-                IOManager.printRedText(" -----Player result = " + handResult.name());
-            } else if(handResult == BJackHand.HandResult.PUSH){
-                IOManager.printBlueText(" -----Player result = " + handResult.name());
-            }
-            else{ assert(false);}
-        }
-        System.out.println();
-    }
-
-    protected void displayDealerUpCard(){
-        Card upCard = this.cards.get(0);
-        IOManager.printYellowText(upCard.getCardSignature());
-        IOManager.printYellowText(" | ");
-        IOManager.printYellowText("X".repeat(10));
-        IOManager.printYellowText(" | ");
-        IOManager.printYellowText(" Dealer Showing " + upCard.getCardValue());
-        System.out.println();
-        System.out.println();
     }
 
     boolean isSoftHand(){

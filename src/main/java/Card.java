@@ -9,10 +9,6 @@ class Card {
         return this.cardFace.name() + " " + this.suit.name();
     }
 
-    protected void displayCardSignature(){
-        System.out.print(getCardSignature());
-    }
-
     int getCardValue(){
         switch (cardFace){
             case ACE: return 11;

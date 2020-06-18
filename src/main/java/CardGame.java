@@ -3,12 +3,10 @@ import java.util.stream.LongStream;
 
 public class CardGame {
     final Deck deck;
-    final IOManager ioMgr;
 
     CardGame(){
         this.deck = new Deck();
         this.deck.shuffle();
-        this.ioMgr = new IOManager();
     }
 
     public static void main(String... args){
@@ -45,4 +43,5 @@ public class CardGame {
 
         return integerArrayList;
     }
+
 }

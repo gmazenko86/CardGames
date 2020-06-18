@@ -1,11 +1,9 @@
-import java.io.Console;
-import java.io.PrintWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-//TODO: move display functions to IOManager
-//TODO: confirm running in a simulation environment with no display
+//TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
 //TODO: enable logging of results to a dbase - determine dbase strategy
 //TODO: unit testing framework and test cases
 //TODO: system level testing
@@ -19,6 +17,7 @@ public class BJackGame extends CardGame {
     BJackHand dealerHand;
     ArrayList<ResultsEntry> dealerResults;
     ArrayList<ResultsEntry> playerResults;
+    IOMgr iom;
 
     BJackGame(){
         super();
@@ -27,6 +26,7 @@ public class BJackGame extends CardGame {
         this.dealerHand = dealer.hands.get(0);
         this.dealerResults = new ArrayList<>();
         this.playerResults = new ArrayList<>();
+        this.iom = new IOMgr();
     }
 
     void playGame(){
@@ -72,7 +72,7 @@ public class BJackGame extends CardGame {
                 }
             } else {
                 setAllPlayerHandResults(dealerHand);
-                displayAllHands();
+                iom.displayAllHands();
             }
 
             // now play the dealer hand if there are any active player hands
@@ -81,7 +81,7 @@ public class BJackGame extends CardGame {
             }
 
             setAllPlayerHandResults(dealerHand);
-            displayResults();
+            iom.displayResults();
             payAndCollect();
             displayPlayerBankrolls();
             dateTime = LocalDateTime.now();
@@ -89,11 +89,8 @@ public class BJackGame extends CardGame {
             logResults(hashCode);
 
             // reinitialize all hands by getting new instances
-            // for now, each player gets one hand
             for (BJackPlayer player : playersPlusDealer) {
-                player.hands.removeAll(player.hands);
-                BJackHand hand = new BJackHand();
-                player.hands.add(hand);
+                player.reinitHands();
             }
             // reset dealerHand variable to the first hand of the last player
             dealerHand = dealer.hands.get(0);
@@ -102,7 +99,7 @@ public class BJackGame extends CardGame {
             }
             playAnotherHand = playAnotherHand();
         }
-        displayFinalResults();
+        iom.displayFinalResults();
 //        System.out.println("Dealer Results");
 //        displayResultsArray(dealerResults);
 //        System.out.println("Player Results");
@@ -115,14 +112,8 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void displayFinalResults(){
-        for(BJackPlayer player : players){
-            System.out.println(player.toString() + " finished with $" + player.bankroll);
-        }
-    }
-
     boolean playAnotherHand(){
-        Character inputChar = ioMgr.getApprovedInputChar(
+        Character inputChar = iom.getApprovedInputChar(
                 "Enter 'p' to play another hand or 'q' to quit ",
                 'p', 'q');
         if(inputChar == 'p'){
@@ -162,47 +153,11 @@ public class BJackGame extends CardGame {
         return  playersPlusDealer;
     }
 
-    void displayActiveHands(){
-        System.out.println("*".repeat(40));
-        dealerHand.displayDealerUpCard();
-        for (BJackPlayer BJackPlayer : this.players) {
-            for (BJackHand hand : BJackPlayer.hands) {
-                if(hand.notPlayed() || hand.isSplitHand()){
-                    hand.displayHand();
-                    System.out.println();
-                } else{
-                    hand.displayHandWithTotal(false);
-                }
-            }
-        }
-    }
-
-    void displayAllHands(){
-        System.out.println("*".repeat(40));
-        dealerHand.displayHandWithTotal(false);
-        for(BJackPlayer player : players){
-            for(BJackHand hand : player.hands){
-                hand.displayHandWithTotal(false);
-            }
-        }
-    }
-
-    void displayResults(){
-        System.out.println("*".repeat(40));
-        dealerHand.displayHandWithTotal(false);
-        for(BJackPlayer player : players){
-            for(BJackHand hand: player.hands){
-                hand.displayHandWithTotal(true);
-            }
-        }
-    }
-
     void handleSplit(BJackPlayer player, BJackHand hand){
         int handIndex = player.hands.indexOf(hand);
         BJackHand newHand = new BJackHand();
         Card pairCard =  hand.cards.get(1);
 
-        boolean pairAces = hand.pairAces();
         hand.cards.remove(pairCard);
         hand.drawCard(deck);
         hand.setSplit();
@@ -218,7 +173,7 @@ public class BJackGame extends CardGame {
                 hand.setPlaying(true);
                 if(hand.notPlayed() || hand.isSplitHand()){
                     if(hand.havePair()){
-                        displayActiveHands();
+                        iom.displayActiveHands();
                         if(splitPair(hand)) {
                             handleSplit(player, hand);
                             // have to start over now that the pair has been split
@@ -228,7 +183,7 @@ public class BJackGame extends CardGame {
                             return;
                         }
                     }
-                    displayActiveHands();
+                    iom.displayActiveHands();
                     if(hand.checkDoubleDown()){
                         if(doubleDown(hand)){
                             hand.handleDoubleDown(deck);
@@ -242,15 +197,15 @@ public class BJackGame extends CardGame {
                                 hand.drawCard(deck);
                                 // use displayActiveHands() instead of displayAllHands when the dealer
                                 // hole card should not yet be shown
-                                displayActiveHands();
+                                iom.displayActiveHands();
                                 if (hand.getHandTotal() > 21) {
                                     hand.setBust();
                                     hand.setLoseForBust();
-                                    displayActiveHands();
+                                    iom.displayActiveHands();
                                 }
                             } else{
                                 hand.setStick();
-                                displayActiveHands();
+                                iom.displayActiveHands();
                             }
                         } while (hitHand && (!hand.isBust()));
                     }
@@ -271,11 +226,11 @@ public class BJackGame extends CardGame {
         if(dealerHand.getHandTotal() > 21){
             dealerHand.handAttribute = BJackHand.HandAttribute.BUST;
         }
-        displayAllHands();
+        iom.displayAllHands();
     }
 
     boolean hitHand(BJackHand hand){
-        char inputChar = ioMgr.getApprovedInputChar(
+        char inputChar = iom.getApprovedInputChar(
                 "Enter 'h' to hit or 's' to stick ", 'h', 's');
         if(inputChar == 'h'){return true;}
         if(inputChar == 's'){return false;}
@@ -284,7 +239,7 @@ public class BJackGame extends CardGame {
     }
 
     boolean doubleDown(BJackHand hand){
-        Character inputChar = ioMgr.getApprovedInputChar("Do you want to double down? " +
+        Character inputChar = iom.getApprovedInputChar("Do you want to double down? " +
                 " 'y' for yes or 'n' for no ", 'y', 'n');
         switch(inputChar) {
             case 'y':
@@ -295,7 +250,7 @@ public class BJackGame extends CardGame {
     }
 
     boolean splitPair(BJackHand hand){
-        Character inputChar = ioMgr.getApprovedInputChar("Do you want to split the pair?" +
+        Character inputChar = iom.getApprovedInputChar("Do you want to split the pair?" +
                 " 'y' for yes or 'n' for no ", 'y', 'n');
         switch(inputChar) {
             case 'y':
@@ -406,7 +361,7 @@ public class BJackGame extends CardGame {
                     break;
                 case 4:
                 case 5:
-                case 6: if(playerTotal <= 13 && playerTotal <= 18){returnFlag = true;}
+                case 6: if(13 <= playerTotal && playerTotal <= 18){returnFlag = true;}
                     break;
                 default:
                     break;
@@ -435,14 +390,13 @@ public class BJackGame extends CardGame {
                 case 2:
                     if(2 <= upValue && upValue <= 7){ returnFlag = true;}
                 case 4:
-                    if(upValue == 5){returnFlag = true;};
+                    if(upValue == 5){returnFlag = true;}
                 default:
                     break;
             }
         }
         return returnFlag;
     }
-
 
     //TODO: refactor this so it does not directly access hand enums
     void payAndCollect(){
@@ -498,5 +452,140 @@ public class BJackGame extends CardGame {
     boolean assertPrint(String string){
         System.out.println(string);
         return true;
+    }
+
+    class IOMgr{
+        Character getApprovedInputChar(String inputString, char... array){
+            System.out.print(inputString);
+
+            boolean foundChar;
+            Character returnChar = null;
+
+            do {
+                try {
+                    byte[] bytes = new byte[256];
+                    System.in.read(bytes);
+                    // only interested in the first character input by the user
+                    returnChar = Character.valueOf((char) bytes[0]);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                foundChar = arrayContains(returnChar, array);
+                if (!foundChar) {
+                    System.out.print("Invalid input: " + inputString);
+                }
+            } while(!foundChar);
+            assert (Objects.nonNull(returnChar));
+            return returnChar;
+        }
+
+        boolean arrayContains(char toCheck, char[] array){
+            for(char character : array){
+                if(character == toCheck){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        void displayFinalResults(){
+            for(BJackPlayer player : players){
+                System.out.println(player.toString() + " finished with $" + player.bankroll);
+            }
+        }
+
+        void displayActiveHands(){
+            System.out.println("*".repeat(40));
+            displayDealerUpCard(dealerHand);
+            for (BJackPlayer BJackPlayer : players) {
+                for (BJackHand hand : BJackPlayer.hands) {
+                    if(hand.notPlayed() || hand.isSplitHand()){
+                        displayHand(hand);
+                        System.out.println();
+                    } else{
+                        displayHandWithTotal(hand,false);
+                    }
+                }
+            }
+        }
+
+        void displayAllHands(){
+            System.out.println("*".repeat(40));
+            displayHandWithTotal(dealerHand, false);
+            for(BJackPlayer player : players){
+                for(BJackHand hand : player.hands){
+                    displayHandWithTotal(hand,false);
+                }
+            }
+        }
+
+        void displayResults(){
+            System.out.println("*".repeat(40));
+            displayHandWithTotal(dealerHand, false);
+            for(BJackPlayer player : players){
+                for(BJackHand hand: player.hands){
+                    displayHandWithTotal(hand,true);
+                }
+            }
+        }
+
+        protected void displayHand(BJackHand hand){
+            for(Card card: hand.cards){
+                if (hand.playingThis){
+                    MyIOUtils.printBlueText(card.getCardSignature());
+                    MyIOUtils.printBlueText(" | ");
+                } else{
+                    displayCardSignature(card);
+                    System.out.print(" | ");
+                }
+            }
+            System.out.print("");
+        }
+
+        protected void displayHandWithTotal(BJackHand hand, boolean printResults){
+            displayHand(hand);
+            System.out.print("Total is " + hand.getHandTotal());
+
+            if(hand.isBust()){
+                MyIOUtils.printRedText(" ::: BUST");
+            }
+            if(hand.haveBJack()){
+                MyIOUtils.printGreenText(" ::: BLACKJACK");
+            }
+            if(printResults){
+                if(hand.isWin()){
+                    MyIOUtils.printGreenText(" -----Player result = WIN");
+                } else if(hand.isLose()){
+                    MyIOUtils.printRedText(" -----Player result = LOSE");
+                } else if(hand.isPush()){
+                    MyIOUtils.printBlueText(" -----Player result = PUSH");
+                }
+                else{ assert(false);}
+            }
+            System.out.println();
+        }
+
+        protected void displayDealerUpCard(BJackHand dealerHand){
+            Card upCard = dealerHand.cards.get(0);
+            MyIOUtils.printYellowText(upCard.getCardSignature());
+            MyIOUtils.printYellowText(" | ");
+            MyIOUtils.printYellowText("X".repeat(10));
+            MyIOUtils.printYellowText(" | ");
+            MyIOUtils.printYellowText(" Dealer Showing " + upCard.getCardValue());
+            System.out.println();
+            System.out.println();
+        }
+
+        protected void displayCardSignature(Card card){
+            System.out.print(card.getCardSignature());
+        }
+
+        void displayDeck(Deck deck){
+            for (Card card : deck.cards) {
+                displayCardSignature(card);
+                System.out.print("| ");
+            }
+            System.out.println("\n");
+        }
     }
 }

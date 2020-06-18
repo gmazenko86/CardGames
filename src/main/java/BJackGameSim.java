@@ -4,20 +4,28 @@ public class BJackGameSim extends BJackGame{
 
     BJackGameSim(int iterations){
         super();
+        IOMgrSim ioMgrSim = new IOMgrSim();
+        this.iom = (IOMgr) ioMgrSim;
         this.iterations = iterations;
         gamesPlayed = 0;
     }
 
-    @Override
-    void displayActiveHands() {
-    }
+    // this extends the nested class IOMgr from the parent class BJackGame
+    // to use the override functions below, this.iom has to be
+    // assigned to the ioMgrSim instance created in the constructor
+    class IOMgrSim extends IOMgr {
+        @Override
+        void displayActiveHands() {
+        }
 
-    @Override
-    void displayAllHands() {
-    }
+        @Override
+        void displayAllHands() {
+        }
 
-    @Override
-    void displayResults() {
+        @Override
+        void displayResults() {
+        }
+
     }
 
     @Override

@@ -97,14 +97,6 @@ public class CardTestUtils {
         return swapList.isEmpty();
     }
 
-    static public void displayDeck(Deck deck){
-        for (Card card : deck.cards) {
-            card.displayCardSignature();
-            System.out.print("| ");
-        }
-        System.out.println("\n");
-    }
-
     //TODO: this is duplicated from DbaseDemo.java. Build a reusable library
     public static ArrayList<String> readLinesAsStrings(String inputPath){
         try (BufferedReader br = new BufferedReader(new FileReader(inputPath))) {
