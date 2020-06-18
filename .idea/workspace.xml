@@ -26,6 +26,7 @@
       <change beforePath="$PROJECT_DIR$/CardGames.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CardGames.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
+<<<<<<< refs/remotes/origin/master
       <change beforePath="$PROJECT_DIR$/src/test/java/CardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardGameTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/CardGames-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/CardGames-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BJackGame$IOMgr.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame$IOMgr.class" afterDir="false" />
@@ -52,6 +53,10 @@
       <change beforePath="$PROJECT_DIR$/target/test-classes/BJackGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/BJackGameTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/CardTestUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardTestUtils.class" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/BJackGameSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGameSim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BJackHand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackHand.java" afterDir="false" />
+>>>>>>> more decision logic
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,6 +295,7 @@
       <option name="project" value="LOCAL" />
       <updated>1592445147086</updated>
     </task>
+<<<<<<< refs/remotes/origin/master
     <task id="LOCAL-00023" summary="completed decision logic">
       <created>1592503365855</created>
       <option name="number" value="00023" />
@@ -326,6 +332,9 @@
       <updated>1592594760590</updated>
     </task>
     <option name="localTasksCounter" value="28" />
+=======
+    <option name="localTasksCounter" value="23" />
+>>>>>>> more decision logic
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -349,11 +358,15 @@
     <MESSAGE value="Added results capture" />
     <MESSAGE value="Intermediate check in while adding simulation capability" />
     <MESSAGE value="added some decision making for simulation" />
+<<<<<<< refs/remotes/origin/master
     <MESSAGE value="completed decision logic" />
     <MESSAGE value="refactored display io code" />
     <MESSAGE value="fixed bug in reinitHands" />
     <MESSAGE value="refactored with some reusable libraries" />
     <option name="LAST_COMMIT_MESSAGE" value="refactored with some reusable libraries" />
+=======
+    <option name="LAST_COMMIT_MESSAGE" value="added some decision making for simulation" />
+>>>>>>> more decision logic
   </component>
   <component name="WindowStateProjectService">
     <state x="537" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592607444358">
@@ -388,6 +401,7 @@
     <state width="1492" height="278" key="GridCell.Tab.0.bottom" timestamp="1592608161818">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
+<<<<<<< refs/remotes/origin/master
     <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1592577740180" />
     <state width="1492" height="278" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592608161818" />
     <state width="1492" height="278" key="GridCell.Tab.0.center" timestamp="1592608161818">
@@ -425,6 +439,41 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="602" y="313" width="780" height="446" key="NewModule_or_Project.wizard/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592578106285" />
+=======
+    <state x="804" y="276" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592338353376" />
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592503063182">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592503063182" />
+    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592503063182">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592503063182" />
+    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592503063182">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592503063182" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592503063182">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592503063182" />
+    <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592502374256">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1606" height="304" key="GridCell.Tab.1.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592502374256" />
+    <state width="1606" height="304" key="GridCell.Tab.1.center" timestamp="1592502374256">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1606" height="304" key="GridCell.Tab.1.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592502374256" />
+    <state width="1606" height="304" key="GridCell.Tab.1.left" timestamp="1592502374256">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1606" height="304" key="GridCell.Tab.1.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592502374256" />
+    <state width="1606" height="304" key="GridCell.Tab.1.right" timestamp="1592502374256">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1606" height="304" key="GridCell.Tab.1.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592502374256" />
+>>>>>>> more decision logic
     <state x="833" y="213" width="342" height="640" key="RollbackChangesDialog" timestamp="1592359004530">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -442,6 +491,7 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="826" height="477" key="XDebugger.FullValuePopup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592100632010" />
+<<<<<<< refs/remotes/origin/master
     <state x="698" y="404" width="646" height="220" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1592618525434">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -450,6 +500,12 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="808" y="233" width="894" height="654" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592517962302" />
+=======
+    <state x="703" y="237" width="894" height="654" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1592502359966">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="703" y="237" width="894" height="654" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592502359966" />
+>>>>>>> more decision logic
     <state x="558" y="128" width="1200" height="619" key="dock-window-1" timestamp="1592322394149">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -469,6 +525,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+<<<<<<< refs/remotes/origin/master
       <breakpoints>
         <line-breakpoint type="java-line">
           <condition disabled="true" expression="deckIndex == 40" language="JAVA" />
@@ -477,6 +534,8 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
+=======
+>>>>>>> more decision logic
       <default-breakpoints>
         <breakpoint enabled="true" type="java-exception" />
       </default-breakpoints>
