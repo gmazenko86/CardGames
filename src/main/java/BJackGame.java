@@ -102,10 +102,10 @@ public class BJackGame extends CardGame {
             playAnotherHand = playAnotherHand();
         }
         displayFinalResults();
-//        System.out.println("Dealer Results");
-//        displayResultsArray(dealerResults);
-//        System.out.println("Player Results");
-//        displayResultsArray(playerResults);
+        System.out.println("Dealer Results");
+        displayResultsArray(dealerResults);
+        System.out.println("Player Results");
+        displayResultsArray(playerResults);
     }
 
     void setAllPlayerHandResults(BJackHand dealerHand){
@@ -229,14 +229,14 @@ public class BJackGame extends CardGame {
                     }
                     displayActiveHands();
                     if(hand.checkDoubleDown()){
-                        if(doubleDown()){
+                        if(doubleDown(hand)){
                             hand.handleDoubleDown(deck);
                         }
                     }
                     if(hand.canHit()) {
                         boolean hitHand;
                         do {
-                            hitHand = hitHand();
+                            hitHand = hitHand(hand);
                             if(hitHand) {
                                 hand.drawCard(deck);
                                 // use displayActiveHands() instead of displayAllHands when the dealer
@@ -273,7 +273,7 @@ public class BJackGame extends CardGame {
         displayAllHands();
     }
 
-    boolean hitHand(){
+    boolean hitHand(BJackHand hand){
         char inputChar = ioMgr.getApprovedInputChar(
                 "Enter 'h' to hit or 's' to stick ", 'h', 's');
         if(inputChar == 'h'){return true;}
@@ -282,7 +282,7 @@ public class BJackGame extends CardGame {
         return false;
     }
 
-    boolean doubleDown(){
+    boolean doubleDown(BJackHand hand){
         Character inputChar = ioMgr.getApprovedInputChar("Do you want to double down? " +
                 " 'y' for yes or 'n' for no ", 'y', 'n');
         switch(inputChar) {
@@ -302,6 +302,10 @@ public class BJackGame extends CardGame {
             case 'n':
             default : return false;
         }
+    }
+
+    Card dealerUpCard(){
+        return dealerHand.cards.get(0);
     }
 
     boolean anyActivePlayerHands(){
