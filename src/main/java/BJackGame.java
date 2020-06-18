@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-//TODO: enable player decision logic/recommendation (this will be needed for simulation)
-//TODO: enable running in a simulation environment with no display
-//TODO: enable logging of results to a dbase
+//TODO: move display functions to IOManager
+//TODO: confirm running in a simulation environment with no display
+//TODO: enable logging of results to a dbase - determine dbase strategy
+//TODO: unit testing framework and test cases
+//TODO: system level testing
+//TODO: write graphics front end
 
 
 public class BJackGame extends CardGame {
@@ -81,7 +84,6 @@ public class BJackGame extends CardGame {
             displayResults();
             payAndCollect();
             displayPlayerBankrolls();
-//            System.out.println("deckindex = " + deck.deckIndex);
             dateTime = LocalDateTime.now();
             hashCode = dateTime.hashCode();
             logResults(hashCode);
@@ -97,15 +99,14 @@ public class BJackGame extends CardGame {
             dealerHand = dealer.hands.get(0);
             if(deck.deckIndex > 26){
                 deck.shuffle();
-//                System.out.println("Deck has been shuffled");
             }
             playAnotherHand = playAnotherHand();
         }
         displayFinalResults();
-        System.out.println("Dealer Results");
-        displayResultsArray(dealerResults);
-        System.out.println("Player Results");
-        displayResultsArray(playerResults);
+//        System.out.println("Dealer Results");
+//        displayResultsArray(dealerResults);
+//        System.out.println("Player Results");
+//        displayResultsArray(playerResults);
     }
 
     void setAllPlayerHandResults(BJackHand dealerHand){
@@ -218,7 +219,7 @@ public class BJackGame extends CardGame {
                 if(hand.notPlayed() || hand.isSplitHand()){
                     if(hand.havePair()){
                         displayActiveHands();
-                        if(splitPair()) {
+                        if(splitPair(hand)) {
                             handleSplit(player, hand);
                             // have to start over now that the pair has been split
                             playHands(player);
@@ -293,7 +294,7 @@ public class BJackGame extends CardGame {
         }
     }
 
-    boolean splitPair(){
+    boolean splitPair(BJackHand hand){
         Character inputChar = ioMgr.getApprovedInputChar("Do you want to split the pair?" +
                 " 'y' for yes or 'n' for no ", 'y', 'n');
         switch(inputChar) {
@@ -316,6 +317,132 @@ public class BJackGame extends CardGame {
         }
         return false;
     }
+
+    int getHardStandTot(int dealerShows){
+        switch (dealerShows){
+            case 11:
+            case 10:
+            case 9:
+            case 8:
+            case 7:
+                return 17;
+            case 6:
+            case 5:
+            case 4:
+                return 12;
+            case 3:
+            case 2:
+                return 13;
+            default:
+                assert(false);
+        }
+        return -1;
+    }
+
+    int getSoftStandTotal(int dealerShows){
+        if(dealerShows == 9 || dealerShows == 10){
+            return 19;
+        }
+        return  18;
+    }
+
+    boolean getHardHitRec(BJackHand hand){
+        Card dealerCard =  dealerUpCard();
+        int upValue = dealerCard.getCardValue();
+        int playerTotal = hand.getHandTotal();
+        int hardStandTotal = getHardStandTot(upValue);
+        boolean hitFlag = false;
+
+        if(!hand.isSoftHand()){
+            if(playerTotal < hardStandTotal){
+                hitFlag = true;
+            }
+        }
+        return hitFlag;
+    }
+
+    boolean getSoftHitRec(BJackHand hand){
+        Card dealerCard =  dealerUpCard();
+        int upValue = dealerCard.getCardValue();
+        int playerTotal = hand.getHandTotal();
+        int softStandTotal = getSoftStandTotal(upValue);
+        boolean hitFlag = false;
+
+        if(hand.isSoftHand()) {
+            if (playerTotal < softStandTotal) {
+                hitFlag = true;
+            }
+        }
+        return hitFlag;
+    }
+
+    boolean getHardDoubleRec(BJackHand hand){
+        Card dealerCard =  dealerUpCard();
+        int upValue = dealerCard.getCardValue();
+        int playerTotal = hand.getHandTotal();
+        boolean returnFlag = false;
+        if(!hand.isSoftHand()) {
+            if (playerTotal == 11 ||
+                playerTotal == 10 && upValue < 10 ||
+                playerTotal == 9 && (2 <= upValue && upValue <= 6)){
+                returnFlag = true;
+            }
+        }
+        return returnFlag;
+    }
+
+    boolean getSoftDoubleRec(BJackHand hand){
+        Card dealerCard =  dealerUpCard();
+        int upValue = dealerCard.getCardValue();
+        int playerTotal = hand.getHandTotal();
+        boolean returnFlag = false;
+        if(hand.isSoftHand()) {
+            switch (upValue){
+                case 2:
+                    if(playerTotal == 17){returnFlag = true;}
+                    break;
+                case 3:
+                    if(playerTotal == 17 || playerTotal == 18){returnFlag = true;}
+                    break;
+                case 4:
+                case 5:
+                case 6: if(playerTotal <= 13 && playerTotal <= 18){returnFlag = true;}
+                    break;
+                default:
+                    break;
+            }
+        }
+        return returnFlag;
+    }
+
+    boolean getSplitPairRec(BJackHand hand){
+        Card dealerCard =  dealerUpCard();
+        int upValue = dealerCard.getCardValue();
+        int pairValue = hand.pairCardValue();
+        boolean returnFlag = false;
+
+        if(hand.havePair()) {
+            switch(pairValue){
+                case 11:
+                case 8:
+                    returnFlag = true;
+                case 9:
+                    if(2 <= upValue && upValue <= 9 && upValue != 7){returnFlag = true;}
+                case 7:
+                    if(2 <= upValue && upValue <= 8){ returnFlag = true;}
+                case 6:
+                case 3:
+                case 2:
+                    if(2 <= upValue && upValue <= 7){ returnFlag = true;}
+                case 4:
+                    if(upValue == 5){returnFlag = true;};
+                default:
+                    break;
+            }
+        }
+        return returnFlag;
+    }
+
 
     //TODO: refactor this so it does not directly access hand enums
     void payAndCollect(){
