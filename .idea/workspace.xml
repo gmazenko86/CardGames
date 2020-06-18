@@ -21,27 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e526b875-725e-403c-aad6-c9857a734d25" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BJackGameSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGameSim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BJackHand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackHand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CardGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/IOManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MyIOUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/CardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardGameTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/CardTestUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardTestUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BJackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BJackGameSim.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackGameSim.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BJackHand$HandAttribute.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackHand$HandAttribute.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BJackHand$HandResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackHand$HandResult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BJackHand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackHand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BJackPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BJackPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Card$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Card$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Card.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/CardGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/CardGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/IOManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardGameTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/CardTestUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/CardTestUtils.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +250,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592503378441</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="refactored display io code">
+      <created>1592518898003</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1592518898003</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,7 +282,8 @@
     <MESSAGE value="Intermediate check in while adding simulation capability" />
     <MESSAGE value="added some decision making for simulation" />
     <MESSAGE value="completed decision logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="completed decision logic" />
+    <MESSAGE value="refactored display io code" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored display io code" />
   </component>
   <component name="WindowStateProjectService">
     <state x="664" y="288" width="724" height="526" key="#com.intellij.ide.util.ExportDialog" timestamp="1592338359140">
@@ -322,22 +310,22 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="804" y="276" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592338353376" />
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592518628760">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom" timestamp="1592519092487">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592518628760" />
-    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592518628760">
+    <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592519092487" />
+    <state width="1606" height="275" key="GridCell.Tab.0.center" timestamp="1592519092487">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592518628760" />
-    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592518628760">
+    <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592519092487" />
+    <state width="1606" height="275" key="GridCell.Tab.0.left" timestamp="1592519092487">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592518628760" />
-    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592518628760">
+    <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592519092487" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right" timestamp="1592519092487">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592518628760" />
+    <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592519092487" />
     <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592518476061">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

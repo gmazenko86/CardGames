@@ -29,16 +29,13 @@ public class BJackPlayer extends Player{
     }
 
     void reinitHands(){
-        int loopMax;
-        loopMax = this.hands.size();
-        for(int i = 0; i < loopMax; i++){
-            this.hands.remove(0);
-        }
+        // remove all hands from the player's array list of hands
+        this.hands.clear();
         // TODO: each player gets one hand for now. will eventually
         //  have to recreate the number they started with once a user option
         //  to choose multiple player hands is added
-            BJackHand newHand = new BJackHand();
-            this.hands.add(newHand);
+        BJackHand newHand = new BJackHand();
+        this.hands.add(newHand);
     }
 
 }
