@@ -32,7 +32,7 @@ public class CardTestUtils {
 
     static public TreeMap<Integer, Card> fixDeckEntries(String filePath) {
 
-        ArrayList<String> inputLines = CardTestUtils.readLinesAsStrings(filePath);
+        ArrayList<String> inputLines = MyIOUtils.readLinesAsStrings(filePath);
         TreeMap<Integer, Card> treeMap = new TreeMap<>();
 
         // first find an integer, which represents the position in the deck
@@ -95,20 +95,5 @@ public class CardTestUtils {
         }
         // list will be empty if each card was in the deck 1 and only 1 time
         return swapList.isEmpty();
-    }
-
-    //TODO: this is duplicated from DbaseDemo.java. Build a reusable library
-    public static ArrayList<String> readLinesAsStrings(String inputPath){
-        try (BufferedReader br = new BufferedReader(new FileReader(inputPath))) {
-            ArrayList<String> arrayList = new ArrayList<>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                arrayList.add(line);
-            }
-            return arrayList;
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        return null;
     }
 }

@@ -3,9 +3,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
+
 //TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
 //TODO: enable logging of results to a dbase - determine dbase strategy
-//TODO: unit testing framework and test cases
+//TODO: unit testing framework and test cases (maven will execute tests as part of the build if desired)
 //TODO: system level testing
 //TODO: write graphics front end
 
