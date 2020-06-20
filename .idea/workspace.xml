@@ -33,6 +33,7 @@
       <change beforePath="$PROJECT_DIR$/CardGames.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CardGames.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
 <<<<<<< refs/remotes/origin/master
+<<<<<<< refs/remotes/origin/master
       <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
 <<<<<<< refs/remotes/origin/master
       <change beforePath="$PROJECT_DIR$/src/test/java/CardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardGameTest.java" afterDir="false" />
@@ -129,6 +130,11 @@
 >>>>>>> refactored with some reusable libraries
 =======
 >>>>>>> changes to build files and .jar locations
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/BJackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BJackGameSim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BJackGameSim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CardGameTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CardGameTest.java" afterDir="false" />
+>>>>>>> developing dbase interface
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,6 +173,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
 <<<<<<< refs/remotes/origin/master
 <<<<<<< refs/remotes/origin/master
+<<<<<<< refs/remotes/origin/master
     <property name="last_opened_file_path" value="$MAVEN_REPOSITORY$/org/example/MyIOUtils/1.0-SNAPSHOT/MyIOUtils-1.0-SNAPSHOT.jar!/" />
 =======
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../javaProjects/MyPostGreSqlClass/target/MyPostGreSqlClass-1.0-SNAPSHOT.jar!/" />
@@ -174,13 +181,16 @@
 =======
     <property name="last_opened_file_path" value="$MAVEN_REPOSITORY$/org/example/MyIOUtils/1.0-SNAPSHOT/MyIOUtils-1.0-SNAPSHOT.jar!/" />
 >>>>>>> build file changes resulting from use of reusable libraries
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../PersonalCodingExercises/DbaseExercises/src/main/java/MyPostGreSqlClass.java" />
+>>>>>>> developing dbase interface
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.36666667" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
-  <component name="RunManager" selected="Application.CardGame">
+  <component name="RunManager" selected="Application.CardGameTest">
     <configuration name="BJackGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="BJackGame" />
       <module name="CardGames" />
@@ -204,9 +214,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.CardGame" />
         <item itemvalue="Application.CardGameTest" />
         <item itemvalue="Application.BJackGame" />
+        <item itemvalue="Application.CardGame" />
       </list>
     </recent_temporary>
   </component>
@@ -426,6 +436,7 @@
       <option name="project" value="LOCAL" />
       <updated>1592594760590</updated>
     </task>
+<<<<<<< refs/remotes/origin/master
     <option name="localTasksCounter" value="28" />
 <<<<<<< refs/remotes/origin/master
 =======
@@ -442,6 +453,23 @@
 >>>>>>> refactored with some reusable libraries
 =======
 >>>>>>> build file changes resulting from use of reusable libraries
+=======
+    <task id="LOCAL-00028" summary="changes to build files and .jar locations">
+      <created>1592667534272</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1592667534272</updated>
+    </task>
+    <task id="LOCAL-00029" summary="changes to build files and .jar locations">
+      <created>1592667544549</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1592667544549</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
+>>>>>>> developing dbase interface
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -471,6 +499,7 @@
     <MESSAGE value="refactored display io code" />
     <MESSAGE value="fixed bug in reinitHands" />
     <MESSAGE value="refactored with some reusable libraries" />
+<<<<<<< refs/remotes/origin/master
     <option name="LAST_COMMIT_MESSAGE" value="refactored with some reusable libraries" />
 =======
     <option name="LAST_COMMIT_MESSAGE" value="added some decision making for simulation" />
@@ -494,6 +523,10 @@
     <MESSAGE value="refactored with some reusable libraries" />
     <option name="LAST_COMMIT_MESSAGE" value="refactored with some reusable libraries" />
 >>>>>>> build file changes resulting from use of reusable libraries
+=======
+    <MESSAGE value="changes to build files and .jar locations" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes to build files and .jar locations" />
+>>>>>>> developing dbase interface
   </component>
   <component name="WindowStateProjectService">
     <state x="537" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592607444358">
@@ -504,10 +537,10 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="664" y="288" width="724" height="526" key="#com.intellij.ide.util.ExportDialog/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592338359140" />
-    <state x="839" y="255" width="374" height="592" key="#com.intellij.ide.util.MemberChooser" timestamp="1592348622633">
+    <state x="839" y="255" width="374" height="592" key="#com.intellij.ide.util.MemberChooser" timestamp="1592692883284">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="839" y="255" width="374" height="592" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592348622633" />
+    <state x="839" y="255" width="374" height="592" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592692883284" />
     <state x="691" y="357" key="#com.intellij.refactoring.move.moveInstanceMethod.MoveInstanceMethodDialog" timestamp="1592507187752">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -578,16 +611,21 @@
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="675" y="363" width="530" height="585" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592595797858" />
+<<<<<<< refs/remotes/origin/master
     <state x="804" y="276" width="735" height="498" key="FileChooserDialogImpl" timestamp="1592618788193">
 >>>>>>> build file changes resulting from use of reusable libraries
+=======
+    <state x="804" y="276" width="735" height="498" key="FileChooserDialogImpl" timestamp="1592690635186">
+>>>>>>> developing dbase interface
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="2681" y="255" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1592577859116" />
-    <state x="804" y="276" width="735" height="498" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592618788193" />
-    <state width="1492" height="278" key="GridCell.Tab.0.bottom" timestamp="1592624077696">
+    <state x="804" y="276" width="735" height="498" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592690635186" />
+    <state width="1551" height="264" key="GridCell.Tab.0.bottom" timestamp="1592693206127">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1606" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1592577740180" />
+<<<<<<< refs/remotes/origin/master
 <<<<<<< refs/remotes/origin/master
 <<<<<<< refs/remotes/origin/master
     <state width="1606" height="278" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592594355715" />
@@ -601,20 +639,24 @@
     <state width="1492" height="278" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592624077696" />
     <state width="1492" height="278" key="GridCell.Tab.0.center" timestamp="1592624077695">
 >>>>>>> changes to build files and .jar locations
+=======
+    <state width="1551" height="264" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592693206127" />
+    <state width="1551" height="264" key="GridCell.Tab.0.center" timestamp="1592693206127">
+>>>>>>> developing dbase interface
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1606" height="275" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1592577740180" />
-    <state width="1492" height="278" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592624077695" />
-    <state width="1492" height="278" key="GridCell.Tab.0.left" timestamp="1592624077695">
+    <state width="1551" height="264" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592693206127" />
+    <state width="1551" height="264" key="GridCell.Tab.0.left" timestamp="1592693206127">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1606" height="275" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1592577740179" />
-    <state width="1492" height="278" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592624077695" />
-    <state width="1492" height="278" key="GridCell.Tab.0.right" timestamp="1592624077696">
+    <state width="1551" height="264" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592693206127" />
+    <state width="1551" height="264" key="GridCell.Tab.0.right" timestamp="1592693206127">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1606" height="275" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1592577740180" />
-    <state width="1492" height="278" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592624077696" />
+    <state width="1551" height="264" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592693206127" />
     <state width="1606" height="304" key="GridCell.Tab.1.bottom" timestamp="1592530850419">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -737,6 +779,7 @@
     <state x="666" y="257" width="1157" height="590" key="dock-window-2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592324757847" />
 <<<<<<< refs/remotes/origin/master
 <<<<<<< refs/remotes/origin/master
+<<<<<<< refs/remotes/origin/master
     <state x="868" y="210" width="618" height="522" key="find.popup" timestamp="1592595569832">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
@@ -754,9 +797,12 @@
 =======
     <state x="868" y="210" width="618" height="522" key="find.popup" timestamp="1592595569832">
 >>>>>>> build file changes resulting from use of reusable libraries
+=======
+    <state x="868" y="210" width="618" height="522" key="find.popup" timestamp="1592690037316">
+>>>>>>> developing dbase interface
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
-    <state x="868" y="210" width="618" height="522" key="find.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592595569832" />
+    <state x="868" y="210" width="618" height="522" key="find.popup/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1592690037316" />
     <state x="618" y="237" width="748" height="599" key="new project wizard" timestamp="1592592837910">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

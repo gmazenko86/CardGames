@@ -18,6 +18,7 @@ public class BJackGame extends CardGame {
     ArrayList<ResultsEntry> dealerResults;
     ArrayList<ResultsEntry> playerResults;
     IOMgr iom;
+    DBMgr dbMgr;
 
     BJackGame(){
         super();
@@ -27,6 +28,7 @@ public class BJackGame extends CardGame {
         this.dealerResults = new ArrayList<>();
         this.playerResults = new ArrayList<>();
         this.iom = new IOMgr();
+        this.dbMgr = new DBMgr();
     }
 
     void playGame(){
@@ -100,10 +102,13 @@ public class BJackGame extends CardGame {
             playAnotherHand = playAnotherHand();
         }
         iom.displayFinalResults();
-//        System.out.println("Dealer Results");
-//        displayResultsArray(dealerResults);
-//        System.out.println("Player Results");
-//        displayResultsArray(playerResults);
+
+
+        System.out.println("Dealer Results");
+        displayResultsArray(dealerResults);
+        System.out.println("Player Results");
+        displayResultsArray(playerResults);
+        dbMgr.writeResultsDbase();
     }
 
     void setAllPlayerHandResults(BJackHand dealerHand){
@@ -586,6 +591,11 @@ public class BJackGame extends CardGame {
                 System.out.print("| ");
             }
             System.out.println("\n");
+        }
+    }
+
+    class DBMgr{
+        void writeResultsDbase(){
         }
     }
 }

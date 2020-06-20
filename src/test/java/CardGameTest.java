@@ -14,10 +14,10 @@ public class CardGameTest {
     public static void main(String... args){
 //        String fixDeckFilePath = "src/test/resources/fix65244.txt";
 //        String fixDeckFilePath2 = "src/test/resources/fixA__J.txt";
-        BJackGameTest bJackGameTest = new BJackGameTest();
+//        BJackGameTest bJackGameTest = new BJackGameTest();
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath);
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
-        bJackGameTest.playGame();
+//        bJackGameTest.playGame();
         
 /*
         MyPostGreSqlClass dbmgr = new MyPostGreSqlClass("/home/greg/PersonalCodingExercises/" +
@@ -32,8 +32,8 @@ public class CardGameTest {
  */
 
 
-//        BJackGameSim bJackGameSim = new BJackGameSim(100);
-//        bJackGameSim.playGame();
+        BJackGameSim bJackGameSim = new BJackGameSim(5);
+        bJackGameSim.playGame();
 
 
 /*

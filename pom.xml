@@ -78,16 +78,4 @@
     </build>
 
 
-<!--    <properties>
-        <maven.compiler.source>1.9</maven.compiler.source>
-        <maven.compiler.target>1.9</maven.compiler.target>
-    </properties>
--->
-<!--    <repositories>
-        <repository>
-            <id>MyIOUtils-1.0-SNAPSHOT</id>
-            <url>file://home/greg/.m2/repository/org/example/MyIOUtils/1.0-SNAPSHOT</url>
-        </repository>
-    </repositories>
--->
 </project>

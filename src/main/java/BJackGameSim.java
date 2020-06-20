@@ -1,3 +1,6 @@
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class BJackGameSim extends BJackGame{
     int iterations;
     int gamesPlayed;
@@ -5,7 +8,9 @@ public class BJackGameSim extends BJackGame{
     BJackGameSim(int iterations){
         super();
         IOMgrSim ioMgrSim = new IOMgrSim();
+        DBMgrSim dbMgrSim = new DBMgrSim();
         this.iom = (IOMgr) ioMgrSim;
+        this.dbMgr = (DBMgr) dbMgrSim;
         this.iterations = iterations;
         gamesPlayed = 0;
     }
@@ -26,6 +31,33 @@ public class BJackGameSim extends BJackGame{
         void displayResults() {
         }
 
+    }
+
+    // this extends the nested class DBMgr from the parent class BJackGame
+    // to use the override functions below, this.dbMgr has to be
+    // assigned to the dbMgrSim instance created in the constructor
+    class DBMgrSim extends DBMgr{
+        @Override
+        void writeResultsDbase() {
+
+            MyPostGreSqlClass dbmgr = new MyPostGreSqlClass("/home/greg/PersonalCodingExercises/" +
+                    "DbaseExercises/src/main/resources/config.txt");
+
+            try {
+                System.out.println(dbmgr.conn + "is closed = " + dbmgr.conn.isClosed());
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+
+            try(Statement statement = dbmgr.getStatementScrollable()){
+                String sqlStr = "insert into dealerhands(" +
+                        "hashid, total, attribute, result, card1, card2)" +
+                    "values(10, 21, 'BLACKJACK', 'WIN', 'ACE', 'QUEEN')";
+                statement.execute(sqlStr);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
     }
 
     @Override
