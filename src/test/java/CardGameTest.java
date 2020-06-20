@@ -17,8 +17,8 @@ public class CardGameTest {
         BJackGameTest bJackGameTest = new BJackGameTest();
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath);
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
-
         bJackGameTest.playGame();
+        
 /*
         MyPostGreSqlClass dbmgr = new MyPostGreSqlClass("/home/greg/PersonalCodingExercises/" +
                 "DbaseExercises/src/main/resources/config.txt");
