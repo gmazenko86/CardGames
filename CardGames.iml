@@ -17,10 +17,14 @@
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.2.2" level="project" />
 <<<<<<< refs/remotes/origin/master
+<<<<<<< refs/remotes/origin/master
     <orderEntry type="library" name="Maven: org.example:MyIOUtils:1.0-SNAPSHOT" level="project" />
 =======
     <orderEntry type="library" name="MyIOUtils-1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="MyPostGreSqlClass-1.0-SNAPSHOT" level="project" />
 >>>>>>> refactored with some reusable libraries
+=======
+    <orderEntry type="library" name="Maven: org.example:MyIOUtils:1.0-SNAPSHOT" level="project" />
+>>>>>>> build file changes resulting from use of reusable libraries
   </component>
 </module>
