@@ -1,4 +1,5 @@
 BJackPlayer.class
+BJackGameSim$DBMgrSim.class
 CardGame.class
 Player.class
 Deck.class
@@ -15,3 +16,4 @@ BJackHand$HandAttribute.class
 BJackHand$HandResult.class
 BJackHand.class
 BJackGame.class
+BJackGame$DBMgr.class
