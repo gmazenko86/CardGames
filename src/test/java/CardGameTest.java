@@ -21,8 +21,6 @@ public class CardGameTest {
         
         BJackGameSim bJackGameSim = new BJackGameSim(5);
         bJackGameSim.playGame();
-        // VCS check
-        System.out.println("picked up the change");
 
 
 /*
