@@ -3,8 +3,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-//TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
 //TODO: enable logging of results to a dbase - determine dbase strategy
+    //TODO: complete function with StringBuilder to parameterize sql write
+    //TODO: add stored procedure in dbase and add parameterized access in java
+//TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
 //TODO: unit testing framework and test cases (maven will execute tests as part of the build if desired)
 //TODO: system level testing
 //TODO: write graphics front end
@@ -104,10 +106,10 @@ public class BJackGame extends CardGame {
         iom.displayFinalResults();
 
 
-        System.out.println("Dealer Results");
-        displayResultsArray(dealerResults);
-        System.out.println("Player Results");
-        displayResultsArray(playerResults);
+//        System.out.println("Dealer Results");
+//        displayResultsArray(dealerResults);
+//        System.out.println("Player Results");
+//        displayResultsArray(playerResults);
         dbMgr.writeResultsDbase();
     }
 
