@@ -19,19 +19,6 @@ public class CardGameTest {
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
 //        bJackGameTest.playGame();
         
-/*
-        MyPostGreSqlClass dbmgr = new MyPostGreSqlClass("/home/greg/PersonalCodingExercises/" +
-                "DbaseExercises/src/main/resources/config.txt");
-
-        try {
-            System.out.println(dbmgr.conn + "is closed = " + dbmgr.conn.isClosed());
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-
- */
-
-
         BJackGameSim bJackGameSim = new BJackGameSim(5);
         bJackGameSim.playGame();
         // VCS check
@@ -49,10 +36,7 @@ public class CardGameTest {
         }
         hashMap.forEach((k,v)->System.out.println(k + "="+ v));
 
-
 */
-
-
 
 /*
         boolean goodDeck;

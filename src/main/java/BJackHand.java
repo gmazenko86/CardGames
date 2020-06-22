@@ -173,27 +173,6 @@ public class BJackHand extends Hand{
         return this.cards.get(checkIndex).getCardValue();
     }
 
-    boolean isSoftHand(){
-        int sumCardValues = 0;
-        int numAces = this.faceCount(Card.CardFace.ACE);
-        for(Card card : this.cards){
-            sumCardValues += card.getCardValue();
-        }
-        if (numAces > 0 &&
-                // next condition means that an ACE is used as an 11
-                (this.getHandTotal() != (sumCardValues - numAces*10))){
-            return true;
-        }
-        return false;
-    }
-
-    int pairCardValue(){
-        assert (this.havePair());
-        int checkIndex = this.cards.size() - 1;
-        return this.cards.get(checkIndex).getCardValue();
-    }
-
-
     boolean resultPending(){
         return handResult == HandResult.PENDING;
     }
