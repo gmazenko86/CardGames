@@ -10,7 +10,9 @@ public class CardGame {
     }
 
     public static void main(String... args){
-        BJackGame bJackGame = new BJackGame();
+        String dbConfigFilePath = "/home/greg/PersonalCodingExercises/" +
+                "DbaseExercises/src/main/resources/config.txt";
+        BJackGame bJackGame = new BJackGame(dbConfigFilePath);
         bJackGame.playGame();
     }
 

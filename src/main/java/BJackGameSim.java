@@ -5,20 +5,21 @@ public class BJackGameSim extends BJackGame{
     int iterations;
     int gamesPlayed;
 
-    BJackGameSim(int iterations){
-        super();
+    BJackGameSim(int iterations, String dbConfigPath){
+        super(dbConfigPath);
         IOMgrSim ioMgrSim = new IOMgrSim();
-        DBMgrSim dbMgrSim = new DBMgrSim();
+        DBMgrSim dbMgrSim = new DBMgrSim(dbConfigPath);
         this.iom = (IOMgr) ioMgrSim;
         this.dbMgr = (DBMgr) dbMgrSim;
         this.iterations = iterations;
         gamesPlayed = 0;
     }
 
-    // this extends the nested class IOMgr from the parent class BJackGame
+        // this extends the nested class IOMgr from the parent class BJackGame
     // to use the override functions below, this.iom has to be
     // assigned to the ioMgrSim instance created in the constructor
     class IOMgrSim extends IOMgr {
+
         @Override
         void displayActiveHands() {
         }
@@ -38,6 +39,9 @@ public class BJackGameSim extends BJackGame{
     // assigned to the dbMgrSim instance created in the constructor
     class DBMgrSim extends DBMgr{
 
+        DBMgrSim(String configFilePath){
+            super(configFilePath);
+        }
 
         @Override
         void writeResultsDbase() {
@@ -46,22 +50,21 @@ public class BJackGameSim extends BJackGame{
             timeStamp = LocalDateTime.now();
             System.out.println(timeStamp);
 
-            MyPostGreSqlClass dbmgr = new MyPostGreSqlClass("/home/greg/PersonalCodingExercises/" +
-                    "DbaseExercises/src/main/resources/config.txt");
-
             for(ResultsEntry entry : dealerResults){
-                writeEntryToDb("dealertable", entry, dbmgr);
+                writeEntryToDb("dealerhands", entry);
             }
-
+            for(ResultsEntry entry : playerResults){
+                writeEntryToDb("playerhands", entry);
+            }
             timeStamp = LocalDateTime.now();
             System.out.println(timeStamp);
         }
 
-        void writeEntryToDb(String tableName, ResultsEntry entry, MyPostGreSqlClass dbmgr){
+        void writeEntryToDb(String tableName, ResultsEntry entry){
 
-            String statestr = buildPsSqlString("dealerhands");
+            String statestr = buildPsSqlString(tableName);
 
-            try(PreparedStatement ps = dbmgr.getPreparedScrollable(statestr)){
+            try(PreparedStatement ps = dbMgr.getPreparedScrollable(statestr)){
                 ps.setInt(1, entry.handHashId);
                 ps.setInt(2, entry.handTotal);
                 ps.setString(3, entry.handAttribute.name());

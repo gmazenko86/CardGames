@@ -12,14 +12,17 @@ import static org.apache.commons.lang3.StringUtils.getDigits;
 
 public class CardGameTest {
     public static void main(String... args){
+        String dbConfigFilePath = "/home/greg/PersonalCodingExercises/" +
+                "DbaseExercises/src/main/resources/config.txt";
+
 //        String fixDeckFilePath = "src/test/resources/fix65244.txt";
 //        String fixDeckFilePath2 = "src/test/resources/fixA__J.txt";
-//        BJackGameTest bJackGameTest = new BJackGameTest();
+//        BJackGameTest bJackGameTest = new BJackGameTest(dbConfigFilePath);
 //        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath);
-//        BJackGameTest bJackGameTest = new BJackGameTest(fixDeckFilePath2);
+//        BJackGameTest bJackGameTest = new BJackGameTest(dbConfigFilePath, fixDeckFilePath2);
 //        bJackGameTest.playGame();
-        
-        BJackGameSim bJackGameSim = new BJackGameSim(10000);
+
+        BJackGameSim bJackGameSim = new BJackGameSim(5000, dbConfigFilePath);
         bJackGameSim.playGame();
 
 

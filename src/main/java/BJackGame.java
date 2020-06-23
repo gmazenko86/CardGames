@@ -22,7 +22,7 @@ public class BJackGame extends CardGame {
     IOMgr iom;
     DBMgr dbMgr;
 
-    BJackGame(){
+    BJackGame(String dbConfigPath){
         super();
         this.players = new ArrayList<>();
         this.dealer = new BJackPlayer();
@@ -30,7 +30,7 @@ public class BJackGame extends CardGame {
         this.dealerResults = new ArrayList<>();
         this.playerResults = new ArrayList<>();
         this.iom = new IOMgr();
-        this.dbMgr = new DBMgr();
+        this.dbMgr = new DBMgr(dbConfigPath);
     }
 
     void playGame(){
@@ -41,17 +41,7 @@ public class BJackGame extends CardGame {
         LocalDateTime dateTime;
         while(playAnotherHand) {
             dealHands();
-/*
-            // console object will be null if program is run from IDE
-            Console console = System.console();
 
-            if (Objects.nonNull(console)) {
-                console.printf("Print console object using console.printf " + console.toString() + "\n");
-                System.out.println("Print console object using System.out.println " + console.toString());
-                PrintWriter writer = console.writer();
-                writer.println("Print console object using PrintWriter.println " + console.toString());
-            }
-*/
             // need an array list of players plus the dealer
             // update hand attributes based on blackjacks
             // TODO: should consolidate the following 2 enhanced for loops into functions
@@ -596,7 +586,12 @@ public class BJackGame extends CardGame {
         }
     }
 
-    class DBMgr{
+    class DBMgr extends MyPostGreSqlClass{
+
+        DBMgr(String configFilePath) {
+            super(configFilePath);
+        }
+
         void writeResultsDbase(){
         }
     }
