@@ -96,26 +96,15 @@ public class BJackGameSim extends BJackGame{
             DBMgrSim dbMgrSim4 = new DBMgrSim(this.configFilePath);
 
             // cut the results arrays in halves
-            int dealerSize = dealerResults.size();
             int playerSize = playerResults.size();
 
-            ArrayList<ResultsEntry> dealer1 = new ArrayList<>(dealerResults);
-            ArrayList<ResultsEntry> dealer2 = new ArrayList<>(dealerResults);
-            // remove the 2nd half of the arrayList
-            for(int i = dealerSize - 1; i >= dealerSize/2; i--){
-                dealer1.remove(i);
-            }
-            // now keep the 2nd half by removing the first half
-            dealer2.removeAll(dealer1);
+            ArrayList<ResultsEntry> dealer1 = new ArrayList<>();
+            ArrayList<ResultsEntry> dealer2 = new ArrayList<>();
+            bisectArrayList(dealer1, dealer2, dealerResults);
 
-            ArrayList<ResultsEntry> player1 = new ArrayList<>(playerResults);
-            ArrayList<ResultsEntry> player2 = new ArrayList<>(playerResults);
-            // remove the 2nd half of the arrayList
-            for(int i = playerSize - 1; i >= playerSize/2; i--){
-                player1.remove(i);
-            }
-            // now keep the 2nd half by removing the first half
-            player2.removeAll(player1);
+            ArrayList<ResultsEntry> player1 = new ArrayList<>();
+            ArrayList<ResultsEntry> player2 = new ArrayList<>();
+            bisectArrayList(player1, player2, playerResults);
 
             // these objects are the runnable tasks
             WriteEntriesToDb task1 = new WriteEntriesToDb("dealerhands", dealer1, dbMgrSim1);
@@ -132,6 +121,25 @@ public class BJackGameSim extends BJackGame{
             thread3.start();
             thread4.start();
 
+        }
+
+        // this function takes an original ArrayList and populates 2 others with
+        // the respective halves of the original
+        void bisectArrayList(ArrayList<ResultsEntry> firstHalf,
+                             ArrayList<ResultsEntry> secondHalf,
+                             ArrayList<ResultsEntry> original){
+            int originalSize = original.size();
+            firstHalf.clear();
+            firstHalf.addAll(original);
+            secondHalf.clear();
+            secondHalf.addAll(original);
+
+            // remove the 2nd half of the arrayList
+            for(int i = originalSize - 1; i >= originalSize/2; i--){
+                firstHalf.remove(i);
+            }
+            // now keep the 2nd half by removing the first half
+            secondHalf.removeAll(firstHalf);
         }
 
         void writeEntryToDb(String tableName, ResultsEntry entry, DBMgrSim dbMgrSim){
