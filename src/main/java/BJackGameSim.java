@@ -1,7 +1,8 @@
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
+
+import static java.lang.Math.pow;
 
 public class BJackGameSim extends BJackGame{
     int iterations;
@@ -88,39 +89,91 @@ public class BJackGameSim extends BJackGame{
         @Override
         void writeResultsDbase() {
 
-            // a little faster if done with 2 threads, 1 for dealer results and 1 for player results
+            //TODO: have to remove entries with duplicate hashIDs in dealerResults before writing to database
+
+            // probably use a HashSet somehow. consistently get duplicates when running 100K hands
+
+            // numThreads has to be an even power of 2 for the method to work
+            int numThreads = 32;
+
+            int threadsPerPlayer = numThreads/2;
+            // calculate log base 2 to determine how many times the player
+            // ArrayList will have to be split
+            int splits = (int)(Math.log(threadsPerPlayer)/Math.log(2.));
+
             // each of these local objects will have their own dbase connection
-            DBMgrSim dbMgrSim1 = new DBMgrSim(this.configFilePath);
-            DBMgrSim dbMgrSim2 = new DBMgrSim(this.configFilePath);
-            DBMgrSim dbMgrSim3 = new DBMgrSim(this.configFilePath);
-            DBMgrSim dbMgrSim4 = new DBMgrSim(this.configFilePath);
+            ArrayList<DBMgrSim> dealerDBMgrs = new ArrayList<>();
+            for(int i = 0; i < threadsPerPlayer; i++){
+                DBMgrSim dbMgrSim= new DBMgrSim(this.configFilePath);
+                dealerDBMgrs.add(dbMgrSim);
+            }
+            ArrayList<DBMgrSim> playerDBMgrs = new ArrayList<>();
+            for(int i = 0; i < threadsPerPlayer; i++){
+                DBMgrSim dbMgrSim = new DBMgrSim(this.configFilePath);
+                playerDBMgrs.add(dbMgrSim);
+            }
+            // create the results arrays
+            ArrayList<ArrayList<ResultsEntry>> dealerArrays = createResultsLists(threadsPerPlayer);
+            ArrayList<ArrayList<ResultsEntry>> playerArrays = createResultsLists(threadsPerPlayer);
 
             // cut the results arrays in halves
-            int playerSize = playerResults.size();
-
-            ArrayList<ResultsEntry> dealer1 = new ArrayList<>();
-            ArrayList<ResultsEntry> dealer2 = new ArrayList<>();
-            bisectArrayList(dealer1, dealer2, dealerResults);
-
-            ArrayList<ResultsEntry> player1 = new ArrayList<>();
-            ArrayList<ResultsEntry> player2 = new ArrayList<>();
-            bisectArrayList(player1, player2, playerResults);
+            dealerArrays.get(0).addAll(dealerResults);
+            playerArrays.get(0).addAll(playerResults);
+            divideArrayList(dealerArrays, splits);
+            divideArrayList(playerArrays, splits);
 
             // these objects are the runnable tasks
-            WriteEntriesToDb task1 = new WriteEntriesToDb("dealerhands", dealer1, dbMgrSim1);
-            WriteEntriesToDb task2 = new WriteEntriesToDb("dealerhands", dealer2, dbMgrSim2);
-            WriteEntriesToDb task3 = new WriteEntriesToDb("playerhands", player1, dbMgrSim3);
-            WriteEntriesToDb task4 = new WriteEntriesToDb("playerhands", player2, dbMgrSim4);
+            ArrayList<WriteEntriesToDb > taskList = new ArrayList<>();
+            // first add the dealer tasks
+            for(int i = 0; i < threadsPerPlayer; i++){
+                WriteEntriesToDb task = new WriteEntriesToDb("dealerhands",
+                        dealerArrays.get(i), dealerDBMgrs.get(i));
+                taskList.add(task);
+            }
+            // now add the player tasks
+            for(int i = 0; i < threadsPerPlayer; i++){
+                WriteEntriesToDb task = new WriteEntriesToDb("playerhands",
+                        playerArrays.get(i), playerDBMgrs.get(i));
+                taskList.add(task);
+            }
 
-            Thread thread1 = new Thread(task1);
-            Thread thread2 = new Thread(task2);
-            Thread thread3 = new Thread(task3);
-            Thread thread4 = new Thread(task4);
-            thread1.start();
-            thread2.start();
-            thread3.start();
-            thread4.start();
+            // now start the threads
+            for(int i = 0; i < numThreads; i++){
+                Thread thread = new Thread(taskList.get(i));
+                thread.start();
+            }
+        }
 
+        void divideArrayList(ArrayList<ArrayList<ResultsEntry>> arrayLists, int splits){
+            for(int i = 0; i < splits; i++){
+                int arrayStart = (int) Math.pow(2., i) - 1;
+                for(int j = 0; j < (int) Math.pow(2., i); j++){
+                    int arrayIndex = arrayStart + j;
+                    bisectArrayList(
+                            arrayLists.get(2 * arrayIndex + 1),
+                            arrayLists.get(2 * arrayIndex + 2),
+                            arrayLists.get(arrayIndex));
+                }
+            }
+            // only want to keep the last half of the Array Lists. Keep the last 2^splits
+            int arrayIndex = arrayLists.size() - 1;
+            ArrayList<ArrayList<ResultsEntry>> swapList = new ArrayList<>();
+            for(int i = 0; i < (int)Math.pow(2., splits); i++){
+                swapList.add(arrayLists.get(arrayIndex));
+                arrayIndex -= 1;
+            }
+            arrayLists.clear();
+            arrayLists.addAll(swapList);
+            return;
+        }
+
+        ArrayList<ArrayList<ResultsEntry>> createResultsLists(int threadsPerPlayer){
+            ArrayList<ArrayList<ResultsEntry>> returnArray = new ArrayList<>();
+            for(int i = 0; i < threadsPerPlayer * 2 - 1; i++){
+                ArrayList<ResultsEntry> resultsArray = new ArrayList<>();
+                returnArray.add(resultsArray);
+            }
+            return returnArray;
         }
 
         // this function takes an original ArrayList and populates 2 others with
