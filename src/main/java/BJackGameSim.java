@@ -1,5 +1,7 @@
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class BJackGameSim extends BJackGame{
     int iterations;
@@ -15,7 +17,7 @@ public class BJackGameSim extends BJackGame{
         gamesPlayed = 0;
     }
 
-        // this extends the nested class IOMgr from the parent class BJackGame
+    // this extends the nested class IOMgr from the parent class BJackGame
     // to use the override functions below, this.iom has to be
     // assigned to the ioMgrSim instance created in the constructor
     class IOMgrSim extends IOMgr {
@@ -39,32 +41,104 @@ public class BJackGameSim extends BJackGame{
     // assigned to the dbMgrSim instance created in the constructor
     class DBMgrSim extends DBMgr{
 
+        String configFilePath;
+
         DBMgrSim(String configFilePath){
             super(configFilePath);
+            this.configFilePath = configFilePath;
+        }
+
+        class WriteEntriesToDb implements Runnable {
+            String tableName;
+            ArrayList<ResultsEntry> resultsEntries;
+            DBMgrSim dbMgrSim;
+
+            WriteEntriesToDb(String tableName, ArrayList<ResultsEntry> resultsEntries, DBMgrSim dbMgrSim){
+                this.tableName = tableName;
+                this.resultsEntries = resultsEntries;
+                this.dbMgrSim = dbMgrSim;
+            }
+
+            void writeEntries(){
+                LocalDateTime timeStamp1;
+                LocalDateTime timeStamp2;
+                timeStamp1 = LocalDateTime.now();
+                System.out.println(Thread.currentThread().getName() + " " +timeStamp1);
+
+                for(ResultsEntry entry : resultsEntries){
+                    writeEntryToDb(tableName, entry, dbMgrSim);
+                }
+
+                timeStamp2 = LocalDateTime.now();
+                long time1MicroSec = (timeStamp1.getMinute()*60 + timeStamp1.getSecond()) * 1000000
+                        + timeStamp1.getNano()/1000;
+                long time2MicroSec = (timeStamp2.getMinute()*60 + timeStamp2.getSecond()) * 1000000
+                        + timeStamp2.getNano()/1000;
+                long elapsed = time2MicroSec - time1MicroSec;
+                double elapsedDouble = (double)elapsed/1000000.;
+                System.out.println(Thread.currentThread().getName() + " " + elapsedDouble + " seconds elapsed");
+            }
+
+            @Override
+            public void run() {
+                writeEntries();
+            }
         }
 
         @Override
         void writeResultsDbase() {
 
-            LocalDateTime timeStamp;
-            timeStamp = LocalDateTime.now();
-            System.out.println(timeStamp);
+            // a little faster if done with 2 threads, 1 for dealer results and 1 for player results
+            // each of these local objects will have their own dbase connection
+            DBMgrSim dbMgrSim1 = new DBMgrSim(this.configFilePath);
+            DBMgrSim dbMgrSim2 = new DBMgrSim(this.configFilePath);
+            DBMgrSim dbMgrSim3 = new DBMgrSim(this.configFilePath);
+            DBMgrSim dbMgrSim4 = new DBMgrSim(this.configFilePath);
 
-            for(ResultsEntry entry : dealerResults){
-                writeEntryToDb("dealerhands", entry);
+            // cut the results arrays in halves
+            int dealerSize = dealerResults.size();
+            int playerSize = playerResults.size();
+
+            ArrayList<ResultsEntry> dealer1 = new ArrayList<>(dealerResults);
+            ArrayList<ResultsEntry> dealer2 = new ArrayList<>(dealerResults);
+            // remove the 2nd half of the arrayList
+            for(int i = dealerSize - 1; i >= dealerSize/2; i--){
+                dealer1.remove(i);
             }
-            for(ResultsEntry entry : playerResults){
-                writeEntryToDb("playerhands", entry);
+            // now keep the 2nd half by removing the first half
+            dealer2.removeAll(dealer1);
+
+            ArrayList<ResultsEntry> player1 = new ArrayList<>(playerResults);
+            ArrayList<ResultsEntry> player2 = new ArrayList<>(playerResults);
+            // remove the 2nd half of the arrayList
+            for(int i = playerSize - 1; i >= playerSize/2; i--){
+                player1.remove(i);
             }
-            timeStamp = LocalDateTime.now();
-            System.out.println(timeStamp);
+            // now keep the 2nd half by removing the first half
+            player2.removeAll(player1);
+
+            // these objects are the runnable tasks
+            WriteEntriesToDb task1 = new WriteEntriesToDb("dealerhands", dealer1, dbMgrSim1);
+            WriteEntriesToDb task2 = new WriteEntriesToDb("dealerhands", dealer2, dbMgrSim2);
+            WriteEntriesToDb task3 = new WriteEntriesToDb("playerhands", player1, dbMgrSim3);
+            WriteEntriesToDb task4 = new WriteEntriesToDb("playerhands", player2, dbMgrSim4);
+
+            Thread thread1 = new Thread(task1);
+            Thread thread2 = new Thread(task2);
+            Thread thread3 = new Thread(task3);
+            Thread thread4 = new Thread(task4);
+            thread1.start();
+            thread2.start();
+            thread3.start();
+            thread4.start();
+
         }
 
-        void writeEntryToDb(String tableName, ResultsEntry entry){
+        void writeEntryToDb(String tableName, ResultsEntry entry, DBMgrSim dbMgrSim){
 
             String statestr = buildPsSqlString(tableName);
 
-            try(PreparedStatement ps = dbMgr.getPreparedScrollable(statestr)){
+            try(PreparedStatement ps = dbMgrSim.getPreparedScrollable(statestr)){
                 ps.setInt(1, entry.handHashId);
                 ps.setInt(2, entry.handTotal);
                 ps.setString(3, entry.handAttribute.name());
