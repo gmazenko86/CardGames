@@ -53,11 +53,16 @@ public class BJackGameSim extends BJackGame{
             String tableName;
             ArrayList<ResultsEntry> resultsEntries;
             DBMgrSim dbMgrSim;
+            int beginIndex;
+            int endIndex;
 
-            WriteEntriesToDb(String tableName, ArrayList<ResultsEntry> resultsEntries, DBMgrSim dbMgrSim){
+            WriteEntriesToDb(String tableName, ArrayList<ResultsEntry> resultsEntries, DBMgrSim dbMgrSim,
+                             int beginIndex, int endIndex){
                 this.tableName = tableName;
                 this.resultsEntries = resultsEntries;
                 this.dbMgrSim = dbMgrSim;
+                this.beginIndex = beginIndex;
+                this.endIndex = endIndex;
             }
 
             void writeEntries(){
@@ -65,8 +70,8 @@ public class BJackGameSim extends BJackGame{
                 LocalDateTime timeStamp2;
                 timeStamp1 = LocalDateTime.now();
 
-                for(ResultsEntry entry : resultsEntries){
-                    writeEntryToDb(tableName, entry, dbMgrSim);
+                for(int i = beginIndex; i < endIndex; i++){
+                    writeEntryToDb(tableName, resultsEntries.get(i), dbMgrSim);
                 }
 
                 timeStamp2 = LocalDateTime.now();
@@ -89,128 +94,75 @@ public class BJackGameSim extends BJackGame{
         @Override
         void writeResultsDbase() {
 
-            //TODO: have to remove entries with duplicate hashIDs in dealerResults before writing to database
-
             LocalDateTime timeStamp = LocalDateTime.now();
             System.out.println(timeStamp + " = start of writeResultsDbase()");
-// *************************************************************************************
-            // probably use a HashSet somehow. consistently get duplicates when running 100K hands
-            // hashSets automatically remove duplicates when doing hashset.addAll​(Collection<? extends E> c)
 
             // numThreads has to be an even power of 2 for the method to work
             int numThreads = 32;
 
-            int threadsPerPlayer = numThreads/2;
+            int threadsPerPlayer = numThreads / 2;
             // calculate log base 2 to determine how many times the player
             // ArrayList will have to be split
-            int splits = (int)(Math.log(threadsPerPlayer)/Math.log(2.));
+            int splits = (int) (Math.log(threadsPerPlayer) / Math.log(2.));
 
             timeStamp = LocalDateTime.now();
             System.out.println(timeStamp + " = ready to get the dbase connections");
 
             // each of these local objects will have their own dbase connection
             ArrayList<DBMgrSim> dealerDBMgrs = new ArrayList<>();
-            for(int i = 0; i < threadsPerPlayer; i++){
-                DBMgrSim dbMgrSim= new DBMgrSim(this.configFilePath);
+            for (int i = 0; i < threadsPerPlayer; i++) {
+                DBMgrSim dbMgrSim = new DBMgrSim(this.configFilePath);
                 dealerDBMgrs.add(dbMgrSim);
             }
             ArrayList<DBMgrSim> playerDBMgrs = new ArrayList<>();
-            for(int i = 0; i < threadsPerPlayer; i++){
+            for (int i = 0; i < threadsPerPlayer; i++) {
                 DBMgrSim dbMgrSim = new DBMgrSim(this.configFilePath);
                 playerDBMgrs.add(dbMgrSim);
             }
 
             timeStamp = LocalDateTime.now();
-            System.out.println(timeStamp + " = ready to create and split results arrays");
+            System.out.println(timeStamp + " = ready to create the task lists");
 
-            // create the results arrays
-            ArrayList<ArrayList<ResultsEntry>> dealerArrays = createResultsLists(threadsPerPlayer);
-            ArrayList<ArrayList<ResultsEntry>> playerArrays = createResultsLists(threadsPerPlayer);
+            // determine results array indices to pass to each thread
 
-            // cut the results arrays in halves
-            dealerArrays.get(0).addAll(dealerResults);
-            playerArrays.get(0).addAll(playerResults);
-            divideArrayList(dealerArrays, splits);
-            divideArrayList(playerArrays, splits);
+            int dealerBlockSize = dealerResults.size() / threadsPerPlayer;
+            int dealerExtras = dealerResults.size() % threadsPerPlayer;
+            int playerBlockSize = playerResults.size() / threadsPerPlayer;
+            int playerExtras = playerResults.size() % threadsPerPlayer;
 
             // these objects are the runnable tasks
             ArrayList<WriteEntriesToDb > taskList = new ArrayList<>();
-            // first add the dealer tasks
-            for(int i = 0; i < threadsPerPlayer; i++){
-                WriteEntriesToDb task = new WriteEntriesToDb("dealerhands",
-                        dealerArrays.get(i), dealerDBMgrs.get(i));
-                taskList.add(task);
-            }
-            // now add the player tasks
-            for(int i = 0; i < threadsPerPlayer; i++){
-                WriteEntriesToDb task = new WriteEntriesToDb("playerhands",
-                        playerArrays.get(i), playerDBMgrs.get(i));
-                taskList.add(task);
-            }
-
-            timeStamp = LocalDateTime.now();
-            MyIOUtils.printlnBlueText(timeStamp + " = getting ready to start the threads");
-// ~5 to 9 seconds elapse between separator comments when running 100K hands
-// *************************************************************************************
+            addTasks(taskList, dealerResults, dealerDBMgrs,"dealerhands",
+                    threadsPerPlayer, dealerBlockSize, dealerExtras);
+            addTasks(taskList, playerResults, playerDBMgrs,"playerhands",
+                    threadsPerPlayer, playerBlockSize, playerExtras);
 
             // now start the threads
+            timeStamp = LocalDateTime.now();
+            MyIOUtils.printlnBlueText(timeStamp + " = ready to start the threads");
             for(int i = 0; i < numThreads; i++){
                 Thread thread = new Thread(taskList.get(i));
                 thread.start();
             }
         }
 
-        void divideArrayList(ArrayList<ArrayList<ResultsEntry>> arrayLists, int splits){
-            LocalDateTime timeStamp = LocalDateTime.now();
-            MyIOUtils.printlnRedText(timeStamp + " beginning of divideArrayList()");
-            for(int i = 0; i < splits; i++){
-                int arrayStart = (int) Math.pow(2., i) - 1;
-                for(int j = 0; j < (int) Math.pow(2., i); j++){
-                    int arrayIndex = arrayStart + j;
-                    bisectArrayList(
-                            arrayLists.get(2 * arrayIndex + 1),
-                            arrayLists.get(2 * arrayIndex + 2),
-                            arrayLists.get(arrayIndex));
+        void addTasks(ArrayList<WriteEntriesToDb > taskList,
+                      ArrayList<ResultsEntry> resultsEntries,
+                      ArrayList<DBMgrSim> dbMgrSims,
+                      String tableName, int threadsPerPlayer, int blockSize, int extras){
+            int beginIndex;
+            int endIndex;
+            for(int i = 0; i < threadsPerPlayer; i++){
+                beginIndex = i * blockSize;
+                if(i == (threadsPerPlayer - 1)){
+                    endIndex = (i+1)*blockSize + extras;
+                } else{
+                    endIndex = (i+1)*blockSize;
                 }
+                WriteEntriesToDb task = new WriteEntriesToDb(tableName,
+                        resultsEntries, dbMgrSims.get(i), beginIndex, endIndex);
+                taskList.add(task);
             }
-            // only want to keep the last half of the Array Lists. Keep the last 2^splits
-            int arrayIndex = arrayLists.size() - 1;
-            ArrayList<ArrayList<ResultsEntry>> swapList = new ArrayList<>();
-            for(int i = 0; i < (int)Math.pow(2., splits); i++){
-                swapList.add(arrayLists.get(arrayIndex));
-                arrayIndex -= 1;
-            }
-            arrayLists.clear();
-            arrayLists.addAll(swapList);
-            return;
-        }
-
-        ArrayList<ArrayList<ResultsEntry>> createResultsLists(int threadsPerPlayer){
-            ArrayList<ArrayList<ResultsEntry>> returnArray = new ArrayList<>();
-            for(int i = 0; i < threadsPerPlayer * 2 - 1; i++){
-                ArrayList<ResultsEntry> resultsArray = new ArrayList<>();
-                returnArray.add(resultsArray);
-            }
-            return returnArray;
-        }
-
-        // this function takes an original ArrayList and populates 2 others with
-        // the respective halves of the original
-        void bisectArrayList(ArrayList<ResultsEntry> firstHalf,
-                             ArrayList<ResultsEntry> secondHalf,
-                             ArrayList<ResultsEntry> original){
-            int originalSize = original.size();
-            firstHalf.clear();
-            firstHalf.addAll(original);
-            secondHalf.clear();
-            secondHalf.addAll(original);
-
-            // remove the 2nd half of the arrayList
-            for(int i = originalSize - 1; i >= originalSize/2; i--){
-                firstHalf.remove(i);
-            }
-            // now keep the 2nd half by removing the first half
-            secondHalf.removeAll(firstHalf);
         }
 
         void writeEntryToDb(String tableName, ResultsEntry entry, DBMgrSim dbMgrSim){
@@ -294,39 +246,4 @@ public class BJackGameSim extends BJackGame{
     @Override
     void displayPlayerBankrolls() {
     }
-
-/*
-    // don't need this since it was a bit faster to use a java PreparedStatement
-    protected String buildSqlString(String tableName, ResultsEntry entry){
-        StringBuilder builder = new StringBuilder("insert into ");
-        builder.append(tableName);
-        builder.append("(\n");
-
-        builder.append("hashid, total, attribute, result");
-        int i= 0;
-        for(Card card : entry.cards){
-            i++;
-            Integer index = i;
-            builder.append(", ");
-            builder.append("card");
-            builder.append(index.toString());
-        }
-        builder.append(")\n");
-        builder.append("values(");
-        builder.append(((Integer)(entry.handHashId)).toString());
-        builder.append(", ");
-        builder.append(((Integer)(entry.handTotal)).toString());
-        builder.append(", '");
-        builder.append(entry.handAttribute.name());
-        builder.append("', '");
-        builder.append(entry.handResult.name());
-        for(Card card : entry.cards){
-            builder.append("','");
-            builder.append(card.cardFace.name());
-        }
-        builder.append("');");
-        return builder.toString();
-    }
-*/
-
 }
