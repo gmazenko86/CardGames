@@ -15,7 +15,7 @@ public class BJackHand extends Hand{
         handAttribute = HandAttribute.NOTPLAYED;
         handResult = HandResult.PENDING;
         bet = 100.;
-        playingThis = false;
+        setPlaying(false);
     }
 
     public int getHandTotal(){

@@ -1,10 +1,11 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
-//TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
 //TODO: enable logging of results to a dbase - determine dbase strategy
+//TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
 //TODO: unit testing framework and test cases (maven will execute tests as part of the build if desired)
 //TODO: system level testing
 //TODO: write graphics front end
@@ -15,12 +16,12 @@ public class BJackGame extends CardGame {
     final ArrayList<BJackPlayer> players;
     final BJackPlayer dealer;
     BJackHand dealerHand;
-    ArrayList<ResultsEntry> dealerResults;
-    ArrayList<ResultsEntry> playerResults;
+    final ArrayList<ResultsEntry> dealerResults;
+    final ArrayList<ResultsEntry> playerResults;
     IOMgr iom;
     DBMgr dbMgr;
 
-    BJackGame(){
+    BJackGame(String dbConfigPath){
         super();
         this.players = new ArrayList<>();
         this.dealer = new BJackPlayer();
@@ -28,28 +29,22 @@ public class BJackGame extends CardGame {
         this.dealerResults = new ArrayList<>();
         this.playerResults = new ArrayList<>();
         this.iom = new IOMgr();
-        this.dbMgr = new DBMgr();
+        this.dbMgr = new DBMgr(dbConfigPath);
     }
 
     void playGame(){
+        LocalDateTime timeStamp = LocalDateTime.now();
+        System.out.println(timeStamp + " = start of program");
         preGameInit(1);
 
         boolean playAnotherHand = true;
         int hashCode;
+        HashSet<Integer> hashCodes = new HashSet<>();
+        boolean notDuplicate;
         LocalDateTime dateTime;
         while(playAnotherHand) {
             dealHands();
-/*
-            // console object will be null if program is run from IDE
-            Console console = System.console();
 
-            if (Objects.nonNull(console)) {
-                console.printf("Print console object using console.printf " + console.toString() + "\n");
-                System.out.println("Print console object using System.out.println " + console.toString());
-                PrintWriter writer = console.writer();
-                writer.println("Print console object using PrintWriter.println " + console.toString());
-            }
-*/
             // need an array list of players plus the dealer
             // update hand attributes based on blackjacks
             // TODO: should consolidate the following 2 enhanced for loops into functions
@@ -88,7 +83,12 @@ public class BJackGame extends CardGame {
             displayPlayerBankrolls();
             dateTime = LocalDateTime.now();
             hashCode = dateTime.hashCode();
-            logResults(hashCode);
+
+            // check for a duplicate hashcode. If not dup, then log the results
+            notDuplicate = hashCodes.add(hashCode);
+            if(notDuplicate){
+                logResults(hashCode);
+            }
 
             // reinitialize all hands by getting new instances
             for (BJackPlayer player : playersPlusDealer) {
@@ -101,13 +101,15 @@ public class BJackGame extends CardGame {
             }
             playAnotherHand = playAnotherHand();
         }
+        timeStamp = LocalDateTime.now();
+        System.out.println(timeStamp + " = done playing hands");
         iom.displayFinalResults();
 
 
-        System.out.println("Dealer Results");
-        displayResultsArray(dealerResults);
-        System.out.println("Player Results");
-        displayResultsArray(playerResults);
+//        System.out.println("Dealer Results");
+//        displayResultsArray(dealerResults);
+//        System.out.println("Player Results");
+//        displayResultsArray(playerResults);
         dbMgr.writeResultsDbase();
     }
 
@@ -536,7 +538,7 @@ public class BJackGame extends CardGame {
 
         protected void displayHand(BJackHand hand){
             for(Card card: hand.cards){
-                if (hand.playingThis){
+                if (hand.getPlaying()){
                     MyIOUtils.printBlueText(card.getCardSignature());
                     MyIOUtils.printBlueText(" | ");
                 } else{
@@ -594,7 +596,12 @@ public class BJackGame extends CardGame {
         }
     }
 
-    class DBMgr{
+    class DBMgr extends MyPostGreSqlClass{
+
+        DBMgr(String configFilePath) {
+            super(configFilePath);
+        }
+
         void writeResultsDbase(){
         }
     }

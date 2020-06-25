@@ -2,15 +2,15 @@ import java.util.TreeMap;
 
 public class BJackGameTest extends BJackGame{
 
-    BJackGameTest(){
+    BJackGameTest(String dbaseConfigFilePath){
         // use this constructor if you want to use a normal fair deck
-        super();
+        super(dbaseConfigFilePath);
     }
 
-    BJackGameTest(String inputPath){
+    BJackGameTest(String dbaseConfigFilePath, String fixDeckInputPath){
         // use this constructor if you want to fix the deck for test and debug
-        super();
-        TreeMap<Integer, Card> seedCards = CardTestUtils.fixDeckEntries(inputPath);
+        super(dbaseConfigFilePath);
+        TreeMap<Integer, Card> seedCards = CardTestUtils.fixDeckEntries(fixDeckInputPath);
         CardTestUtils.fixDeck(this.deck, seedCards);
         boolean deckGood = CardTestUtils.checkDeckIntegrity(this.deck);
         assert (deckGood) : assertPrint("Deck integrity check failed");
