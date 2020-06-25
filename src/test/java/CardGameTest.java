@@ -18,7 +18,7 @@ public class CardGameTest {
 //        BJackGameTest bJackGameTest = new BJackGameTest(dbConfigFilePath, fixDeckFilePath2);
 //        bJackGameTest.playGame();
 
-        BJackGameSim bJackGameSim = new BJackGameSim(5000, dbConfigFilePath);
+        BJackGameSim bJackGameSim = new BJackGameSim(100000, dbConfigFilePath);
         bJackGameSim.playGame();
 
 

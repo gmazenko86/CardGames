@@ -16,8 +16,8 @@ public class BJackGame extends CardGame {
     final ArrayList<BJackPlayer> players;
     final BJackPlayer dealer;
     BJackHand dealerHand;
-    ArrayList<ResultsEntry> dealerResults;
-    ArrayList<ResultsEntry> playerResults;
+    final ArrayList<ResultsEntry> dealerResults;
+    final ArrayList<ResultsEntry> playerResults;
     IOMgr iom;
     DBMgr dbMgr;
 
@@ -39,7 +39,7 @@ public class BJackGame extends CardGame {
 
         boolean playAnotherHand = true;
         int hashCode;
-        HashSet<Integer> hashCodes = new HashSet();
+        HashSet<Integer> hashCodes = new HashSet<>();
         boolean notDuplicate;
         LocalDateTime dateTime;
         while(playAnotherHand) {
@@ -538,7 +538,7 @@ public class BJackGame extends CardGame {
 
         protected void displayHand(BJackHand hand){
             for(Card card: hand.cards){
-                if (hand.playingThis){
+                if (hand.getPlaying()){
                     MyIOUtils.printBlueText(card.getCardSignature());
                     MyIOUtils.printBlueText(" | ");
                 } else{

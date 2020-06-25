@@ -5,7 +5,7 @@ public class ResultsEntry {
     int handTotal;
     BJackHand.HandAttribute handAttribute;
     BJackHand.HandResult handResult;
-    ArrayList<Card> cards;
+    final ArrayList<Card> cards;
 
     ResultsEntry(){
         this.cards = new ArrayList<>();
