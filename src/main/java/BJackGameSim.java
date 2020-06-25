@@ -1,19 +1,20 @@
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import static java.lang.Math.pow;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class BJackGameSim extends BJackGame{
-    int iterations;
+    final int iterations;
     int gamesPlayed;
 
     BJackGameSim(int iterations, String dbConfigPath){
         super(dbConfigPath);
         IOMgrSim ioMgrSim = new IOMgrSim();
         DBMgrSim dbMgrSim = new DBMgrSim(dbConfigPath);
-        this.iom = (IOMgr) ioMgrSim;
-        this.dbMgr = (DBMgr) dbMgrSim;
+        this.iom = ioMgrSim;
+        this.dbMgr = dbMgrSim;
         this.iterations = iterations;
         gamesPlayed = 0;
     }
@@ -42,19 +43,19 @@ public class BJackGameSim extends BJackGame{
     // assigned to the dbMgrSim instance created in the constructor
     class DBMgrSim extends DBMgr{
 
-        String configFilePath;
+        final String configFilePath;
 
         DBMgrSim(String configFilePath){
             super(configFilePath);
             this.configFilePath = configFilePath;
         }
 
-        class WriteEntriesToDb implements Runnable {
-            String tableName;
-            ArrayList<ResultsEntry> resultsEntries;
-            DBMgrSim dbMgrSim;
-            int beginIndex;
-            int endIndex;
+        class WriteEntriesToDb implements Runnable, Callable<String > {
+            final String tableName;
+            final ArrayList<ResultsEntry> resultsEntries;
+            final DBMgrSim dbMgrSim;
+            final int beginIndex;
+            final int endIndex;
 
             WriteEntriesToDb(String tableName, ArrayList<ResultsEntry> resultsEntries, DBMgrSim dbMgrSim,
                              int beginIndex, int endIndex){
@@ -85,9 +86,20 @@ public class BJackGameSim extends BJackGame{
                 System.out.println(Thread.currentThread().getName() + " " + elapsedDouble + " seconds elapsed");
             }
 
+            // this override enables use of Runnable objects as threads
             @Override
             public void run() {
                 writeEntries();
+            }
+
+            // Override call() to enable use of a thread pool
+            // returns an Object by default. Return a potentially useful debug string instead
+            // would return a Result if results of the thread were needed
+            @Override
+            public String call() {
+                String str = "invoked call() method";
+                writeEntries();
+                return str;
             }
         }
 
@@ -98,12 +110,13 @@ public class BJackGameSim extends BJackGame{
             System.out.println(timeStamp + " = start of writeResultsDbase()");
 
             // numThreads has to be an even power of 2 for the method to work
+            // each thread will make its own dbase connection
+            // 128 threads will usually generate exceptions due to too many dbase connections
             int numThreads = 32;
 
             int threadsPerPlayer = numThreads / 2;
             // calculate log base 2 to determine how many times the player
             // ArrayList will have to be split
-            int splits = (int) (Math.log(threadsPerPlayer) / Math.log(2.));
 
             timeStamp = LocalDateTime.now();
             System.out.println(timeStamp + " = ready to get the dbase connections");
@@ -131,7 +144,7 @@ public class BJackGameSim extends BJackGame{
             int playerExtras = playerResults.size() % threadsPerPlayer;
 
             // these objects are the runnable tasks
-            ArrayList<WriteEntriesToDb > taskList = new ArrayList<>();
+            ArrayList<Callable<String> > taskList = new ArrayList<>();
             addTasks(taskList, dealerResults, dealerDBMgrs,"dealerhands",
                     threadsPerPlayer, dealerBlockSize, dealerExtras);
             addTasks(taskList, playerResults, playerDBMgrs,"playerhands",
@@ -140,13 +153,20 @@ public class BJackGameSim extends BJackGame{
             // now start the threads
             timeStamp = LocalDateTime.now();
             MyIOUtils.printlnBlueText(timeStamp + " = ready to start the threads");
-            for(int i = 0; i < numThreads; i++){
-                Thread thread = new Thread(taskList.get(i));
-                thread.start();
+
+            ExecutorService pool = Executors.newFixedThreadPool(numThreads);
+            try{
+                pool.invokeAll(taskList);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                pool.shutdown();
             }
+
+
         }
 
-        void addTasks(ArrayList<WriteEntriesToDb > taskList,
+        void addTasks(ArrayList<Callable<String>> taskList,
                       ArrayList<ResultsEntry> resultsEntries,
                       ArrayList<DBMgrSim> dbMgrSims,
                       String tableName, int threadsPerPlayer, int blockSize, int extras){
@@ -159,7 +179,8 @@ public class BJackGameSim extends BJackGame{
                 } else{
                     endIndex = (i+1)*blockSize;
                 }
-                WriteEntriesToDb task = new WriteEntriesToDb(tableName,
+
+                Callable<String> task = new WriteEntriesToDb(tableName,
                         resultsEntries, dbMgrSims.get(i), beginIndex, endIndex);
                 taskList.add(task);
             }
@@ -167,7 +188,7 @@ public class BJackGameSim extends BJackGame{
 
         void writeEntryToDb(String tableName, ResultsEntry entry, DBMgrSim dbMgrSim){
 
-            String statestr = buildPsSqlString(tableName);
+            String statestr = getPsSqlString(tableName);
 
             try(PreparedStatement ps = dbMgrSim.getPreparedScrollable(statestr)){
                 ps.setInt(1, entry.handHashId);
@@ -188,14 +209,12 @@ public class BJackGameSim extends BJackGame{
             }
         }
 
-        String buildPsSqlString(String tableName){
-            StringBuilder builder = new StringBuilder("insert into ");
-            builder.append(tableName);
-            builder.append("(\n");
-            builder.append("hashid, total, attribute, result,\n");
-            builder.append("card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12)\n");
-            builder.append("values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);");
-            return builder.toString();
+        String getPsSqlString(String tableName){
+            return "insert into " + tableName +
+                    "(\n" +
+                    "hashid, total, attribute, result,\n" +
+                    "card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12)\n" +
+                    "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         }
     }
 
