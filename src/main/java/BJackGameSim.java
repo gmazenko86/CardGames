@@ -64,13 +64,13 @@ public class BJackGameSim extends BJackGame{
                 LocalDateTime timeStamp1;
                 LocalDateTime timeStamp2;
                 timeStamp1 = LocalDateTime.now();
-                System.out.println(Thread.currentThread().getName() + " " +timeStamp1);
 
                 for(ResultsEntry entry : resultsEntries){
                     writeEntryToDb(tableName, entry, dbMgrSim);
                 }
 
                 timeStamp2 = LocalDateTime.now();
+                System.out.print(timeStamp2 + " ");
                 long time1MicroSec = (timeStamp1.getMinute()*60 + timeStamp1.getSecond()) * 1000000
                         + timeStamp1.getNano()/1000;
                 long time2MicroSec = (timeStamp2.getMinute()*60 + timeStamp2.getSecond()) * 1000000
@@ -91,7 +91,11 @@ public class BJackGameSim extends BJackGame{
 
             //TODO: have to remove entries with duplicate hashIDs in dealerResults before writing to database
 
+            LocalDateTime timeStamp = LocalDateTime.now();
+            System.out.println(timeStamp + " = start of writeResultsDbase()");
+// *************************************************************************************
             // probably use a HashSet somehow. consistently get duplicates when running 100K hands
+            // hashSets automatically remove duplicates when doing hashset.addAll​(Collection<? extends E> c)
 
             // numThreads has to be an even power of 2 for the method to work
             int numThreads = 32;
@@ -100,6 +104,9 @@ public class BJackGameSim extends BJackGame{
             // calculate log base 2 to determine how many times the player
             // ArrayList will have to be split
             int splits = (int)(Math.log(threadsPerPlayer)/Math.log(2.));
+
+            timeStamp = LocalDateTime.now();
+            System.out.println(timeStamp + " = ready to get the dbase connections");
 
             // each of these local objects will have their own dbase connection
             ArrayList<DBMgrSim> dealerDBMgrs = new ArrayList<>();
@@ -112,6 +119,10 @@ public class BJackGameSim extends BJackGame{
                 DBMgrSim dbMgrSim = new DBMgrSim(this.configFilePath);
                 playerDBMgrs.add(dbMgrSim);
             }
+
+            timeStamp = LocalDateTime.now();
+            System.out.println(timeStamp + " = ready to create and split results arrays");
+
             // create the results arrays
             ArrayList<ArrayList<ResultsEntry>> dealerArrays = createResultsLists(threadsPerPlayer);
             ArrayList<ArrayList<ResultsEntry>> playerArrays = createResultsLists(threadsPerPlayer);
@@ -137,6 +148,11 @@ public class BJackGameSim extends BJackGame{
                 taskList.add(task);
             }
 
+            timeStamp = LocalDateTime.now();
+            MyIOUtils.printlnBlueText(timeStamp + " = getting ready to start the threads");
+// ~5 to 9 seconds elapse between separator comments when running 100K hands
+// *************************************************************************************
+
             // now start the threads
             for(int i = 0; i < numThreads; i++){
                 Thread thread = new Thread(taskList.get(i));
@@ -145,6 +161,8 @@ public class BJackGameSim extends BJackGame{
         }
 
         void divideArrayList(ArrayList<ArrayList<ResultsEntry>> arrayLists, int splits){
+            LocalDateTime timeStamp = LocalDateTime.now();
+            MyIOUtils.printlnRedText(timeStamp + " beginning of divideArrayList()");
             for(int i = 0; i < splits; i++){
                 int arrayStart = (int) Math.pow(2., i) - 1;
                 for(int j = 0; j < (int) Math.pow(2., i); j++){

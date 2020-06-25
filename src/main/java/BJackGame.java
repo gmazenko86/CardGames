@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 //TODO: enable logging of results to a dbase - determine dbase strategy
@@ -32,11 +33,14 @@ public class BJackGame extends CardGame {
     }
 
     void playGame(){
-
+        LocalDateTime timeStamp = LocalDateTime.now();
+        System.out.println(timeStamp + " = start of program");
         preGameInit(1);
 
         boolean playAnotherHand = true;
         int hashCode;
+        HashSet<Integer> hashCodes = new HashSet();
+        boolean notDuplicate;
         LocalDateTime dateTime;
         while(playAnotherHand) {
             dealHands();
@@ -79,7 +83,12 @@ public class BJackGame extends CardGame {
             displayPlayerBankrolls();
             dateTime = LocalDateTime.now();
             hashCode = dateTime.hashCode();
-            logResults(hashCode);
+
+            // check for a duplicate hashcode. If not dup, then log the results
+            notDuplicate = hashCodes.add(hashCode);
+            if(notDuplicate){
+                logResults(hashCode);
+            }
 
             // reinitialize all hands by getting new instances
             for (BJackPlayer player : playersPlusDealer) {
@@ -92,7 +101,10 @@ public class BJackGame extends CardGame {
             }
             playAnotherHand = playAnotherHand();
         }
+        timeStamp = LocalDateTime.now();
+        System.out.println(timeStamp + " = done playing hands");
         iom.displayFinalResults();
+
 
 //        System.out.println("Dealer Results");
 //        displayResultsArray(dealerResults);
