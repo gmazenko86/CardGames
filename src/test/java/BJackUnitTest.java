@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BJackUnitTest {
@@ -86,5 +89,66 @@ public class BJackUnitTest {
             newHand.cards.add(card);
         }
         assertEquals(340, newHand.getHandTotal(), "Cards not added correctly");
+    }
+
+    @Test
+    void testgetSplitPairRec(){
+//        getSplitPairRec(BJackHand hand)
+
+        boolean[][] expected = {
+                {true,true,true,true,true,true,false,false,false,false}, // twos
+                {true,true,true,true,true,true,false,false,false,false}, // threes
+                {false,false,false,true,false,false,false,false,false,false}, // fours
+                {false,false,false,false,false,false,false,false,false,false}, // fives
+                {true,true,true,true,true,false,false,false,false,false}, // sixes
+                {true,true,true,true,true,true,false,false,false,false}, // sevens
+                {true,true,true,true,true,true,true,true,true,true}, // eights
+                {true,true,true,true,true,false,true,true,false,false}, // nines
+                {false,false,false,false,false,false,false,false,false,false}, // tens, J, Q, K
+                {true,true,true,true,true,true,true,true,true,true} // aces
+        };
+        // a new, unshuffled deck is arranged as all twos, all threes, ...
+        Deck unshuffled = new Deck();
+        //build an array list of hands swith pairs of each card face
+        ArrayList<BJackHand> hands = new ArrayList<>();
+        BJackHand discardHand = new BJackHand();
+        for(int i = 0; i < unshuffled.cards.size()/2; i++){
+            BJackHand tempHand = new BJackHand();
+            // create an array of hands, each containing a pair
+            tempHand.drawCard(unshuffled);
+            tempHand.drawCard(unshuffled);
+            hands.add(tempHand);
+        }
+        BJackGame testGame = new BJackGame("src/main/resources/config.txt");
+        boolean retVal, arrayVal;
+        int arrayRow, arrayColumn;
+        for(BJackHand hand : hands){
+            Deck deck2 = new Deck();
+            for(int i = 0; i < 26; i++){
+                // create a dealer hand
+                testGame.dealerHand.drawCard(deck2);
+                testGame.dealerHand.drawCard(deck2);
+                retVal = testGame.getSplitPairRec(hand);
+                // array index = card value - 2 to lookup expected result
+                arrayRow = hand.cards.get(0).getCardValue() - 2;
+                arrayColumn = testGame.dealerHand.cards.get(0).getCardValue() - 2;
+                arrayVal = expected[arrayRow][arrayColumn];
+                assertEquals(arrayVal, retVal, " pair of " + hand.cards.get(0).cardFace.name() +
+                        " with dealer showing " + testGame.dealerHand.cards.get(0).cardFace.name());
+            }
+        }
+
+        if(Objects.isNull(testGame.dbMgr.conn)){
+            System.out.println("Connection object is null");
+        }
+
+        try{
+            System.out.println("dbase connection is valid = " + testGame.dbMgr.conn.isValid(1));
+        } catch (Exception e) {
+            System.out.println("from the catch clause");
+            e.printStackTrace();
+        }
+        System.out.println("debug checkpoint");
+
     }
 }
