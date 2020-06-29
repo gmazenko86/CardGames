@@ -12,9 +12,13 @@ public class BJackGameSim extends BJackGame{
     BJackGameSim(int iterations, String dbConfigPath){
         super(dbConfigPath);
         IOMgrSim ioMgrSim = new IOMgrSim();
-        DBMgrSim dbMgrSim = new DBMgrSim(dbConfigPath);
         this.iom = ioMgrSim;
-        this.dbMgr = dbMgrSim;
+        // if db connection is valid, instantiate a DBMgrSim to handle the db writes
+        // otherwise, the dbMgr instantiated by the parent will remain (write function does nothing)
+        if(this.validDbConnection){
+            DBMgrSim dbMgrSim = new DBMgrSim(dbConfigPath);
+            this.dbMgr = dbMgrSim;
+        }
         this.iterations = iterations;
         gamesPlayed = 0;
     }

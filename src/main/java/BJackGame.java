@@ -1,4 +1,7 @@
+import org.apache.commons.io.output.NullPrintStream;
+
 import java.io.IOException;
+import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,6 +23,7 @@ public class BJackGame extends CardGame {
     final ArrayList<ResultsEntry> playerResults;
     IOMgr iom;
     DBMgr dbMgr;
+    boolean validDbConnection;
 
     BJackGame(String dbConfigPath){
         super();
@@ -30,9 +34,19 @@ public class BJackGame extends CardGame {
         this.playerResults = new ArrayList<>();
         this.iom = new IOMgr();
         this.dbMgr = new DBMgr(dbConfigPath);
+        if(Objects.nonNull(this.dbMgr)){
+            this.validDbConnection = true;
+        } else{
+            this.validDbConnection = false;
+        }
+        if(validDbConnection){
+            DBMgrRO readOnly = new DBMgrRO(dbConfigPath);
+            this.dbMgr = readOnly;
+        }
     }
 
     void playGame(){
+        dbMgr.printDebugMessage();
         LocalDateTime timeStamp = LocalDateTime.now();
         System.out.println(timeStamp + " = start of program");
         preGameInit(1);
@@ -597,13 +611,28 @@ public class BJackGame extends CardGame {
     }
 
     class DBMgr extends MyPostGreSqlClass{
-
         DBMgr(String configFilePath) {
-
             super(configFilePath);
         }
 
         void writeResultsDbase(){
+        }
+
+        void printDebugMessage(){
+            System.out.println(this.getClass());
+        }
+    }
+
+    class DBMgrRO extends DBMgr{
+        DBMgrRO (String configFilePath) {
+            super(configFilePath);
+            System.out.println("instantiated a DBMgrRO");
+        }
+
+        @Override
+        void printDebugMessage() {
+            super.printDebugMessage();
+            System.out.println("instantiated a DBMgrRO, printing from printDebugMessage()");
         }
     }
 }
