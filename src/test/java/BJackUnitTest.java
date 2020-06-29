@@ -109,9 +109,8 @@ public class BJackUnitTest {
         };
         // a new, unshuffled deck is arranged as all twos, all threes, ...
         Deck unshuffled = new Deck();
-        //build an array list of hands swith pairs of each card face
+        //build an array list of hands with pairs of each card face
         ArrayList<BJackHand> hands = new ArrayList<>();
-        BJackHand discardHand = new BJackHand();
         for(int i = 0; i < unshuffled.cards.size()/2; i++){
             BJackHand tempHand = new BJackHand();
             // create an array of hands, each containing a pair

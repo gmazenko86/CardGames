@@ -599,6 +599,7 @@ public class BJackGame extends CardGame {
     class DBMgr extends MyPostGreSqlClass{
 
         DBMgr(String configFilePath) {
+
             super(configFilePath);
         }
 
