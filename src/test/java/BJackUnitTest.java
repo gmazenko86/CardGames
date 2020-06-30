@@ -96,7 +96,6 @@ public class BJackUnitTest {
 
     @Test
     void testgetSplitPairRec(){
-//        getSplitPairRec(BJackHand hand)
 
         boolean[][] expected = {
                 {true,true,true,true,true,true,false,false,false,false}, // twos
@@ -147,11 +146,8 @@ public class BJackUnitTest {
         try{
             System.out.println("dbase connection is valid = " + testGame.dbMgr.conn.isValid(1));
         } catch (Exception e) {
-            System.out.println("from the catch clause");
             e.printStackTrace();
         }
-        System.out.println("debug checkpoint");
-
     }
 
     @Test
@@ -171,20 +167,31 @@ public class BJackUnitTest {
                     CardTestUtils.fixDeckEntries(seedCards, 2, refDeck.cards.get(playerIndex2));
                     game.deck.shuffle();
                     CardTestUtils.fixDeck(game.deck, seedCards);
-                    CardTestUtils.checkDeckIntegrity(game.deck);
                     boolean goodDeck = CardTestUtils.checkDeckIntegrity(game.deck);
                     assertTrue(goodDeck, "Failed deck integrity check");
                     game.dealHands();
                     StringBuilder builder = new StringBuilder();
-                    builder.append(game.dbMgr.buildTableName(game.dealer.hands.get(0), game.players.get(0).hands.get(0)));
+                    builder.append(game.dbMgr.buildTableName(game.dealerHand, game.players.get(0).hands.get(0)));
                     tableNames.add(builder.toString());
-                    game.dealer.reinitHands();
-                    for(BJackPlayer player : game.players){
-                        player.reinitHands();
-                    }
+                    game.postHandReInit();
                 }
             }
         }
-        assertEquals(550, tableNames.size(), "Wrong number of table names");
+        assertEquals(550, tableNames.size(), "Wrong number of table names from production code");
+        ArrayList<String> expectedNames = getTestNamesList("src/test/resources/tablenames.txt");
+        assertEquals(550, expectedNames.size(), "Wrong number of expected names from test code");
+        boolean nameFound;
+        for(String name : expectedNames){
+            nameFound = tableNames.contains(name);
+            assertTrue(nameFound, "Did not find expected table name " + name);
+        }
+        for(String name : tableNames){
+            nameFound = expectedNames.contains(name);
+            assertTrue(nameFound, "Did not expect to find table " + name);
+        }
+    }
+
+    ArrayList<String> getTestNamesList(String filePath){
+        return MyIOUtils.readLinesAsStrings(filePath);
     }
 }

@@ -205,7 +205,7 @@ public class BJackGameSim extends BJackGame{
                     ps.setString(i, card.cardFace.name());
                     i++;
                 }
-                for(int loopIndex = i ; loopIndex <= 16; loopIndex++){
+                for(int loopIndex = i ; loopIndex <= 12; loopIndex++){
                     ps.setNull(loopIndex, Types.NULL);
                 }
                 ps.execute();
@@ -218,8 +218,8 @@ public class BJackGameSim extends BJackGame{
             return "insert into " + tableName +
                     "(\n" +
                     "hashid, total, attribute, result,\n" +
-                    "card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12)\n" +
-                    "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                    "card1,card2,card3,card4,card5,card6,card7,card8)\n" +
+                    "values (?,?,?,?,?,?,?,?,?,?,?,?);";
         }
     }
 

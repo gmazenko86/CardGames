@@ -46,7 +46,6 @@ public class BJackGame extends CardGame {
     }
 
     void playGame(){
-        dbMgr.printDebugMessage();
         LocalDateTime timeStamp = LocalDateTime.now();
         System.out.println(timeStamp + " = start of program");
         preGameInit(1);
@@ -100,19 +99,23 @@ public class BJackGame extends CardGame {
 
             // check for a duplicate hashcode. If not dup, then log the results
             notDuplicate = hashCodes.add(hashCode);
-            if(notDuplicate){
+            // check to make sure the max hand length is <= 8
+            int maxCards = 0;
+            for(BJackPlayer player : playersPlusDealer){
+                for(BJackHand hand : player.hands){
+                    if(hand.cards.size() > maxCards){
+                        maxCards = hand.cards.size();
+                    }
+                }
+            }
+
+            if(notDuplicate && (maxCards <= 8)){
                 logResults(hashCode);
             }
 
             // reinitialize all hands by getting new instances
-            for (BJackPlayer player : playersPlusDealer) {
-                player.reinitHands();
-            }
-            // reset dealerHand variable to the first hand of the last player
-            dealerHand = dealer.hands.get(0);
-            if(deck.deckIndex > 26){
-                deck.shuffle();
-            }
+            postHandReInit();
+
             playAnotherHand = playAnotherHand();
         }
         timeStamp = LocalDateTime.now();
@@ -125,6 +128,18 @@ public class BJackGame extends CardGame {
 //        System.out.println("Player Results");
 //        displayResultsArray(playerResults);
         dbMgr.writeResultsDbase();
+    }
+
+    void postHandReInit(){
+        ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
+        for (BJackPlayer player : playersPlusDealer) {
+            player.reinitHands();
+        }
+        // reset dealerHand variable to the first hand of the last player
+        dealerHand = dealer.hands.get(0);
+        if(deck.deckIndex > 26){
+            deck.shuffle();
+        }
     }
 
     void setAllPlayerHandResults(BJackHand dealerHand){
@@ -618,28 +633,29 @@ public class BJackGame extends CardGame {
         void writeResultsDbase(){
         }
 
-        void printDebugMessage(){
-            System.out.println(this.getClass());
+        String buildTableName(BJackHand dealerHand, BJackHand playerHand){
+            // want to use '1' for aces when creating tablenames;
+            int dealerValue = getTableNameInt(dealerHand.cards.get(0));
+            int playerVal1 = getTableNameInt(playerHand.cards.get(0));
+            int playerVal2 = getTableNameInt(playerHand.cards.get(1));
+
+            String tableName = "d" + dealerValue +
+                    "p" + playerVal1 + "_" + playerVal2;
+            return tableName;
         }
 
-        String buildTableName(BJackHand dealerHand, BJackHand playerHand){
-            String tableName = "d" + dealerHand.cards.get(0).getCardValue() +
-                    "p" + playerHand.cards.get(0).getCardValue() + "_" +
-                    playerHand.cards.get(1).getCardValue();
-            return tableName;
+        int getTableNameInt(Card card){
+            int cardValue = card.getCardValue();
+            if(cardValue == 11){
+                cardValue = 1;
+            }
+            return cardValue;
         }
     }
 
     class DBMgrRO extends DBMgr{
         DBMgrRO (String configFilePath) {
             super(configFilePath);
-            System.out.println("instantiated a DBMgrRO");
-        }
-
-        @Override
-        void printDebugMessage() {
-            super.printDebugMessage();
-            System.out.println("instantiated a DBMgrRO, printing from printDebugMessage()");
         }
     }
 }
