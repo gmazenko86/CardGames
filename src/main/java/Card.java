@@ -1,5 +1,5 @@
 class Card {
-    public enum CardFace {TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE}
+    public enum CardFace {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
     public enum Suit { DIAMONDS, HEARTS, CLUBS, SPADES}
 
     CardFace cardFace;

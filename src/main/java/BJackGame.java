@@ -621,6 +621,13 @@ public class BJackGame extends CardGame {
         void printDebugMessage(){
             System.out.println(this.getClass());
         }
+
+        String buildTableName(BJackHand dealerHand, BJackHand playerHand){
+            String tableName = "d" + dealerHand.cards.get(0).getCardValue() +
+                    "p" + playerHand.cards.get(0).getCardValue() + "_" +
+                    playerHand.cards.get(1).getCardValue();
+            return tableName;
+        }
     }
 
     class DBMgrRO extends DBMgr{

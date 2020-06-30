@@ -2,10 +2,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BJackUnitTest {
+
+    String configPath = "src/main/resources/config.txt";
 
     @Test
     void testfaceCount(){
@@ -149,5 +152,39 @@ public class BJackUnitTest {
         }
         System.out.println("debug checkpoint");
 
+    }
+
+    @Test
+    void testbuildTableName(){
+
+        DeckBySuit refDeck = new DeckBySuit();
+        ArrayList<String> tableNames = new ArrayList<>();
+        BJackGameSim game = new BJackGameSim(10, configPath);
+        game.preGameInit(1);
+
+        for(int playerIndex1 = 0; playerIndex1 < 10; playerIndex1++){
+            for(int playerIndex2 = playerIndex1 + 13; playerIndex2 < 23; playerIndex2++){
+                for(int dealerUpIndex = 26; dealerUpIndex < 36; dealerUpIndex++){
+                    TreeMap<Integer, Card> seedCards = new TreeMap<>();
+                    CardTestUtils.fixDeckEntries(seedCards, 0, refDeck.cards.get(playerIndex1));
+                    CardTestUtils.fixDeckEntries(seedCards, 1, refDeck.cards.get(dealerUpIndex));
+                    CardTestUtils.fixDeckEntries(seedCards, 2, refDeck.cards.get(playerIndex2));
+                    game.deck.shuffle();
+                    CardTestUtils.fixDeck(game.deck, seedCards);
+                    CardTestUtils.checkDeckIntegrity(game.deck);
+                    boolean goodDeck = CardTestUtils.checkDeckIntegrity(game.deck);
+                    assertTrue(goodDeck, "Failed deck integrity check");
+                    game.dealHands();
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(game.dbMgr.buildTableName(game.dealer.hands.get(0), game.players.get(0).hands.get(0)));
+                    tableNames.add(builder.toString());
+                    game.dealer.reinitHands();
+                    for(BJackPlayer player : game.players){
+                        player.reinitHands();
+                    }
+                }
+            }
+        }
+        assertEquals(550, tableNames.size(), "Wrong number of table names");
     }
 }

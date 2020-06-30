@@ -90,6 +90,7 @@ public class BJackGameSim extends BJackGame{
                 System.out.println(Thread.currentThread().getName() + " " + elapsedDouble + " seconds elapsed");
             }
 
+
             // this override enables use of Runnable objects as threads
             @Override
             public void run() {
