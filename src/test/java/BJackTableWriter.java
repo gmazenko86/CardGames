@@ -18,11 +18,11 @@ public class BJackTableWriter extends BJackGameSim{
     }
 
     void generateTables(){
-// +9 on loop bounds when ready to do the whole list of tables
+
         int tableCount = 0;
-        for(playerIndex1 = 0; playerIndex1 < 1; playerIndex1++){
-            for(playerIndex2 = playerIndex1 + 13; playerIndex2 < 14; playerIndex2++){
-                for(dealerUpIndex = 26; dealerUpIndex < 29; dealerUpIndex++){
+        for(playerIndex1 = 0; playerIndex1 < 10; playerIndex1++){
+            for(playerIndex2 = playerIndex1 + 13; playerIndex2 < 23; playerIndex2++){
+                for(dealerUpIndex = 26; dealerUpIndex < 36; dealerUpIndex++){
                     // next lines
                     fixDeckForTableWrites();
                     playGame();
@@ -42,8 +42,6 @@ public class BJackTableWriter extends BJackGameSim{
             }
         }
     }
-
-    //TODO: update dealerhands and playerhands tables to recored card values instead of faces
 
     //TODO: decide if some of these functions should be moved into dbMgr or MyPostGreSqlClass
     void createResultsTable(String sqlString){

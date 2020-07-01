@@ -88,6 +88,7 @@ public class BJackGameSim extends BJackGame{
                 long elapsed = time2MicroSec - time1MicroSec;
                 double elapsedDouble = (double)elapsed/1000000.;
                 System.out.println(Thread.currentThread().getName() + " " + elapsedDouble + " seconds elapsed");
+
             }
 
 
@@ -148,7 +149,7 @@ public class BJackGameSim extends BJackGame{
             int playerBlockSize = playerResults.size() / threadsPerPlayer;
             int playerExtras = playerResults.size() % threadsPerPlayer;
 
-            // these objects are the runnable tasks
+            // these objects are the callable tasks
             ArrayList<Callable<String> > taskList = new ArrayList<>();
             addTasks(taskList, dealerResults, dealerDBMgrs,"dealerhands",
                     threadsPerPlayer, dealerBlockSize, dealerExtras);

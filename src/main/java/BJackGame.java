@@ -644,7 +644,6 @@ public class BJackGame extends CardGame {
         }
 
         String buildTableName(BJackHand dealerHand, BJackHand playerHand){
-            // want to use '1' for aces when creating tablenames;
             int dealerValue = getTableNameInt(dealerHand.cards.get(0));
             int playerVal1 = getTableNameInt(playerHand.cards.get(0));
             int playerVal2 = getTableNameInt(playerHand.cards.get(1));
@@ -655,6 +654,7 @@ public class BJackGame extends CardGame {
         }
 
         int getTableNameInt(Card card){
+            // want to use '1' for aces when creating table names;
             int cardValue = card.getCardValue();
             if(cardValue == 11){
                 cardValue = 1;
