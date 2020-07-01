@@ -19,3 +19,23 @@ from dealerhands left join playerhands using(hashid);
 --select count(presult) from newtable where presult = 'WIN';
 --select count(presult) from newtable where presult = 'PUSH';
 --select count(presult) from newtable where presult = 'LOSE';
+
+--select * from dealerhands left join playerhands using(hashid) order by hashid;
+
+--select count(distinct hashid) as dealer, count(hashid) as player from playerhands;
+
+--select count(hashid) from d1p1_1;
+--select count(hashid) from d2p1_1;
+--select count(hashid) from d3p1_1;
+
+--drop table d1p1_1;
+--drop table d2p1_1;
+--drop table d3p1_1;
+
+select count(hashid), 'total' as desc from d2p1_2
+union
+select count(pattrib), 'wins' as desc from d2p1_2 where presult = 'WIN'
+union
+select count(pattrib), 'pushes' as desc from d2p1_2 where presult = 'PUSH'
+union
+select count(pattrib), 'losses' as desc from d2p1_2 where presult = 'LOSE';

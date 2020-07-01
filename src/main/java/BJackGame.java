@@ -1,7 +1,7 @@
-import org.apache.commons.io.output.NullPrintStream;
-
 import java.io.IOException;
-import java.io.PrintStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -276,12 +276,39 @@ public class BJackGame extends CardGame {
     }
 
     boolean hitHand(BJackHand hand){
-        char inputChar = iom.getApprovedInputChar(
-                "Enter 'h' to hit or 's' to stick ", 'h', 's');
-        if(inputChar == 'h'){return true;}
-        if(inputChar == 's'){return false;}
-        assert(false);
-        return false;
+        char inputChar;
+
+        inputChar = iom.getApprovedInputChar(
+                "Enter 'h' to hit or 's' to stick or 'a' for advice ", 'h', 's', 'a');
+
+        if(inputChar == 'a'){
+            boolean recFlag;
+            if(hand.isSoftHand()){
+              recFlag = getSoftHitRec(hand);
+            } else{
+                recFlag = getHardHitRec(hand);
+            }
+            if(recFlag){
+                iom.displayAdvice("Recommendation: Hit");
+            } else{
+                iom.displayAdvice("Recommendation: Stick");
+            }
+            // provide outcome probabilities if deciding based on first 2 cards
+            if(hand.cards.size() == 2){
+                iom.displayProbabilities(hand);
+            }
+            // have to recursively call hitHand() until user chooses 'h' or 's'
+            // have to return hitHand() so call stack is properly unwound
+            return hitHand(hand);
+        }
+        if(inputChar == 'h'){
+            return true;
+        } else if(inputChar == 's'){
+            return false;
+        } else{
+            assert (false);
+            return false;
+        }
     }
 
     boolean doubleDown(BJackHand hand){
@@ -633,6 +660,18 @@ public class BJackGame extends CardGame {
             }
             System.out.println("\n");
         }
+
+        void displayAdvice(String adMsg){
+            System.out.println(adMsg);
+        }
+
+        void displayProbabilities(BJackHand hand){
+            ProbabilityStruct ps = dbMgr.getProb(hand);
+            double winProb = 100. * ps.wins/ps.total;
+            double pushProb = 100. * ps.pushes/ps.total;
+            double lossProb = 100. * ps.losses/ps.total;
+            System.out.println("Probabilities: Win=" + winProb + " Push=" + pushProb + " Lose=" + lossProb);
+        }
     }
 
     class DBMgr extends MyPostGreSqlClass{
@@ -645,8 +684,12 @@ public class BJackGame extends CardGame {
 
         String buildTableName(BJackHand dealerHand, BJackHand playerHand){
             int dealerValue = getTableNameInt(dealerHand.cards.get(0));
-            int playerVal1 = getTableNameInt(playerHand.cards.get(0));
-            int playerVal2 = getTableNameInt(playerHand.cards.get(1));
+            // table names contain the value of the smaller card first
+            int temp1 = getTableNameInt(playerHand.cards.get(0));
+            int temp2 = getTableNameInt(playerHand.cards.get(1));
+            int playerVal1 = Math.min(temp1, temp2);
+            int playerVal2 = Math.max(temp1, temp2);
+
 
             String tableName = "d" + dealerValue +
                     "p" + playerVal1 + "_" + playerVal2;
@@ -661,11 +704,64 @@ public class BJackGame extends CardGame {
             }
             return cardValue;
         }
+
+        ProbabilityStruct getAdviceData(String tableName){
+            return null;
+        }
+
+        ProbabilityStruct getProb(BJackHand hand) {
+            String tableName = buildTableName(dealerHand, hand);
+            ProbabilityStruct probStruct =  getAdviceData(tableName);
+            return probStruct;
+        }
     }
 
     class DBMgrRO extends DBMgr{
         DBMgrRO (String configFilePath) {
             super(configFilePath);
         }
+
+        @Override
+        ProbabilityStruct getAdviceData(String tableName) {
+
+            String sqlString = "select count(hashid), 'total' as desc from " + tableName + "\n" +
+            "union\n" +
+            "select count(pattrib), 'wins' as desc from " + tableName + " where presult = 'WIN'\n" +
+            "union\n" +
+            "select count(pattrib), 'pushes' as desc from " + tableName+ " where presult = 'PUSH'\n" +
+            "union\n" +
+            "select count(pattrib), 'losses' as desc from " + tableName + " where presult = 'LOSE';";
+
+            ProbabilityStruct probStruct = new ProbabilityStruct();
+
+            try(Statement statement = getStatementScrollable()){
+                ResultSet resultSet = statement.executeQuery(sqlString);
+                // "the first call to the method next makes the first row the current row"
+                while (resultSet.next()){
+                    StringBuilder label = new StringBuilder();
+                    label.append(resultSet.getString("desc"));
+                    int count = resultSet.getInt("count");
+                    switch(label.toString()){
+                        case "total" :
+                            probStruct.total = count;
+                            break;
+                        case "losses" :
+                            probStruct.losses = count;
+                            break;
+                        case "wins" :
+                            probStruct.wins = count;
+                            break;
+                        case "pushes" :
+                            probStruct.pushes = count;
+                        default:
+                            break;
+                    }
+                }
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+            return probStruct;
+        }
     }
 }
+
