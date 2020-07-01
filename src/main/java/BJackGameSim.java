@@ -167,8 +167,6 @@ public class BJackGameSim extends BJackGame{
             } finally {
                 pool.shutdown();
             }
-
-
         }
 
         void addTasks(ArrayList<Callable<String>> taskList,
@@ -226,7 +224,12 @@ public class BJackGameSim extends BJackGame{
     @Override
     boolean playAnotherHand() {
         gamesPlayed += 1;
-        return gamesPlayed < iterations;
+        if(gamesPlayed < iterations){
+            return true;
+        } else{
+            gamesPlayed = 0;
+            return false;
+        }
     }
 
     @Override

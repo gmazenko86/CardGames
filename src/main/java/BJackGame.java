@@ -128,6 +128,13 @@ public class BJackGame extends CardGame {
 //        System.out.println("Player Results");
 //        displayResultsArray(playerResults);
         dbMgr.writeResultsDbase();
+        // clear the results arrays in case we're doing iterations of iterations
+        clearResultsArrays();
+    }
+
+    void clearResultsArrays(){
+        dealerResults.clear();
+        playerResults.clear();
     }
 
     void postHandReInit(){
@@ -163,7 +170,10 @@ public class BJackGame extends CardGame {
     }
 
     void initializePlayers(int numPlayers){
-        for (int i = 0; i < numPlayers; i++){
+        int playersNeeded;
+        int currentNumPlayers = players.size();
+        playersNeeded = numPlayers - currentNumPlayers;
+        for (int i = 0; i < playersNeeded; i++){
             BJackPlayer bJackPlayer = new BJackPlayer();
             players.add(bJackPlayer);
         }
