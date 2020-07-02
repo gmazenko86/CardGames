@@ -1,6 +1,5 @@
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class BJackTableWriter extends BJackGameSim{
@@ -91,7 +90,7 @@ public class BJackTableWriter extends BJackGameSim{
     }
 
     String getSqlCreateTable(String tableName){
-        String sqlString = "select dealerhands.hashid as hashid, dealerhands.total as dtot,\n" +
+        return "select dealerhands.hashid as hashid, dealerhands.total as dtot,\n" +
             "dealerhands.attribute as dattrib, dealerhands.result as dresult,\n" +
             "dealerhands.card1 as dcard1, dealerhands.card2 as dcard2, \n" +
             "dealerhands.card3 as dcard3, dealerhands.card4 as dcard4, \n" +
@@ -105,6 +104,5 @@ public class BJackTableWriter extends BJackGameSim{
             "playerhands.card7 as pcard7, playerhands.card8 as pcard8 \n" +
             "into " + tableName + "\n" +
             "from dealerhands left join playerhands using(hashid);";
-        return sqlString;
     }
 }

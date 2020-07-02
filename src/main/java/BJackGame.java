@@ -10,6 +10,7 @@ import java.util.Objects;
 //TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
 //TODO: more unit testing
 //TODO: system level testing
+//TODO: consider using NullPrintStream in MyPostGreSqlClass to suppress stack trace from ConnectException
 //TODO: write graphics front end
 
 
@@ -33,14 +34,14 @@ public class BJackGame extends CardGame {
         this.playerResults = new ArrayList<>();
         this.iom = new IOMgr();
         this.dbMgr = new DBMgr(dbConfigPath);
-        if(Objects.nonNull(this.dbMgr)){
-            this.validDbConnection = true;
-        } else{
+        if (Objects.isNull(this.dbMgr.conn)){
             this.validDbConnection = false;
+            System.out.println("db connection is null");
         }
+        else this.validDbConnection = true;
         if(validDbConnection){
-            DBMgrRO readOnly = new DBMgrRO(dbConfigPath);
-            this.dbMgr = readOnly;
+            this.dbMgr = new DBMgrRO(dbConfigPath);
+            System.out.println("db connection = " + dbMgr.conn.toString());
         }
     }
 
@@ -699,6 +700,11 @@ public class BJackGame extends CardGame {
 
         void displayProbabilities(BJackHand hand){
             ProbabilityStruct ps = dbMgr.getProb(hand);
+            if(Objects.isNull(ps)){
+                System.out.println("Probabilities not available");
+                return;
+            }
+
             double winProb = 100. * ps.wins/ps.total;
             double pushProb = 100. * ps.pushes/ps.total;
             double lossProb = 100. * ps.losses/ps.total;
@@ -726,9 +732,8 @@ public class BJackGame extends CardGame {
             int playerVal2 = Math.max(temp1, temp2);
 
 
-            String tableName = "d" + dealerValue +
+            return "d" + dealerValue +
                     "p" + playerVal1 + "_" + playerVal2;
-            return tableName;
         }
 
         int getTableNameInt(Card card){
@@ -746,8 +751,7 @@ public class BJackGame extends CardGame {
 
         ProbabilityStruct getProb(BJackHand hand) {
             String tableName = buildTableName(dealerHand, hand);
-            ProbabilityStruct probStruct =  getAdviceData(tableName);
-            return probStruct;
+            return getAdviceData(tableName);
         }
     }
 

@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BJackUnitTest {
 
-    String configPath = "src/main/resources/config.txt";
+    final String configPath = "src/main/resources/config.txt";
 
     @Test
     void testfaceCount(){
@@ -88,9 +88,7 @@ public class BJackUnitTest {
         BJackHand newHand = new BJackHand();
         Deck deck = new Deck();
         deck.shuffle();
-        for(Card card : deck.cards){
-            newHand.cards.add(card);
-        }
+        newHand.cards.addAll(deck.cards);
         assertEquals(340, newHand.getHandTotal(), "Cards not added correctly");
     }
 
