@@ -189,6 +189,14 @@ public class BJackHand extends Hand{
         return this.playingThis;
     }
 
+    double getBet(){
+        return this.bet;
+    }
+
+    void setBet(double bet){
+        this.bet = bet;
+    }
+
     ResultsEntry getResultsEntry(int paramHashId){
         ResultsEntry entry = new ResultsEntry();
         entry.handHashId = paramHashId;

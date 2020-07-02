@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
-//TODO: enable logging of results to a dbase - determine dbase strategy
 //TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
-//TODO: unit testing framework and test cases (maven will execute tests as part of the build if desired)
+//TODO: more unit testing
 //TODO: system level testing
 //TODO: write graphics front end
 
@@ -313,8 +312,27 @@ public class BJackGame extends CardGame {
 
     boolean doubleDown(BJackHand hand){
         Character inputChar = iom.getApprovedInputChar("Do you want to double down? " +
-                " 'y' for yes or 'n' for no ", 'y', 'n');
+                " 'y' for yes or 'n' for no or 'a' for advice ", 'y', 'n', 'a');
         switch(inputChar) {
+            case 'a': {
+                boolean recFlag;
+                if(hand.isSoftHand()){
+                    recFlag = getSoftDoubleRec(hand);
+                } else{
+                    recFlag = getHardDoubleRec(hand);
+                }
+                if(recFlag){
+                    iom.displayAdvice("Recommendation: Double Down");
+                } else{
+                    iom.displayAdvice("Recommendation: Do NOT double down");
+                }
+                if(hand.cards.size() == 2){
+                    iom.displayProbabilities(hand);
+                }
+                // have to recursively call doubleDown() until user chooses 'y' or 'n'
+                // have to return hitHand() so call stack is properly unwound
+                return doubleDown(hand);
+            }
             case 'y':
                 return true;
             case 'n':
@@ -324,9 +342,24 @@ public class BJackGame extends CardGame {
 
     boolean splitPair(BJackHand hand){
         Character inputChar = iom.getApprovedInputChar("Do you want to split the pair?" +
-                " 'y' for yes or 'n' for no ", 'y', 'n');
+                " 'y' for yes or 'n' for no or 'a' for advice ", 'y', 'n', 'a');
         switch(inputChar) {
-            case 'y':
+            case 'a': {
+                boolean recFlag;
+                assert (hand.havePair()) : assertPrint("Should not ask for split advice with no pair");
+                recFlag = getSplitPairRec(hand);
+                if(recFlag){
+                    iom.displayAdvice("Recommendation: Split the pair");
+                } else{
+                    iom.displayAdvice("Recommendation: Do NOT split the pair");
+                }
+                if(hand.cards.size() == 2){
+                    iom.displayProbabilities(hand);
+                }
+                // have to recursively call splitPair() until user chooses 'y' or 'n'
+                // have to return hitHand() so call stack is properly unwound
+                return splitPair(hand);
+            }            case 'y':
                 return true;
             case 'n':
             default : return false;
@@ -471,20 +504,19 @@ public class BJackGame extends CardGame {
         return returnFlag;
     }
 
-    //TODO: refactor this so it does not directly access hand enums
     void payAndCollect(){
         for(BJackPlayer player : players){
             for(BJackHand hand : player.hands){
-                assert(hand.handResult != BJackHand.HandResult.PENDING) :
+                assert(!hand.resultPending()) :
                         assertPrint("handResult should not still be PENDING");
-                if(hand.handResult == BJackHand.HandResult.LOSE){
-                    player.bankroll -= hand.bet;
+                if(hand.isLose()){
+                    player.adjustBankroll(-hand.getBet());
                 }
-                if(hand.handResult == BJackHand.HandResult.WIN){
-                    if(hand.handAttribute == BJackHand.HandAttribute.BLACKJACK){
-                        player.bankroll += (hand.bet * 1.5);
+                if(hand.isWin()){
+                    if(hand.haveBJack()){
+                        player.adjustBankroll(hand.getBet() * 1.5);
                     } else{
-                        player.bankroll += hand.bet;
+                        player.adjustBankroll(hand.getBet());
                     }
                 }
             }
@@ -670,7 +702,10 @@ public class BJackGame extends CardGame {
             double winProb = 100. * ps.wins/ps.total;
             double pushProb = 100. * ps.pushes/ps.total;
             double lossProb = 100. * ps.losses/ps.total;
-            System.out.println("Probabilities: Win=" + winProb + " Push=" + pushProb + " Lose=" + lossProb);
+            String sf1 = String.format("Probabilities: Win=%4.1f" + "%% ", winProb);
+            String sf2 = String.format("Push=%4.1f" + "%% ", pushProb);
+            String sf3 = String.format("Lose=%4.1f" + "%% ", lossProb);
+            System.out.println(sf1 + sf2 + sf3);
         }
     }
 
@@ -724,13 +759,16 @@ public class BJackGame extends CardGame {
         @Override
         ProbabilityStruct getAdviceData(String tableName) {
 
-            String sqlString = "select count(hashid), 'total' as desc from " + tableName + "\n" +
+            String sqlString = "select count(hashid), 'total' as desc from " + tableName +
+            " where dattrib != 'BLACKJACK'\n" +
             "union\n" +
-            "select count(pattrib), 'wins' as desc from " + tableName + " where presult = 'WIN'\n" +
+            "select count(pattrib), 'wins' as desc from " + tableName +
+            " where presult = 'WIN' and pattrib != 'BLACKJACK'\n" +
             "union\n" +
             "select count(pattrib), 'pushes' as desc from " + tableName+ " where presult = 'PUSH'\n" +
             "union\n" +
-            "select count(pattrib), 'losses' as desc from " + tableName + " where presult = 'LOSE';";
+            "select count(pattrib), 'losses' as desc from " + tableName +
+            " where presult = 'LOSE' and dattrib != 'BLACKJACK';";
 
             ProbabilityStruct probStruct = new ProbabilityStruct();
 

@@ -32,10 +32,10 @@ from dealerhands left join playerhands using(hashid);
 --drop table d2p1_1;
 --drop table d3p1_1;
 
-select count(hashid), 'total' as desc from d2p1_2
+select count(hashid), 'total' as desc from d1p1_2 where dattrib != 'BLACKJACK'
 union
-select count(pattrib), 'wins' as desc from d2p1_2 where presult = 'WIN'
+select count(pattrib), 'wins' as desc from d1p1_2 where presult = 'WIN' and pattrib != 'BLACKJACK'
 union
-select count(pattrib), 'pushes' as desc from d2p1_2 where presult = 'PUSH'
+select count(pattrib), 'pushes' as desc from d1p1_2 where presult = 'PUSH'
 union
-select count(pattrib), 'losses' as desc from d2p1_2 where presult = 'LOSE';
+select count(pattrib), 'losses' as desc from d1p1_2 where presult = 'LOSE' and dattrib != 'BLACKJACK';

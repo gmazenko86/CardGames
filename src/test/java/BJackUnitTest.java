@@ -94,6 +94,12 @@ public class BJackUnitTest {
         assertEquals(340, newHand.getHandTotal(), "Cards not added correctly");
     }
 
+    //TODO: unit test for getSoftHitRec()
+    //TODO: unit test for getHardHitRec()
+    //TODO: unit test for getHardDoubleRec()
+    //TODO: unit test for getSoftDoubleRec()
+    //TODO: move db connection testing out of testgetSplitPairRec()
+
     @Test
     void testgetSplitPairRec(){
 
