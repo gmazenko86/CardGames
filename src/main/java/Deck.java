@@ -11,9 +11,7 @@ class Deck {
         Card.Suit[] cardSuit = Card.Suit.values();
         for(Card.CardFace face: cardFace){
             for (Card.Suit suit : cardSuit){
-                Card newCard = new Card();
-                newCard.cardFace = face;
-                newCard.suit = suit;
+                Card newCard = new Card(face, suit);
                 (this.cards).add(newCard);
             }
         }
@@ -30,7 +28,7 @@ class Deck {
         this.deckIndex = 0;
     }
 
-    Card getCard(){
+    Card getNextCard(){
         // get the next card on the list
         Card returnCard = cards.get(this.deckIndex);
         // increment the deckIndex so we're ready to deal the next card

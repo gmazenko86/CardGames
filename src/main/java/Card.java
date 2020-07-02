@@ -1,9 +1,16 @@
 class Card {
-    public enum CardFace {TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE}
+    public enum CardFace {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
     public enum Suit { DIAMONDS, HEARTS, CLUBS, SPADES}
 
     CardFace cardFace;
     Suit suit;
+
+    Card(){}
+
+    Card(CardFace face, Suit suit){
+        this.cardFace = face;
+        this.suit =suit;
+    }
 
     String getCardSignature(){
         return this.cardFace.name() + " " + this.suit.name();

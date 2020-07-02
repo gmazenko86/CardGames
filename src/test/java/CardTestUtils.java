@@ -65,6 +65,10 @@ public class CardTestUtils {
         return treeMap;
     }
 
+    static public void fixDeckEntries(TreeMap<Integer, Card> treeMap, Integer index, Card card) {
+        treeMap.put(index, card);
+    }
+
     static public Card getCard(Card.CardFace face, Card.Suit suit) {
         Card card = new Card();
         card.cardFace = face;

@@ -11,10 +11,12 @@ public class BJackGameSim extends BJackGame{
 
     BJackGameSim(int iterations, String dbConfigPath){
         super(dbConfigPath);
-        IOMgrSim ioMgrSim = new IOMgrSim();
-        DBMgrSim dbMgrSim = new DBMgrSim(dbConfigPath);
-        this.iom = ioMgrSim;
-        this.dbMgr = dbMgrSim;
+        this.iom = new IOMgrSim();
+        // if db connection is valid, instantiate a DBMgrSim to handle the db writes
+        // otherwise, the dbMgr instantiated by the parent will remain (write function does nothing)
+        if(this.validDbConnection){
+            this.dbMgr = new DBMgrSim(dbConfigPath);
+        }
         this.iterations = iterations;
         gamesPlayed = 0;
     }
@@ -84,7 +86,9 @@ public class BJackGameSim extends BJackGame{
                 long elapsed = time2MicroSec - time1MicroSec;
                 double elapsedDouble = (double)elapsed/1000000.;
                 System.out.println(Thread.currentThread().getName() + " " + elapsedDouble + " seconds elapsed");
+
             }
+
 
             // this override enables use of Runnable objects as threads
             @Override
@@ -143,7 +147,7 @@ public class BJackGameSim extends BJackGame{
             int playerBlockSize = playerResults.size() / threadsPerPlayer;
             int playerExtras = playerResults.size() % threadsPerPlayer;
 
-            // these objects are the runnable tasks
+            // these objects are the callable tasks
             ArrayList<Callable<String> > taskList = new ArrayList<>();
             addTasks(taskList, dealerResults, dealerDBMgrs,"dealerhands",
                     threadsPerPlayer, dealerBlockSize, dealerExtras);
@@ -162,8 +166,6 @@ public class BJackGameSim extends BJackGame{
             } finally {
                 pool.shutdown();
             }
-
-
         }
 
         void addTasks(ArrayList<Callable<String>> taskList,
@@ -200,7 +202,7 @@ public class BJackGameSim extends BJackGame{
                     ps.setString(i, card.cardFace.name());
                     i++;
                 }
-                for(int loopIndex = i ; loopIndex <= 16; loopIndex++){
+                for(int loopIndex = i ; loopIndex <= 12; loopIndex++){
                     ps.setNull(loopIndex, Types.NULL);
                 }
                 ps.execute();
@@ -213,15 +215,20 @@ public class BJackGameSim extends BJackGame{
             return "insert into " + tableName +
                     "(\n" +
                     "hashid, total, attribute, result,\n" +
-                    "card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12)\n" +
-                    "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+                    "card1,card2,card3,card4,card5,card6,card7,card8)\n" +
+                    "values (?,?,?,?,?,?,?,?,?,?,?,?);";
         }
     }
 
     @Override
     boolean playAnotherHand() {
         gamesPlayed += 1;
-        return gamesPlayed < iterations;
+        if(gamesPlayed < iterations){
+            return true;
+        } else{
+            gamesPlayed = 0;
+            return false;
+        }
     }
 
     @Override

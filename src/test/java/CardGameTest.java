@@ -8,8 +8,7 @@ import static org.apache.commons.lang3.StringUtils.getDigits;
 
 public class CardGameTest {
     public static void main(String... args){
-        String dbConfigFilePath = "/home/greg/PersonalCodingExercises/" +
-                "DbaseExercises/src/main/resources/config.txt";
+        String dbConfigFilePath = "src/main/resources/config.txt";
 
 //        String fixDeckFilePath = "src/test/resources/fix65244.txt";
 //        String fixDeckFilePath2 = "src/test/resources/fixA__J.txt";
@@ -18,9 +17,11 @@ public class CardGameTest {
 //        BJackGameTest bJackGameTest = new BJackGameTest(dbConfigFilePath, fixDeckFilePath2);
 //        bJackGameTest.playGame();
 
-        BJackGameSim bJackGameSim = new BJackGameSim(100000, dbConfigFilePath);
+        BJackGameSim bJackGameSim = new BJackGameSim(10000, dbConfigFilePath);
         bJackGameSim.playGame();
 
+//        BJackTableWriter bJackTableWriter = new BJackTableWriter(10000, dbConfigFilePath);
+//        bJackTableWriter.generateTables();
 
 /*
         LinkedHashMap<Integer, LocalDateTime> hashMap = new LinkedHashMap<>();

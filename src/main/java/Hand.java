@@ -8,7 +8,7 @@ public class Hand {
     }
 
     void drawCard(Deck deck){
-        cards.add(deck.getCard());
+        cards.add(deck.getNextCard());
     }
 
     int faceCount(Card.CardFace face){
