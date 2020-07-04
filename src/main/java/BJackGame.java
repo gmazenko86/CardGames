@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Objects;
 
 //TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
-//TODO: more unit testing
 //TODO: system level testing
 //TODO: consider using NullPrintStream in MyPostGreSqlClass to suppress stack trace from ConnectException
 //TODO: write graphics front end
@@ -21,6 +20,7 @@ public class BJackGame extends CardGame {
     BJackHand dealerHand;
     final ArrayList<ResultsEntry> dealerResults;
     final ArrayList<ResultsEntry> playerResults;
+    String dbConfigPath;
     IOMgr iom;
     DBMgr dbMgr;
     boolean validDbConnection;
@@ -32,6 +32,7 @@ public class BJackGame extends CardGame {
         this.dealerHand = dealer.hands.get(0);
         this.dealerResults = new ArrayList<>();
         this.playerResults = new ArrayList<>();
+        this.dbConfigPath = dbConfigPath;
         this.iom = new IOMgr();
         this.dbMgr = new DBMgr(dbConfigPath);
         if (Objects.isNull(this.dbMgr.conn)){
@@ -43,6 +44,10 @@ public class BJackGame extends CardGame {
             this.dbMgr = new DBMgrRO(dbConfigPath);
             System.out.println("db connection = " + dbMgr.conn.toString());
         }
+    }
+
+    void playGameWrapper(){
+        playGame();
     }
 
     void playGame(){
@@ -60,7 +65,6 @@ public class BJackGame extends CardGame {
 
             // need an array list of players plus the dealer
             // update hand attributes based on blackjacks
-            // TODO: should consolidate the following 2 enhanced for loops into functions
             ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
             for (BJackPlayer player : playersPlusDealer) {
                 for (BJackHand hand : player.hands) {

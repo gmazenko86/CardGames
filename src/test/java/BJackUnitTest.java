@@ -96,7 +96,9 @@ public class BJackUnitTest {
     //TODO: unit test for getHardHitRec()
     //TODO: unit test for getHardDoubleRec()
     //TODO: unit test for getSoftDoubleRec()
+    //TODO: unit test for block size creation in writeResultsDbase()
     //TODO: move db connection testing out of testgetSplitPairRec()
+    //TODO: system level tests for integrity of stored tables (only with db connection)
 
     @Test
     void testgetSplitPairRec(){

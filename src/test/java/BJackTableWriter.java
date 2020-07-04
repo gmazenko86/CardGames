@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.TreeMap;
 
 public class BJackTableWriter extends BJackGameSim{
@@ -16,11 +17,17 @@ public class BJackTableWriter extends BJackGameSim{
         this.lastPlayerStartHand = new BJackHand();
     }
 
+    @Override
+    void playGameWrapper() {
+        prePlayGameInit();
+        generateTables();
+    }
+
     void generateTables(){
 
         int tableCount = 0;
-        for(playerIndex1 = 0; playerIndex1 < 10; playerIndex1++){
-            for(playerIndex2 = playerIndex1 + 13; playerIndex2 < 23; playerIndex2++){
+        for(playerIndex1 = 0; playerIndex1 < 1; playerIndex1++){
+            for(playerIndex2 = playerIndex1 + 13; playerIndex2 < 14; playerIndex2++){
                 for(dealerUpIndex = 26; dealerUpIndex < 36; dealerUpIndex++){
                     // next lines
                     fixDeckForTableWrites();
