@@ -37,12 +37,10 @@ public class BJackGame extends CardGame {
         this.dbMgr = new DBMgr(dbConfigPath);
         if (Objects.isNull(this.dbMgr.conn)){
             this.validDbConnection = false;
-            System.out.println("db connection is null");
         }
         else this.validDbConnection = true;
         if(validDbConnection){
             this.dbMgr = new DBMgrRO(dbConfigPath);
-            System.out.println("db connection = " + dbMgr.conn.toString());
         }
     }
 
@@ -470,9 +468,10 @@ public class BJackGame extends CardGame {
                 case 3:
                     if(playerTotal == 17 || playerTotal == 18){returnFlag = true;}
                     break;
-                case 4:
+                case 4: if(13 <= playerTotal && playerTotal <= 18){returnFlag = true;}
+                    break;
                 case 5:
-                case 6: if(13 <= playerTotal && playerTotal <= 18){returnFlag = true;}
+                case 6: if(12 <= playerTotal && playerTotal <= 18){returnFlag = true;}
                     break;
                 default:
                     break;
@@ -492,16 +491,23 @@ public class BJackGame extends CardGame {
                 case 11:
                 case 8:
                     returnFlag = true;
+                    break;
                 case 9:
-                    if(2 <= upValue && upValue <= 9 && upValue != 7){returnFlag = true;}
+                    if(2 <= upValue && upValue <= 9 && upValue != 7){
+                        returnFlag = true;
+                    }
+                    break;
                 case 7:
                     if(2 <= upValue && upValue <= 8){ returnFlag = true;}
+                    break;
                 case 6:
                 case 3:
                 case 2:
                     if(2 <= upValue && upValue <= 7){ returnFlag = true;}
+                    break;
                 case 4:
                     if(upValue == 5){returnFlag = true;}
+                    break;
                 default:
                     break;
             }
