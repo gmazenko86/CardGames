@@ -11,8 +11,8 @@ public class BJackTableWriter extends BJackGameSim{
     BJackHand lastDealerStartHand;
     BJackHand lastPlayerStartHand;
 
-    BJackTableWriter(int iterations, String dbConfigPath){
-        super(iterations, dbConfigPath);
+    BJackTableWriter(int iterations, int numThreads, String dbConfigPath){
+        super(iterations, numThreads, dbConfigPath);
         this.lastDealerStartHand = new BJackHand();
         this.lastPlayerStartHand = new BJackHand();
     }

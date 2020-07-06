@@ -12,7 +12,7 @@ public class BJackGameSim extends BJackGame{
     ArrayList<DBMgrSim> dealerDBMgrs;
     ArrayList<DBMgrSim> playerDBMgrs;
 
-    BJackGameSim(int iterations, String dbConfigPath){
+    BJackGameSim(int iterations, int numThreads, String dbConfigPath){
         super(dbConfigPath);
         this.iom = new IOMgrSim();
         // if db connection is valid, instantiate a DBMgrSim to handle the db writes
@@ -20,7 +20,7 @@ public class BJackGameSim extends BJackGame{
         if(this.validDbConnection){
             this.dbMgr = new DBMgrSim(dbConfigPath);
         }
-        this.numThreads = 32;
+        this.numThreads = numThreads;
         this.dealerDBMgrs = new ArrayList<>();
         this.playerDBMgrs = new ArrayList<>();
         this.iterations = iterations;
@@ -48,7 +48,6 @@ public class BJackGameSim extends BJackGame{
             dbMgrSims.add(dbMgrSim);
         }
     }
-
 
     // this extends the nested class IOMgr from the parent class BJackGame
     // to use the override functions below, this.iom has to be
@@ -81,7 +80,7 @@ public class BJackGameSim extends BJackGame{
             this.configFilePath = configFilePath;
         }
 
-        class WriteEntriesToDb implements Runnable, Callable<String > {
+        public class WriteEntriesToDb implements Runnable, Callable<String > {
             final String tableName;
             final ArrayList<ResultsEntry> resultsEntries;
             final DBMgrSim dbMgrSim;
@@ -143,9 +142,9 @@ public class BJackGameSim extends BJackGame{
             System.out.println(timeStamp + " = start of writeResultsDbase()");
 
             // numThreads has to be an even power of 2 for the method to work
+            // numThreads is set in the constructor
             // each thread will have its own dbase connection
             // 128 threads will usually generate exceptions due to too many dbase connections
-//            int numThreads = 32;
 
             int threadsPerPlayer = numThreads / 2;
 
@@ -154,17 +153,15 @@ public class BJackGameSim extends BJackGame{
 
             // determine results array indices to pass to each thread
 
-            int dealerBlockSize = dealerResults.size() / threadsPerPlayer;
-            int dealerExtras = dealerResults.size() % threadsPerPlayer;
-            int playerBlockSize = playerResults.size() / threadsPerPlayer;
-            int playerExtras = playerResults.size() % threadsPerPlayer;
+            int dealerBlockSize = getBlockSize(dealerResults, threadsPerPlayer);
+            int playerBlockSize = getBlockSize(playerResults, threadsPerPlayer);
 
             // these objects are the callable tasks
             ArrayList<Callable<String> > taskList = new ArrayList<>();
             addTasks(taskList, dealerResults, dealerDBMgrs,"dealerhands",
-                    threadsPerPlayer, dealerBlockSize, dealerExtras);
+                    threadsPerPlayer, dealerBlockSize);
             addTasks(taskList, playerResults, playerDBMgrs,"playerhands",
-                    threadsPerPlayer, playerBlockSize, playerExtras);
+                    threadsPerPlayer, playerBlockSize);
 
             // now start the threads
             timeStamp = LocalDateTime.now();
@@ -180,22 +177,38 @@ public class BJackGameSim extends BJackGame{
             }
         }
 
+        int getBlockSize(ArrayList<ResultsEntry> resultsList, int threadsPerPlayer){
+            return resultsList.size() / threadsPerPlayer;
+        }
+
+        int getBeginIndex(int threadNo, int blockSize){
+            return threadNo * blockSize;
+        }
+
+        int getEndIndex(int threadNo, int blockSize, int threadsPerPlayer){
+            int beginIndex = getBeginIndex(threadNo, blockSize);
+            int endIndex;
+            if(threadNo == threadsPerPlayer - 1){
+                // have to add any extras into the last bucket
+                endIndex = iterations;
+            } else{
+                endIndex = beginIndex + blockSize;
+            }
+            return endIndex;
+        }
+
         void addTasks(ArrayList<Callable<String>> taskList,
                       ArrayList<ResultsEntry> resultsEntries,
                       ArrayList<DBMgrSim> dbMgrSims,
-                      String tableName, int threadsPerPlayer, int blockSize, int extras){
+                      String tableName, int threadsPerPlayer, int blockSize){
             int beginIndex;
             int endIndex;
-            for(int i = 0; i < threadsPerPlayer; i++){
-                beginIndex = i * blockSize;
-                if(i == (threadsPerPlayer - 1)){
-                    endIndex = (i+1)*blockSize + extras;
-                } else{
-                    endIndex = (i+1)*blockSize;
-                }
+            for(int threadNo = 0; threadNo < threadsPerPlayer; threadNo++){
+                beginIndex = getBeginIndex(threadNo, blockSize);
+                endIndex = getEndIndex(threadNo, blockSize, threadsPerPlayer);
 
                 Callable<String> task = new WriteEntriesToDb(tableName,
-                        resultsEntries, dbMgrSims.get(i), beginIndex, endIndex);
+                        resultsEntries, dbMgrSims.get(threadNo), beginIndex, endIndex);
                 taskList.add(task);
             }
         }

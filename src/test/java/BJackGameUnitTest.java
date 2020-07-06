@@ -226,7 +226,7 @@ public class BJackGameUnitTest {
 
         DeckBySuit refDeck = new DeckBySuit();
         ArrayList<String> tableNames = new ArrayList<>();
-        BJackGameSim game = new BJackGameSim(10, configPath);
+        BJackGameSim game = new BJackGameSim(10, 32, configPath);
         game.preGameInit(1);
 
         for(int playerIndex1 = 0; playerIndex1 < 10; playerIndex1++){

@@ -11,7 +11,7 @@ public class CardGameTest {
         String dbConfigFilePath = "src/main/resources/config.txt";
 //        String dbConfigFilePath = "/home/greg/Documents/config_aws_rds.txt";
 
-        BJackGameSim bJackGameSim = new BJackGameSim(10000, dbConfigFilePath);
+        BJackGameSim bJackGameSim = new BJackGameSim(5000, 32, dbConfigFilePath);
         bJackGameSim.playGameWrapper();
 
 //        BJackTableWriter bJackTableWriter = new BJackTableWriter(10000, dbConfigFilePath);
