@@ -20,10 +20,10 @@ public class BJackGame extends CardGame {
     BJackHand dealerHand;
     final ArrayList<ResultsEntry> dealerResults;
     final ArrayList<ResultsEntry> playerResults;
-    String dbConfigPath;
+    final String dbConfigPath;
     IOMgr iom;
     DBMgr dbMgr;
-    boolean validDbConnection;
+    final boolean validDbConnection;
 
     BJackGame(String dbConfigPath){
         super();
