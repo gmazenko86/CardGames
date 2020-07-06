@@ -24,3 +24,6 @@ create table dealerhands (
 );
 
 select * into playerhands from dealerhands;
+
+--in MySQL the command is CREATE TABLE playerhands LIKE dealerhands;
+

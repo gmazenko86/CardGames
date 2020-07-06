@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +9,6 @@ public class BJackGameUnitTest {
 
     final String configPath = "src/main/resources/config.txt";
 
-    //TODO: unit test for block size creation in writeResultsDbase()
     //TODO: system level tests for integrity of stored tables (only with db connection)
 
     @Test

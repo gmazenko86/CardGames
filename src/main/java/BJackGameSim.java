@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BJackGameSim extends BJackGame{
-    final int iterations;
+    int iterations;
     int gamesPlayed;
     int numThreads;
     ArrayList<DBMgrSim> dealerDBMgrs;

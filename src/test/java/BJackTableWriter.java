@@ -1,6 +1,5 @@
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.util.TreeMap;
 
 public class BJackTableWriter extends BJackGameSim{
@@ -58,7 +57,7 @@ public class BJackTableWriter extends BJackGameSim{
         }
     }
 
-    //TODO: probably move this to MyPostGreSqlClass
+    //TODO: move this to MyPostGreSqlClass
     void truncateTable(String tableName){
         String sqlString = "truncate " + tableName + ";";
         try(Statement statement = dbMgr.getStatementScrollable()){
