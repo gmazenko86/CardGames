@@ -97,4 +97,39 @@ public class CardTestUtils {
         // list will be empty if each card was in the deck 1 and only 1 time
         return swapList.isEmpty();
     }
+
+    static public ArrayList<ArrayList<BJackHand>> getAllStartingHands(){
+        ArrayList<ArrayList<BJackHand>> arrayOfHands = new ArrayList<>();
+
+        // this creates all possible combinations player totals and dealer up cards
+        // after the initial deal. Only face values matter, so for convenience
+        // iterate across the face values in one suit for each of the 3 relevant cards
+        Deck playerCard1s = new Deck();
+        // keep only the Diamonds
+        playerCard1s.cards.removeIf(card -> card.suit != Card.Suit.DIAMONDS);
+        Deck playerCard2s = new Deck();
+        // keep only the Hearts
+        playerCard2s.cards.removeIf(card -> card.suit != Card.Suit.HEARTS);
+        Deck dealerUpCards = new Deck();
+        // keep only the Clubs
+        dealerUpCards.cards.removeIf(card -> card.suit != Card.Suit.CLUBS);
+
+        for(Card playerCard2 : playerCard2s.cards){
+            for(Card dealerCard1 : dealerUpCards.cards){
+                for(Card playerCard1 : playerCard1s.cards){
+                    BJackHand playerHand = new BJackHand();
+                    BJackHand dealerHand = new BJackHand();
+                    playerHand.cards.add(playerCard1);
+                    playerHand.cards.add(playerCard2);
+                    dealerHand.cards.add(dealerCard1);
+                    ArrayList<BJackHand> handPair = new ArrayList<>();
+                    handPair.add(playerHand);
+                    handPair.add(dealerHand);
+                    arrayOfHands.add(handPair);
+                }
+            }
+        }
+        return arrayOfHands;
+    }
+
 }

@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Objects;
 
 //TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
-//TODO: more unit testing
 //TODO: system level testing
 //TODO: consider using NullPrintStream in MyPostGreSqlClass to suppress stack trace from ConnectException
 //TODO: write graphics front end
@@ -21,9 +20,10 @@ public class BJackGame extends CardGame {
     BJackHand dealerHand;
     final ArrayList<ResultsEntry> dealerResults;
     final ArrayList<ResultsEntry> playerResults;
+    final String dbConfigPath;
     IOMgr iom;
     DBMgr dbMgr;
-    boolean validDbConnection;
+    final boolean validDbConnection;
 
     BJackGame(String dbConfigPath){
         super();
@@ -32,17 +32,20 @@ public class BJackGame extends CardGame {
         this.dealerHand = dealer.hands.get(0);
         this.dealerResults = new ArrayList<>();
         this.playerResults = new ArrayList<>();
+        this.dbConfigPath = dbConfigPath;
         this.iom = new IOMgr();
         this.dbMgr = new DBMgr(dbConfigPath);
         if (Objects.isNull(this.dbMgr.conn)){
             this.validDbConnection = false;
-            System.out.println("db connection is null");
         }
         else this.validDbConnection = true;
         if(validDbConnection){
             this.dbMgr = new DBMgrRO(dbConfigPath);
-            System.out.println("db connection = " + dbMgr.conn.toString());
         }
+    }
+
+    void playGameWrapper(){
+        playGame();
     }
 
     void playGame(){
@@ -60,7 +63,6 @@ public class BJackGame extends CardGame {
 
             // need an array list of players plus the dealer
             // update hand attributes based on blackjacks
-            // TODO: should consolidate the following 2 enhanced for loops into functions
             ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
             for (BJackPlayer player : playersPlusDealer) {
                 for (BJackHand hand : player.hands) {
@@ -466,9 +468,10 @@ public class BJackGame extends CardGame {
                 case 3:
                     if(playerTotal == 17 || playerTotal == 18){returnFlag = true;}
                     break;
-                case 4:
+                case 4: if(13 <= playerTotal && playerTotal <= 18){returnFlag = true;}
+                    break;
                 case 5:
-                case 6: if(13 <= playerTotal && playerTotal <= 18){returnFlag = true;}
+                case 6: if(12 <= playerTotal && playerTotal <= 18){returnFlag = true;}
                     break;
                 default:
                     break;
@@ -488,16 +491,23 @@ public class BJackGame extends CardGame {
                 case 11:
                 case 8:
                     returnFlag = true;
+                    break;
                 case 9:
-                    if(2 <= upValue && upValue <= 9 && upValue != 7){returnFlag = true;}
+                    if(2 <= upValue && upValue <= 9 && upValue != 7){
+                        returnFlag = true;
+                    }
+                    break;
                 case 7:
                     if(2 <= upValue && upValue <= 8){ returnFlag = true;}
+                    break;
                 case 6:
                 case 3:
                 case 2:
                     if(2 <= upValue && upValue <= 7){ returnFlag = true;}
+                    break;
                 case 4:
                     if(upValue == 5){returnFlag = true;}
+                    break;
                 default:
                     break;
             }

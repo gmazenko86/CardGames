@@ -10,10 +10,16 @@ public class BJackTableWriter extends BJackGameSim{
     BJackHand lastDealerStartHand;
     BJackHand lastPlayerStartHand;
 
-    BJackTableWriter(int iterations, String dbConfigPath){
-        super(iterations, dbConfigPath);
+    BJackTableWriter(int iterations, int numThreads, String dbConfigPath){
+        super(iterations, numThreads, dbConfigPath);
         this.lastDealerStartHand = new BJackHand();
         this.lastPlayerStartHand = new BJackHand();
+    }
+
+    @Override
+    void playGameWrapper() {
+        prePlayGameInit();
+        generateTables();
     }
 
     void generateTables(){
@@ -51,7 +57,7 @@ public class BJackTableWriter extends BJackGameSim{
         }
     }
 
-    //TODO: probably move this to MyPostGreSqlClass
+    //TODO: move this to MyPostGreSqlClass
     void truncateTable(String tableName){
         String sqlString = "truncate " + tableName + ";";
         try(Statement statement = dbMgr.getStatementScrollable()){

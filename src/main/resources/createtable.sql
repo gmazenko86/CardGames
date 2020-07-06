@@ -28,9 +28,8 @@ from dealerhands left join playerhands using(hashid);
 --select count(hashid) from d2p1_1;
 --select count(hashid) from d3p1_1;
 
---drop table d1p1_1;
---drop table d2p1_1;
---drop table d3p1_1;
+--drop table if exists d1p1_1;
+--drop table if exists d2p1_1;
 
 select count(hashid), 'total' as desc from d1p1_2 where dattrib != 'BLACKJACK'
 union
