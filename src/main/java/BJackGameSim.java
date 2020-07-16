@@ -1,3 +1,5 @@
+import myioutils.MyIOUtils;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -185,12 +187,12 @@ public class BJackGameSim extends BJackGame{
             return threadNo * blockSize;
         }
 
-        int getEndIndex(int threadNo, int blockSize, int threadsPerPlayer){
+        int getEndIndex(int threadNo, int blockSize, int threadsPerPlayer, int arraySize){
             int beginIndex = getBeginIndex(threadNo, blockSize);
             int endIndex;
             if(threadNo == threadsPerPlayer - 1){
                 // have to add any extras into the last bucket
-                endIndex = iterations;
+                endIndex = arraySize;
             } else{
                 endIndex = beginIndex + blockSize;
             }
@@ -203,9 +205,10 @@ public class BJackGameSim extends BJackGame{
                       String tableName, int threadsPerPlayer, int blockSize){
             int beginIndex;
             int endIndex;
+            int arraySize = resultsEntries.size();
             for(int threadNo = 0; threadNo < threadsPerPlayer; threadNo++){
                 beginIndex = getBeginIndex(threadNo, blockSize);
-                endIndex = getEndIndex(threadNo, blockSize, threadsPerPlayer);
+                endIndex = getEndIndex(threadNo, blockSize, threadsPerPlayer, arraySize);
 
                 Callable<String> task = new WriteEntriesToDb(tableName,
                         resultsEntries, dbMgrSims.get(threadNo), beginIndex, endIndex);

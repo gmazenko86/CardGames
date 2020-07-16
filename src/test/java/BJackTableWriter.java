@@ -1,3 +1,5 @@
+import myioutils.MyIOUtils;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.TreeMap;
@@ -40,8 +42,8 @@ public class BJackTableWriter extends BJackGameSim{
                         MyIOUtils.printlnRedText("attempting to create table " + tableNameBuilder.toString()
                                 + " number = " + tableCount);
                         createResultsTable(sqlBuilder.toString());
-                        truncateTable("dealerhands");
-                        truncateTable("playerhands");
+                        dbMgr.truncateTable("dealerhands");
+                        dbMgr.truncateTable("playerhands");
                     }
                 }
             }
@@ -50,16 +52,6 @@ public class BJackTableWriter extends BJackGameSim{
 
     //TODO: decide if some of these functions should be moved into dbMgr or MyPostGreSqlClass
     void createResultsTable(String sqlString){
-        try(Statement statement = dbMgr.getStatementScrollable()){
-            statement.execute(sqlString);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    //TODO: move this to MyPostGreSqlClass
-    void truncateTable(String tableName){
-        String sqlString = "truncate " + tableName + ";";
         try(Statement statement = dbMgr.getStatementScrollable()){
             statement.execute(sqlString);
         } catch (SQLException exception) {

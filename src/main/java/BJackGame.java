@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
+import myioutils.MyIOUtils;
+import mypostgre.MyPostGreSqlClass;
+
 //TODO: confirm running in a simulation environment with no display (player seems to be doing too well)
 //TODO: system level testing
 //TODO: consider using NullPrintStream in MyPostGreSqlClass to suppress stack trace from ConnectException
@@ -333,7 +336,7 @@ public class BJackGame extends CardGame {
                     iom.displayProbabilities(hand);
                 }
                 // have to recursively call doubleDown() until user chooses 'y' or 'n'
-                // have to return hitHand() so call stack is properly unwound
+                // have to return doubleDown() so call stack is properly unwound
                 return doubleDown(hand);
             }
             case 'y':
@@ -360,7 +363,7 @@ public class BJackGame extends CardGame {
                     iom.displayProbabilities(hand);
                 }
                 // have to recursively call splitPair() until user chooses 'y' or 'n'
-                // have to return hitHand() so call stack is properly unwound
+                // have to return splitPair() so call stack is properly unwound
                 return splitPair(hand);
             }            case 'y':
                 return true;
@@ -725,7 +728,7 @@ public class BJackGame extends CardGame {
         }
     }
 
-    class DBMgr extends MyPostGreSqlClass{
+    class DBMgr extends MyPostGreSqlClass {
         DBMgr(String configFilePath) {
             super(configFilePath);
         }
