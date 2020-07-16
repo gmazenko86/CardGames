@@ -18,11 +18,22 @@ public class BJackBenchmarks {
         org.openjdk.jmh.Main.main(args);
     }
 
+    // 2 benchmarks below compare writing to the db with 2 threads vs 8
     @Benchmark
-    public void bmark4threads(){
+    public void bmark2threads(){
         String dbConfigFilePath = "src/main/resources/config.txt";
 
-        BJackGameSim bJackGameSim = new BJackGameSim(5000, 4, dbConfigFilePath);
+        BJackGameSim bJackGameSim = new BJackGameSim(5000, 2, dbConfigFilePath);
+        bJackGameSim.playGameWrapper();
+        bJackGameSim.dbMgr.truncateTable("dealerhands");
+        bJackGameSim.dbMgr.truncateTable("playerhands");
+    }
+
+    @Benchmark
+    public void bmark8threads(){
+        String dbConfigFilePath = "src/main/resources/config.txt";
+
+        BJackGameSim bJackGameSim = new BJackGameSim(5000, 8, dbConfigFilePath);
         bJackGameSim.playGameWrapper();
         bJackGameSim.dbMgr.truncateTable("dealerhands");
         bJackGameSim.dbMgr.truncateTable("playerhands");
