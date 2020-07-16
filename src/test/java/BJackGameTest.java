@@ -1,6 +1,9 @@
+import bjack.BJackGame;
+import cards.Card;
+
 import java.util.TreeMap;
 
-public class BJackGameTest extends BJackGame{
+public class BJackGameTest extends BJackGame {
 
     BJackGameTest(String dbaseConfigFilePath){
         // use this constructor if you want to use a normal fair deck
@@ -13,18 +16,18 @@ public class BJackGameTest extends BJackGame{
         TreeMap<Integer, Card> seedCards = CardTestUtils.fixDeckEntries(fixDeckInputPath);
         CardTestUtils.fixDeck(this.deck, seedCards);
         boolean deckGood = CardTestUtils.checkDeckIntegrity(this.deck);
-        assert (deckGood) : assertPrint("Deck integrity check failed");
-        System.out.println("Deck integrity is good == " + deckGood);
+        assert (deckGood) : assertPrint("cards.Deck integrity check failed");
+        System.out.println("cards.Deck integrity is good == " + deckGood);
     }
 
     @Override
-    void preGameInit(int numPlayers) {
+    public void preGameInit(int numPlayers) {
         super.preGameInit(numPlayers);
         // temporarily give players additional hands for debug and test
 /*
-        BJackHand tempHand = new BJackHand();
-        BJackHand tempHand1 = new BJackHand();
-        BJackHand tempHand2 = new BJackHand();
+        bjack.BJackHand tempHand = new bjack.BJackHand();
+        bjack.BJackHand tempHand1 = new bjack.BJackHand();
+        bjack.BJackHand tempHand2 = new bjack.BJackHand();
 
         this.bJackPlayers.get(1).hands.add(tempHand);
         this.bJackPlayers.get(1).hands.add(tempHand1);

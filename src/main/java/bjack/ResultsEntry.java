@@ -1,3 +1,7 @@
+package bjack;
+
+import cards.Card;
+
 import java.util.ArrayList;
 
 public class ResultsEntry {

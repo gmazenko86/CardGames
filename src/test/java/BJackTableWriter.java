@@ -1,8 +1,14 @@
+import bjack.BJackGameSim;
+import bjack.BJackHand;
+import cards.Card;
+import cards.DeckBySuit;
+import myioutils.MyIOUtils;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.TreeMap;
 
-public class BJackTableWriter extends BJackGameSim{
+public class BJackTableWriter extends BJackGameSim {
     int dealerUpIndex;
     int playerIndex1;
     int playerIndex2;
@@ -17,7 +23,7 @@ public class BJackTableWriter extends BJackGameSim{
     }
 
     @Override
-    void playGameWrapper() {
+    public void playGameWrapper() {
         prePlayGameInit();
         generateTables();
     }
@@ -40,8 +46,8 @@ public class BJackTableWriter extends BJackGameSim{
                         MyIOUtils.printlnRedText("attempting to create table " + tableNameBuilder.toString()
                                 + " number = " + tableCount);
                         createResultsTable(sqlBuilder.toString());
-                        truncateTable("dealerhands");
-                        truncateTable("playerhands");
+                        dbMgr.truncateTable("dealerhands");
+                        dbMgr.truncateTable("playerhands");
                     }
                 }
             }
@@ -57,18 +63,8 @@ public class BJackTableWriter extends BJackGameSim{
         }
     }
 
-    //TODO: move this to MyPostGreSqlClass
-    void truncateTable(String tableName){
-        String sqlString = "truncate " + tableName + ";";
-        try(Statement statement = dbMgr.getStatementScrollable()){
-            statement.execute(sqlString);
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
-
     @Override
-    void postHandReInit() {
+    public void postHandReInit() {
         super.postHandReInit();
         deck.shuffle();
         fixDeckForTableWrites();
@@ -86,7 +82,7 @@ public class BJackTableWriter extends BJackGameSim{
     }
 
     @Override
-    void dealHands() {
+    public void dealHands() {
         super.dealHands();
         // have to save the last dealer and player hands
         lastDealerStartHand.cards.clear();

@@ -1,10 +1,12 @@
+package cards;
+
 import java.util.ArrayList;
 
-class Deck {
-    final ArrayList<Card> cards;
-    int deckIndex;
+public class Deck {
+    final public ArrayList<Card> cards;
+    public int deckIndex;
 
-    Deck(){
+    public Deck(){
         this.deckIndex = 0;
         this.cards = new ArrayList<>();
         Card.CardFace[] cardFace = Card.CardFace.values();
@@ -17,7 +19,7 @@ class Deck {
         }
     }
 
-    void shuffle(){
+    public void shuffle(){
         int numCards = this.cards.size();
         ArrayList<Integer> sortOrder = CardGame.getIndexRandOrder(numCards);
         ArrayList<Card> tempDeck = new ArrayList<>(this.cards);
@@ -28,7 +30,7 @@ class Deck {
         this.deckIndex = 0;
     }
 
-    Card getNextCard(){
+    public Card getNextCard(){
         // get the next card on the list
         Card returnCard = cards.get(this.deckIndex);
         // increment the deckIndex so we're ready to deal the next card

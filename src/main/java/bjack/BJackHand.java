@@ -1,16 +1,22 @@
-public class BJackHand extends Hand{
+package bjack;
+
+import cards.Card;
+import cards.Deck;
+import cards.Hand;
+
+public class BJackHand extends Hand {
 
     // these attributes drive special handling
-    enum HandAttribute {NOTPLAYED, STICK, BLACKJACK, BUST, SPLITHAND, DOUBLEDOWN, SURRENDER}
+    public enum HandAttribute {NOTPLAYED, STICK, BLACKJACK, BUST, SPLITHAND, DOUBLEDOWN, SURRENDER}
     // HandResult represents the final disposition of a player hand and determines payments
-    enum  HandResult {PENDING, WIN, LOSE, PUSH}
+    public enum  HandResult {PENDING, WIN, LOSE, PUSH}
 
     HandAttribute handAttribute;
     HandResult handResult;
     double bet;
     boolean playingThis;
 
-    BJackHand(){
+    public BJackHand(){
         super();
         handAttribute = HandAttribute.NOTPLAYED;
         handResult = HandResult.PENDING;
@@ -31,19 +37,19 @@ public class BJackHand extends Hand{
         return total;
     }
 
-    void setBlackJackFlag(){
+    public void setBlackJackFlag(){
         if(this.cards.size() == 2 && this.getHandTotal() == 21){
             this.handAttribute = BJackHand.HandAttribute.BLACKJACK;
         }
     }
 
-    void handleDoubleDown(Deck deck){
+    public void handleDoubleDown(Deck deck){
         this.drawCard(deck);
         this.handAttribute = BJackHand.HandAttribute.DOUBLEDOWN;
         this.bet *= 2;
     }
 
-    boolean havePair(){
+    public boolean havePair(){
         if(this.cards.size() == 2) {
             return this.cards.get(0).cardFace == this.cards.get(1).cardFace;
         }
@@ -153,7 +159,7 @@ public class BJackHand extends Hand{
         }
     }
 
-    boolean isSoftHand(){
+    public boolean isSoftHand(){
         int sumCardValues = 0;
         int numAces = this.faceCount(Card.CardFace.ACE);
         for(Card card : this.cards){
@@ -167,7 +173,7 @@ public class BJackHand extends Hand{
         return false;
     }
 
-    int pairCardValue(){
+    public int pairCardValue(){
         assert (this.havePair());
         int checkIndex = this.cards.size() - 1;
         return this.cards.get(checkIndex).getCardValue();
