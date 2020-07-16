@@ -1,3 +1,5 @@
+package bjack;
+
 public class ProbabilityStruct {
     int total;
     int wins;

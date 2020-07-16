@@ -1,22 +1,24 @@
-class Card {
+package cards;
+
+public class Card {
     public enum CardFace {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
     public enum Suit { DIAMONDS, HEARTS, CLUBS, SPADES}
 
-    CardFace cardFace;
-    Suit suit;
+    public CardFace cardFace;
+    public Suit suit;
 
-    Card(){}
+    public Card(){}
 
-    Card(CardFace face, Suit suit){
+    public Card(CardFace face, Suit suit){
         this.cardFace = face;
         this.suit =suit;
     }
 
-    String getCardSignature(){
+    public String getCardSignature(){
         return this.cardFace.name() + " " + this.suit.name();
     }
 
-    int getCardValue(){
+    public int getCardValue(){
         switch (cardFace){
             case ACE: return 11;
             case KING:

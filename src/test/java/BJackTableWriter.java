@@ -1,10 +1,14 @@
+import bjack.BJackGameSim;
+import bjack.BJackHand;
+import cards.Card;
+import cards.DeckBySuit;
 import myioutils.MyIOUtils;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.TreeMap;
 
-public class BJackTableWriter extends BJackGameSim{
+public class BJackTableWriter extends BJackGameSim {
     int dealerUpIndex;
     int playerIndex1;
     int playerIndex2;
@@ -19,7 +23,7 @@ public class BJackTableWriter extends BJackGameSim{
     }
 
     @Override
-    void playGameWrapper() {
+    public void playGameWrapper() {
         prePlayGameInit();
         generateTables();
     }
@@ -60,7 +64,7 @@ public class BJackTableWriter extends BJackGameSim{
     }
 
     @Override
-    void postHandReInit() {
+    public void postHandReInit() {
         super.postHandReInit();
         deck.shuffle();
         fixDeckForTableWrites();
@@ -78,7 +82,7 @@ public class BJackTableWriter extends BJackGameSim{
     }
 
     @Override
-    void dealHands() {
+    public void dealHands() {
         super.dealHands();
         // have to save the last dealer and player hands
         lastDealerStartHand.cards.clear();

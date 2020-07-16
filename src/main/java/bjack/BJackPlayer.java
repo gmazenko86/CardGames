@@ -1,8 +1,12 @@
+package bjack;
+
+import cards.Player;
+
 import java.util.ArrayList;
 
-public class BJackPlayer extends Player{
+public class BJackPlayer extends Player {
     // a player can sometimes play more than one hand
-    final ArrayList<BJackHand> hands;
+    public final ArrayList<BJackHand> hands;
 
     // in the constructor, instantiate the array list and populate it with one empty hand
     BJackPlayer() {

@@ -1,3 +1,5 @@
+package bjack;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,6 +9,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 
+import cards.Card;
+import cards.CardGame;
+import cards.Deck;
+import cards.Hand;
 import myioutils.MyIOUtils;
 import mypostgre.MyPostGreSqlClass;
 
@@ -18,17 +24,17 @@ import mypostgre.MyPostGreSqlClass;
 
 public class BJackGame extends CardGame {
 
-    final ArrayList<BJackPlayer> players;
+    public final ArrayList<BJackPlayer> players;
     final BJackPlayer dealer;
-    BJackHand dealerHand;
+    public BJackHand dealerHand;
     final ArrayList<ResultsEntry> dealerResults;
     final ArrayList<ResultsEntry> playerResults;
     final String dbConfigPath;
     IOMgr iom;
-    DBMgr dbMgr;
-    final boolean validDbConnection;
+    public DBMgr dbMgr;
+    protected final boolean validDbConnection;
 
-    BJackGame(String dbConfigPath){
+    public BJackGame(String dbConfigPath){
         super();
         this.players = new ArrayList<>();
         this.dealer = new BJackPlayer();
@@ -47,11 +53,11 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void playGameWrapper(){
+    public void playGameWrapper(){
         playGame();
     }
 
-    void playGame(){
+    public void playGame(){
         LocalDateTime timeStamp = LocalDateTime.now();
         System.out.println(timeStamp + " = start of program");
         preGameInit(1);
@@ -130,7 +136,7 @@ public class BJackGame extends CardGame {
 
 //        System.out.println("Dealer Results");
 //        displayResultsArray(dealerResults);
-//        System.out.println("Player Results");
+//        System.out.println("cards.Player Results");
 //        displayResultsArray(playerResults);
         dbMgr.writeResultsDbase();
         // clear the results arrays in case we're doing iterations of iterations
@@ -142,7 +148,7 @@ public class BJackGame extends CardGame {
         playerResults.clear();
     }
 
-    void postHandReInit(){
+    public void postHandReInit(){
         ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
         for (BJackPlayer player : playersPlusDealer) {
             player.reinitHands();
@@ -184,7 +190,7 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void dealHands(){
+    public void dealHands(){
         // deal 2 cards for each hand, including the dealer
         // need an array list with the dealer included as the last entry
         ArrayList<BJackPlayer> playersPlusDealer = getPlayersPlusDealer();
@@ -266,7 +272,7 @@ public class BJackGame extends CardGame {
         }
     }
 
-    void preGameInit(int numPlayers){
+    public void preGameInit(int numPlayers){
         initializePlayers(numPlayers);
     }
 
@@ -372,7 +378,7 @@ public class BJackGame extends CardGame {
         }
     }
 
-    Card dealerUpCard(){
+    public Card dealerUpCard(){
         return dealerHand.cards.get(0);
     }
 
@@ -413,7 +419,7 @@ public class BJackGame extends CardGame {
         return  18;
     }
 
-    boolean getHardHitRec(BJackHand hand){
+    public boolean getHardHitRec(BJackHand hand){
         Card dealerCard =  dealerUpCard();
         int upValue = dealerCard.getCardValue();
         int playerTotal = hand.getHandTotal();
@@ -428,7 +434,7 @@ public class BJackGame extends CardGame {
         return hitFlag;
     }
 
-    boolean getSoftHitRec(BJackHand hand){
+    public boolean getSoftHitRec(BJackHand hand){
         Card dealerCard =  dealerUpCard();
         int upValue = dealerCard.getCardValue();
         int playerTotal = hand.getHandTotal();
@@ -443,7 +449,7 @@ public class BJackGame extends CardGame {
         return hitFlag;
     }
 
-    boolean getHardDoubleRec(BJackHand hand){
+    public boolean getHardDoubleRec(BJackHand hand){
         Card dealerCard =  dealerUpCard();
         int upValue = dealerCard.getCardValue();
         int playerTotal = hand.getHandTotal();
@@ -458,7 +464,7 @@ public class BJackGame extends CardGame {
         return returnFlag;
     }
 
-    boolean getSoftDoubleRec(BJackHand hand){
+    public boolean getSoftDoubleRec(BJackHand hand){
         Card dealerCard =  dealerUpCard();
         int upValue = dealerCard.getCardValue();
         int playerTotal = hand.getHandTotal();
@@ -483,7 +489,7 @@ public class BJackGame extends CardGame {
         return returnFlag;
     }
 
-    boolean getSplitPairRec(BJackHand hand){
+    public boolean getSplitPairRec(BJackHand hand){
         Card dealerCard =  dealerUpCard();
         int upValue = dealerCard.getCardValue();
         int pairValue = hand.pairCardValue();
@@ -568,7 +574,7 @@ public class BJackGame extends CardGame {
         }
     }
 
-    boolean assertPrint(String string){
+    public boolean assertPrint(String string){
         System.out.println(string);
         return true;
     }
@@ -673,11 +679,11 @@ public class BJackGame extends CardGame {
             }
             if(printResults){
                 if(hand.isWin()){
-                    MyIOUtils.printGreenText(" -----Player result = WIN");
+                    MyIOUtils.printGreenText(" -----cards.Player result = WIN");
                 } else if(hand.isLose()){
-                    MyIOUtils.printRedText(" -----Player result = LOSE");
+                    MyIOUtils.printRedText(" -----cards.Player result = LOSE");
                 } else if(hand.isPush()){
-                    MyIOUtils.printBlueText(" -----Player result = PUSH");
+                    MyIOUtils.printBlueText(" -----cards.Player result = PUSH");
                 }
                 else{ assert(false);}
             }
@@ -728,7 +734,7 @@ public class BJackGame extends CardGame {
         }
     }
 
-    class DBMgr extends MyPostGreSqlClass {
+    public class DBMgr extends MyPostGreSqlClass {
         DBMgr(String configFilePath) {
             super(configFilePath);
         }
@@ -736,7 +742,7 @@ public class BJackGame extends CardGame {
         void writeResultsDbase(){
         }
 
-        String buildTableName(BJackHand dealerHand, BJackHand playerHand){
+        public String buildTableName(BJackHand dealerHand, BJackHand playerHand){
             int dealerValue = getTableNameInt(dealerHand.cards.get(0));
             // table names contain the value of the smaller card first
             int temp1 = getTableNameInt(playerHand.cards.get(0));

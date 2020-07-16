@@ -1,6 +1,7 @@
+package cards;
 
 public class DeckBySuit extends Deck {
-    DeckBySuit(){
+    public DeckBySuit(){
         super();
         this.deckIndex = 0;
         this.cards.clear();

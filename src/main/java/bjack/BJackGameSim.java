@@ -1,3 +1,6 @@
+package bjack;
+
+import cards.Card;
 import myioutils.MyIOUtils;
 
 import java.sql.*;
@@ -8,13 +11,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class BJackGameSim extends BJackGame{
-    int iterations;
+    public int iterations;
     int gamesPlayed;
-    int numThreads;
+    public int numThreads;
     ArrayList<DBMgrSim> dealerDBMgrs;
     ArrayList<DBMgrSim> playerDBMgrs;
 
-    BJackGameSim(int iterations, int numThreads, String dbConfigPath){
+    public BJackGameSim(int iterations, int numThreads, String dbConfigPath){
         super(dbConfigPath);
         this.iom = new IOMgrSim();
         // if db connection is valid, instantiate a DBMgrSim to handle the db writes
@@ -30,12 +33,12 @@ public class BJackGameSim extends BJackGame{
     }
 
     @Override
-    void playGameWrapper() {
+    public void playGameWrapper() {
         prePlayGameInit();
         playGame();
     }
 
-    void prePlayGameInit(){
+    protected void prePlayGameInit(){
         LocalDateTime timeStamp = LocalDateTime.now();
         int threadsPerPlayer = numThreads/2;
         System.out.println(timeStamp + " = ready to get the dbase connections");
@@ -51,7 +54,7 @@ public class BJackGameSim extends BJackGame{
         }
     }
 
-    // this extends the nested class IOMgr from the parent class BJackGame
+    // this extends the nested class IOMgr from the parent class bjack.BJackGame
     // to use the override functions below, this.iom has to be
     // assigned to the ioMgrSim instance created in the constructor
     class IOMgrSim extends IOMgr {
@@ -70,14 +73,14 @@ public class BJackGameSim extends BJackGame{
 
     }
 
-    // this extends the nested class DBMgr from the parent class BJackGame
+    // this extends the nested class DBMgr from the parent class bjack.BJackGame
     // to use the override functions below, this.dbMgr has to be
     // assigned to the dbMgrSim instance created in the constructor
-    class DBMgrSim extends DBMgr{
+    public class DBMgrSim extends DBMgr{
 
         final String configFilePath;
 
-        DBMgrSim(String configFilePath){
+        public DBMgrSim(String configFilePath){
             super(configFilePath);
             this.configFilePath = configFilePath;
         }
@@ -183,11 +186,11 @@ public class BJackGameSim extends BJackGame{
             return resultsList.size() / threadsPerPlayer;
         }
 
-        int getBeginIndex(int threadNo, int blockSize){
+        public int getBeginIndex(int threadNo, int blockSize){
             return threadNo * blockSize;
         }
 
-        int getEndIndex(int threadNo, int blockSize, int threadsPerPlayer, int arraySize){
+        public int getEndIndex(int threadNo, int blockSize, int threadsPerPlayer, int arraySize){
             int beginIndex = getBeginIndex(threadNo, blockSize);
             int endIndex;
             if(threadNo == threadsPerPlayer - 1){

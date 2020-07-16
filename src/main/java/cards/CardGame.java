@@ -1,10 +1,14 @@
+package cards;
+
+import bjack.BJackGame;
+
 import java.util.*;
 import java.util.stream.LongStream;
 
 public class CardGame {
-    final Deck deck;
+    final public Deck deck;
 
-    CardGame(){
+    public CardGame(){
         this.deck = new Deck();
         this.deck.shuffle();
     }
@@ -15,7 +19,7 @@ public class CardGame {
         bJackGame.playGame();
     }
 
-    static ArrayList<Integer> getIndexRandOrder(long numIntegers){
+    static public ArrayList<Integer> getIndexRandOrder(long numIntegers){
         Random random = new Random();
         LongStream longStream = random.longs(numIntegers);
         LongStream distinctStream = longStream.distinct();
